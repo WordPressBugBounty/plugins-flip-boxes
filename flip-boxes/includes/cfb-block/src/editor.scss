@@ -1,0 +1,201 @@
+@import 'style';
+
+.wp-block-cp-cool-flipbox-block {
+	--cfb-block-height-tablet: var(--cfb-block-height);
+	--cfb-block-height-mobile: var(--cfb-block-height-tablet);
+
+	--cfb-block-width-tablet: var(--cfb-block-width);
+	--cfb-block-width-mobile: var(--cfb-block-width-tablet);
+
+	--cfb-block-padding-tablet: var(--cfb-block-padding);
+	--cfb-block-padding-mobile: var(--cfb-block-padding-tablet);
+
+	border: none;
+
+	/* Add this to override Neve styles */
+	&[class*="has-dark-"] p, &[class*="has-light-"] p {
+		color: unset;
+	}
+
+	.cfb-switcher {
+		margin-top: 30px;
+		width: 100%;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+
+	// &.is-selected {
+	// 	height: calc( var( --cfb-block-height ) + 60px );
+	// }
+
+	.cfb-block-flip-inner {
+		transform: var(--cfb-block-editor-flip-animation);
+		.cfb-block-flip-front{
+			.cfb-block-front-title{
+				font-size: var(--cfb-block-front-title-font-size, 1.625rem);
+				font-family: var(--cfb-block-front-title-font-family);
+				font-weight: var(--cfb-block-front-title-font-weight, 600);
+				line-height: var(--cfb-block-front-title-line-height, 1.2em);
+			}
+			.cfb-block-front-desc{
+				font-size: var(--cfb-block-front-desc-font-size, 1rem);
+				font-family: var(--cfb-block-front-desc-font-family);
+				font-weight: var(--cfb-block-front-desc-font-weight, inherit);
+				line-height: var(--cfb-block-front-desc-line-height, 1.6em);
+			}
+		}
+		.cfb-block-flip-back{
+			.cfb-block-back-title{
+				font-size: var(--cfb-block-back-title-font-size, 1.625rem);
+				font-family: var(--cfb-block-back-title-font-family);
+				font-weight: var(--cfb-block-back-title-font-weight, 600);
+				line-height: var(--cfb-block-back-title-line-height, 1.2em);
+			}
+			.cfb-block-back-desc{
+				font-size: var(--cfb-block-back-desc-font-size, 1rem);
+				font-family: var(--cfb-block-back-desc-font-family);
+				font-weight: var(--cfb-block-back-desc-font-weight, inherit);
+				line-height: var(--cfb-block-back-desc-line-height, 1.6em);
+			}
+		}
+	}
+
+	@media ( max-width: 960px ) {
+
+		height: var( --cfb-block-height-tablet );
+
+		// &.is-selected {
+		// 	height: calc( var( --cfb-block-height-tablet ) + 60px );
+		// }
+
+		.cfb-block-flip-inner {
+			width: var(--cfb-block-width-tablet);
+		}
+
+		.cfb-block-flip-content {
+			padding: var(--cfb-block-padding-tablet);
+		}
+	}
+
+	@media ( max-width: 600px ) {
+
+		height: var( --cfb-block-height-mobile );
+
+		// &.is-selected {
+		// 	height: calc( var( --cfb-block-height-mobile ) + 60px );
+		// }
+
+		.cfb-block-flip-inner {
+			width: var( --cfb-block-width-mobile );
+		}
+
+		.cfb-block-flip-content {
+			padding: var(--cfb-block-padding-mobile);
+		}
+	}
+}
+
+// inspector control css start
+.cfb-block-settings {
+	.active-tab{
+		border-width: 1px 1px 0px 1px;
+		border-color: #e5e5e5;
+		border-style: solid;
+		border-radius: 5px 5px 0px 0px;
+		box-shadow: 0px 0px transparent;
+	}
+	.components-card-body{
+		padding: 0px;
+	}
+	.cfb-block-direction-selector{
+		padding: 1rem;
+		button{
+			height: 30px;
+		}
+	}
+	.components-panel__body-title{
+		button{
+			text-transform: capitalize;
+		}
+	}
+}
+
+.cfb-block-icon-toolbar{
+	margin-top: 1rem;
+	.cfb-block-icon-picker-btn{
+		height: 45px;
+		padding: .5rem;
+		i{
+			font-size: 1.5rem;
+		}
+	}
+}
+
+.cfb-fontawesome-size-setting{
+	display: inline-block;
+	margin-left: 1rem;
+	margin-bottom: 21px;
+	vertical-align: bottom;
+	.components-base-control:last-child{
+		 margin-bottom: 0px;
+	}
+}
+
+.cfb-fontawesome-color-setting{
+	margin-top: .3rem;
+	.components-circular-option-picker{
+		display: none;
+	}
+}
+
+label.cfb-fontawesome-setting-label{
+   text-transform: uppercase;
+   font-weight: 500;
+   font-size: 11px;
+   line-height: 1.4;
+}
+
+.cfb-icon-picker-popover{
+	.cfb-fontawesome-items{
+		display: grid;
+		grid-template-columns: auto auto auto auto;
+		max-height: 17rem;
+		overflow: auto;
+		gap: 1.3rem;
+		padding-right: .5rem;
+		button {
+			border: 1px solid black;
+			padding: 6px 6px;
+			span{
+				font-size: 1.5rem;
+				min-width: unset;
+			}
+		}
+	}
+}
+
+.cfb-block-demo-button {
+    display: flex;
+    justify-content: space-between;
+    padding-block: 0px !important;
+  }
+
+  .cfb-block-review-tab {
+    text-align: center;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1882352941);
+    padding: 10px 0px !important;
+    border-radius: 5px !important;
+  }
+  
+  .cfb-block-review-tab a {
+    text-decoration: none;
+    color: #ffb900;
+    font-size: 15px;
+	margin-top: 10px;
+  }
+  .cfb-block-review-tab a span{
+	color: #ffb900 !important;
+	margin-left: 5px;
+  }
+// inspector control css end

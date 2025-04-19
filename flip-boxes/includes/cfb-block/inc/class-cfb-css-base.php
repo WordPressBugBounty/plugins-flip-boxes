@@ -1,61 +1,54 @@
 <?php
-/**
- *  Common logic for CSS handling class.
- *
- * @package CoolPlugins\GutenbergBlocks
- */
-
 namespace CoolPlugins\GutenbergBlocks;
 
 /**
- * Class Cfb_CSS_Base
+ * Base class for managing CSS related functionality for CoolPlugins Gutenberg Blocks.
+ *
+ * This class provides methods for managing the CSS namespace, version, block classes, Google fonts, and Font Awesome library.
+ *
+ * @package CoolPlugins\GutenbergBlocks
  */
 class Cfb_CSS_Base {
 
 	/**
-	 * The namespace under which the blocks are registered.
-	 *
-	 * @var string
-	 */
-	protected $library_prefix = 'cp';
-
-	/**
-	 * Rest route namespace.
+	 * The namespace for the REST API routes related to CoolPlugins Gutenberg Blocks.
 	 *
 	 * @var string
 	 */
 	public $namespace = 'cfb/';
 
 	/**
-	 * Rest route version.
+	 * The version of the REST API routes related to CoolPlugins Gutenberg Blocks.
 	 *
 	 * @var string
 	 */
 	public $version = 'v1';
 
 	/**
-	 * The namespace under which the block classees are saved.
+	 * The namespace under which the block classes are saved.
 	 *
 	 * @var array
 	 */
 	protected static $blocks_classes = array();
 
 	/**
-	 * The namespace under which the fonts are saved.
+	 * The namespace under which the Google Fonts are saved.
 	 *
 	 * @var array
 	 */
 	protected static $google_fonts = array();
 
 	/**
-	 * Indicates whether the Font Awesome library is loaded.
+	 * Indicates whether the Font Awesome library is loaded for CoolPlugins Gutenberg Blocks.
 	 *
 	 * @var bool
 	 */
-	protected static $font_awesome_lobrary_load = false;
+	protected static $font_awesome_library_load = false;
 
 	/**
-	 * Cfb_CSS_Base constructor.
+	 * Initializes the Cfb_CSS_Base class.
+	 *
+	 * This constructor sets up the action to autoload block classes.
 	 *
 	 * @since   1.3.0
 	 * @access  public
@@ -65,52 +58,23 @@ class Cfb_CSS_Base {
 	}
 
 	/**
-	 * Autoload classes for each block.
+	 * Autoloads classes for each block.
+	 *
+	 * This method sets the block classes to be autoloaded.
 	 *
 	 * @since   1.3.0
 	 * @access  public
 	 */
 	public function autoload_block_classes() {
 		self::$blocks_classes = array(
-			'\CoolPlugins\GutenbergBlocks\CSS\Blocks\Flip_CSS',
+			'\CoolPlugins\GutenbergBlocks\CSS\Blocks\CFB_BLOCK_Style',
 		);
-
-		self::$blocks_classes = apply_filters( 'cfb_blocks_register_css', self::$blocks_classes );
 	}
 
 	/**
-	 * Check if string is empty without accepting zero
+	 * Loads the Font Awesome library if the content type includes an icon.
 	 *
-	 * @param string $var Var to check.
-	 *
-	 * @return bool
-	 * @since   1.3.1
-	 * @access  public
-	 */
-	public function is_empty( $var ) {
-		return empty( $var ) && 0 !== $var;
-	}
-
-	/**
-	 * Get block attribute value with default
-	 *
-	 * @param mixed $attr Attributes.
-	 * @param mixed $default Default value.
-	 *
-	 * @return mixed
-	 * @since   1.3.0
-	 * @access  public
-	 */
-	public function get_attr_value( $attr, $default = 'unset' ) {
-		if ( ! $this->is_empty( $attr ) ) {
-			return $attr;
-		} else {
-			return $default;
-		}
-	}
-
-	/**
-	 * Load Font Awesome library if content type includes icon.
+	 * This method checks if the content type includes an icon and loads the Font Awesome library accordingly.
 	 *
 	 * @param array $attr Attributes array.
 	 * @return void
@@ -118,7 +82,7 @@ class Cfb_CSS_Base {
 	 * @access  public
 	 */
 	public function font_awesome_library( $attr ) {
-		// Check if content type includes icon.
+		// Check if content type includes an icon.
 		$back_content_type = isset( $attr['backContentType'] ) ? $attr['backContentType'] : 'none';
 		$front_icon        = ! isset( $attr['frontContentType'] ) ? true : false;
 		$cfb_flipbox       = isset( $attr['cfbBlockFlipboxVersion'] ) ? true : false;
@@ -126,12 +90,14 @@ class Cfb_CSS_Base {
 		$data['back']      = $back_content_type;
 		$data['front']     = $front_icon;
 		if ( $cfb_flipbox && ( 'icon' === $back_content_type || $front_icon ) ) {
-			self::$font_awesome_lobrary_load = true;
+			self::$font_awesome_library_load = true;
 		}
 	}
 
 	/**
-	 * Get Google Fonts
+	 * Retrieves the Google Fonts.
+	 *
+	 * This method retrieves the Google Fonts based on the provided attributes.
 	 *
 	 * @param array $attr Attr values.
 	 *
@@ -139,10 +105,8 @@ class Cfb_CSS_Base {
 	 * @access  public
 	 */
 	public function get_google_fonts( $attr ) {
-		// $data         = array( 'font' => self::$google_fonts );
 		$sides      = array( 'front', 'back' );
 		$fonts_tags = array( 'Title', 'Desc' );
-		// $data['attr'] = $attr;
 		foreach ( $sides as $side ) {
 			foreach ( $fonts_tags as $font_tag ) {
 				$font_enable = $side . $font_tag . 'GoogleFont';
@@ -162,16 +126,17 @@ class Cfb_CSS_Base {
 	}
 
 	/**
-	 * Convert HEX to RGBA.
+	 * Convert HEX color to RGBA format.
 	 *
-	 * @param string   $color Color data.
-	 * @param bool|int $opacity Opacity status.
+	 * This method takes a HEX color and an optional opacity value and converts it to RGBA format.
 	 *
-	 * @return mixed
+	 * @param string   $color    The HEX color code to be converted.
+	 * @param bool|int $opacity  Optional. The opacity value. Default is false.
+	 * @return mixed The converted color in RGBA format.
 	 * @since   1.3.0
 	 * @access  public
 	 */
-	public static function hex2rgba( $color, $opacity = false ) {
+	public static function hex_convert_rgbs( $color, $opacity = false ) {
 		$default = 'rgb(0,0,0)';
 
 		if ( empty( $color ) ) {
@@ -205,10 +170,12 @@ class Cfb_CSS_Base {
 	}
 
 	/**
-	 * Get Blocks CSS
+	 * Retrieve the CSS for individual blocks.
 	 *
-	 * @param int $post_id Post id.
-	 * @return string|void
+	 * Retrieves the CSS for individual blocks based on the provided post ID.
+	 *
+	 * @param int $post_id The ID of the post.
+	 * @return string|void The CSS for individual blocks, or void if no blocks are found.
 	 * @since   1.3.0
 	 * @access  public
 	 */
@@ -229,10 +196,12 @@ class Cfb_CSS_Base {
 	}
 
 	/**
-	 * Get Reusable Blocks CSS
+	 * Retrieve the CSS for reusable blocks.
 	 *
-	 * @param int $post_id Post id.
-	 * @return string|void
+	 * Retrieves the CSS for reusable blocks based on the provided post ID.
+	 *
+	 * @param int $post_id The ID of the post.
+	 * @return string|void The CSS for reusable blocks, or void if no reusable blocks are found.
 	 * @since   1.3.0
 	 * @access  public
 	 */
@@ -252,12 +221,11 @@ class Cfb_CSS_Base {
 	}
 
 	/**
-	 * Cycle thorugh Static Blocks
+	 * Cycle through static blocks and retrieve their styles.
 	 *
-	 * @param array $blocks List of blocks.
-	 * @param bool  $animations To check for animations or not.
-	 *
-	 * @return string Style.
+	 * @param array $blocks The list of blocks.
+	 * @param bool  $animations Whether to check for animations or not.
+	 * @return string The styles for the static blocks.
 	 * @since   1.3.0
 	 * @access  public
 	 */
@@ -267,7 +235,7 @@ class Cfb_CSS_Base {
 			foreach ( self::$blocks_classes as $classname ) {
 				$path = new $classname();
 				if ( method_exists( $path, 'render_css' ) && isset( $path->block_prefix ) ) {
-					if ( ( isset( $path->library_prefix ) ? $path->library_prefix : $this->library_prefix ) . '/' . $path->block_prefix === $block['blockName'] ) {
+					if ( 'cp/' . $path->block_prefix === $block['blockName'] ) {
 						$style .= $path->render_css( $block );
 					}
 				}
@@ -286,9 +254,9 @@ class Cfb_CSS_Base {
 	}
 
 	/**
-	 * Cycle thorugh Global Styles
+	 * Cycle through global styles and retrieve their styles.
 	 *
-	 * @return string Style.
+	 * @return string The global styles.
 	 * @since   2.0.0
 	 * @access  public
 	 */
@@ -303,56 +271,5 @@ class Cfb_CSS_Base {
 		}
 
 		return $style;
-	}
-
-	/**
-	 * Check if an url points to an image by checking if the an image extension exists.
-	 *
-	 * @param string $url The url.
-	 *
-	 * @return bool
-	 * @since   1.4.4
-	 * @access  public
-	 */
-	public static function is_image_url( $url ) {
-		return is_string( $url ) && ( preg_match( '/\.(jpeg|jpg|png|gif|svg|bmp|ico|tiff|webp)$/i', $url ) || preg_match( '/\/dynamic\/?.[^"]*/i', $url ) );
-	}
-
-	/**
-	 * Method to return path to child class in a Reflective Way.
-	 *
-	 * @return  string
-	 * @since   1.3.0
-	 * @access  protected
-	 */
-	protected function get_dir() {
-		return dirname( __FILE__ );
-	}
-
-	/**
-	 * Throw error on object clone
-	 *
-	 * The whole idea of the singleton design pattern is that there is a single
-	 * object therefore, we don't want the object to be cloned.
-	 *
-	 * @access  public
-	 * @return  void
-	 * @since   1.3.0
-	 */
-	public function __clone() {
-		// Cloning instances of the class is forbidden.
-		_doing_it_wrong( __FUNCTION__, 'Cheatin&#8217; huh?', '1.0.0' );
-	}
-
-	/**
-	 * Disable unserializing of the class
-	 *
-	 * @access  public
-	 * @return  void
-	 * @since   1.3.0
-	 */
-	public function __wakeup() {
-		// Unserializing instances of the class is forbidden.
-		_doing_it_wrong( __FUNCTION__, 'Cheatin&#8217; huh?', '1.0.0' );
 	}
 }

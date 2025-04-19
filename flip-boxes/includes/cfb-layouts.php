@@ -22,29 +22,42 @@ if ( ! class_exists( 'CFB_Layouts' ) ) {
 		 * @return string HTML layout.
 		 */
 		public function layout_handle( $flip_layout, $atts, $entry, $i ) {
-			$this->id    = $atts['id'];
+			// Verify nonce and check capabilities
+
+			$this->id    = absint($atts['id']);
 			$id          = $this->id;
 			$prefix      = $this->prefix;
-			$flip_layout = get_post_meta( $id, $prefix . 'flip_layout', true );
-			$effect      = get_post_meta( $id, $prefix . 'effect', true );
-			$height      = get_post_meta( $id, $prefix . 'height', true ) ?: 'default';
-			$icon_size   = get_post_meta( $id, $prefix . 'icon_size', true ) ?: '52px';
-			$skincolor   = get_post_meta( $id, $prefix . 'skin_color', true ) ?: '#f4bf64';
-			$cols        = get_post_meta( $id, $prefix . 'column', true );
-			$entries     = get_post_meta( $id, $prefix . 'flip_repeat_group', true );
-			$link_target = get_post_meta( $id, $prefix . 'LinkTarget', true ) ?: false;
-			$flip_event  = get_post_meta( $id, $prefix . 'event', true ) ?: false;
+			$flip_layout = sanitize_text_field(get_post_meta( $id, $prefix . 'flip_layout', true ));
+			$effect      = sanitize_text_field(get_post_meta( $id, $prefix . 'effect', true ));
+			$height      = sanitize_text_field(get_post_meta( $id, $prefix . 'height', true )) ?: 'default';
+			$icon_size   = sanitize_text_field(get_post_meta( $id, $prefix . 'icon_size', true )) ?: '52px';
+			$skincolor   = sanitize_hex_color(get_post_meta( $id, $prefix . 'skin_color', true )) ?: '#f4bf64';
+			$cols        = sanitize_text_field(get_post_meta( $id, $prefix . 'column', true ));
+			$entries     = sanitize_text_field(get_post_meta( $id, $prefix . 'flip_repeat_group', true ));
+			$link_target = sanitize_text_field(get_post_meta( $id, $prefix . 'LinkTarget', true )) ?: false;
+			$flip_event  = sanitize_text_field(get_post_meta( $id, $prefix . 'event', 'hover' )) ?: 'hover';
+			$flip_event='cfb-'.$flip_event;
 
 			$dynamic_target = $link_target ? '_self' : '_blank';
 
-			$flipbox_title        = $entry['flipbox_title'] ?? '';
-			$back_desc            = mb_strimwidth( $entry['flipbox_desc'] ?? '', 0, $entry['flipbox_desc_length'] ?? '75', '...' );
-			$single_f_c           = $entry['color_scheme'] ?? '';
-			$flipbox_icon         = $entry['flipbox_icon'] ?? '';
-			$flipbox_image        = $entry['flipbox_image'] ?? '';
-			$flipbox_url          = $entry['flipbox_url'] ?? '';
-			$front_desc           = mb_strimwidth( $entry['flipbox_label'] ?? '', 0, $entry['flipbox_desc_length'] ?? '75', '...' );
-			$read_more_text       = $entry['read_more_link'] ?? '';
+			$flipbox_title        = sanitize_text_field($entry['flipbox_title'] ?? '');
+			$back_desc = mb_strimwidth(
+				sanitize_text_field( $entry['flipbox_desc'] ?? '' ),
+				0,
+				absint( $entry['flipbox_desc_length'] ?? 75 ),
+				'...'
+			);
+			$single_f_c           = sanitize_text_field($entry['color_scheme'] ?? '');
+			$flipbox_icon         = sanitize_text_field($entry['flipbox_icon'] ?? '');
+			$flipbox_image        = sanitize_text_field($entry['flipbox_image'] ?? '');
+			$flipbox_url          = sanitize_text_field($entry['flipbox_url'] ?? '');
+			$front_desc = mb_strimwidth(
+				sanitize_text_field( $entry['flipbox_label']  ?? '' ),
+				0,
+				absint( $entry['flipbox_desc_length'] ?? 75 ),
+				'...'
+			);
+			$read_more_text       = sanitize_text_field($entry['read_more_link'] ?? '');
 			$flipbox_color_scheme = $single_f_c ?: $skincolor;
 
 			$front_desc_safe = wp_kses_post( $front_desc );
@@ -88,7 +101,7 @@ if ( ! class_exists( 'CFB_Layouts' ) ) {
                             <div class="flipbox-container cfb-' . esc_attr( $flip_layout ) . ' cfb-flip ' . esc_attr( $flip_event ) . '" data-effect="' . esc_attr( $effect ) . '" data-height="' . esc_attr( $height ) . '" >
                             <div class="flipbox-front-layout cfb-data">
                                 <div class="flipbox-img">';
-							$layout_html .= ! empty( $flipbox_image ) ? '<img src="' . esc_attr( $flipbox_image ) . '" alt="" />' : '<img src="' . CFB_URL . 'assets/images/black-background.jpg">';
+							$layout_html .= ! empty( $flipbox_image ) ? '<img src="' . esc_url( $flipbox_image ) . '" alt="" />' : '<img src="' . esc_url( CFB_URL . 'assets/images/black-background.jpg' ) . '">';
 							$layout_html .= '</div></div>
                             <div class="flipbox-back-layout cfb-data" style="background:' . esc_attr( $flipbox_color_scheme ) . '">
                             <h4>' . esc_html( $flipbox_title ) . '</h4>
@@ -138,7 +151,7 @@ if ( ! class_exists( 'CFB_Layouts' ) ) {
                                   <div class="flipbox-front-layout cfb-data">
                                     <div class="flipbox-image-content">
                                       <div class="flipbox-image-top">';
-										$layout_html .= ! empty( $flipbox_image ) ? '<img src="' . esc_attr( $flipbox_image ) . '" alt="" />' : '<img src="' . CFB_URL . 'assets/images' . '/layout-4.png" alt="" />';
+										$layout_html .= ! empty( $flipbox_image ) ? '<img src="' . esc_url( $flipbox_image ) . '" alt="" />' : '<img src="' . esc_url( CFB_URL . 'assets/images' . '/layout-4.png' ) . '" alt="" />';
 					if ( ! empty( $flipbox_icon ) ) {
 						$layout_html .= '<div class="flip-icon-bototm flipbox-icon" style="font-size:' . esc_attr( $icon_size ) . ';border-color:' . esc_attr( $flipbox_color_scheme ) . ';color:' . esc_attr( $flipbox_color_scheme ) . '">
                                             <i class="fa ' . esc_attr( $flipbox_icon ) . '"></i>
@@ -194,7 +207,7 @@ if ( ! class_exists( 'CFB_Layouts' ) ) {
 					$layout_html .= '<div class="flex-' . esc_attr( $cols ) . ' cfb-box-' . $i . ' cfb-box-wrapper">
                                 <div class="flipbox-container cfb-' . esc_attr( $flip_layout ) . ' cfb-flip ' . esc_attr( $flip_event ) . '" data-effect="' . esc_attr( $effect ) . '" data-height="' . esc_attr( $height ) . '">
                                 <div class="flipbox-front-layout cfb-data" style="border-color:' . esc_attr( $flipbox_color_scheme ) . '">';
-					$layout_html .= ! empty( $flipbox_image ) ? '<div class="flipbox-img"><img src="' . esc_attr( $flipbox_image ) . '" alt="" /></div>' : '<img src="' . CFB_URL . 'assets/images' . '/layout-4.png">';
+					$layout_html .= ! empty( $flipbox_image ) ? '<div class="flipbox-img"><img src="' . esc_url( $flipbox_image ) . '" alt="" /></div>' : '<img src="' . esc_url( CFB_URL . 'assets/images' . '/layout-4.png' ) . '">';
 					$layout_html .= '</div>
                                 <div class="flipbox-back-layout cfb-data" style="background-color:' . esc_attr( $flipbox_color_scheme ) . '">
                                     <h4>' . esc_html( $flipbox_title ) . '</h4>
@@ -220,7 +233,7 @@ if ( ! class_exists( 'CFB_Layouts' ) ) {
                                     <p>' . $front_desc_safe . '</p>
                                     </div>
                                 </div>
-                                <div class="flipbox-back-layout flipbox-background-img cfb-data" style="background-image: url(' . esc_attr( $flipbox_image ) . ');color:' . esc_attr( $flipbox_color_scheme ) . '">';
+                                <div class="flipbox-back-layout flipbox-background-img cfb-data" style="background-image: url(' . esc_url( $flipbox_image ) . ');color:' . esc_attr( $flipbox_color_scheme ) . '">';
 					if ( ! empty( $flipbox_icon ) ) {
 						$layout_html .= '<div class="flipbox-icon flipbox-solid-icon" style="font-size:' . esc_attr( $icon_size ) . '">
                                         <i class="fa ' . esc_attr( $flipbox_icon ) . '"></i>
@@ -243,7 +256,7 @@ if ( ! class_exists( 'CFB_Layouts' ) ) {
 					$layout_html .= '<div class="flex-' . esc_attr( $cols ) . ' cfb-box-' . $i . ' cfb-box-wrapper">
                                 <div class="flipbox-container cfb-' . esc_attr( $flip_layout ) . ' cfb-flip ' . esc_attr( $flip_event ) . '" data-effect="' . esc_attr( $effect ) . '" data-height="' . esc_attr( $height ) . '" style="color:' . esc_attr( $flipbox_color_scheme ) . '">
                                   <div class="flipbox-front-layout flipbox-front-filled cfb-data" >
-                                    <div class="flipbox-frontImg" style="background-image: url(' . esc_attr( $flipbox_image ) . ');">                
+                                    <div class="flipbox-frontImg" style="background-image: url(' . esc_url( $flipbox_image ) . ');">                
                                       <div class="flipbox-front-description" >';
 					if ( ! empty( $flipbox_icon ) ) {
 						$layout_html .= '<div class="flipbox-icon flipbox-solid-icon" style="font-size:' . esc_attr( $icon_size ) . '">
@@ -255,7 +268,7 @@ if ( ! class_exists( 'CFB_Layouts' ) ) {
                                       </div>
                                   </div>
                                   </div>
-                                  <div class="flipbox-back-layout flipbox-background-img cfb-data" style="background-image: url(' . esc_attr( $flipbox_image ) . ');">
+                                  <div class="flipbox-back-layout flipbox-background-img cfb-data" style="background-image: url(' . esc_url( $flipbox_image ) . ');">
                                     <p style="color:' . esc_attr( $flipbox_color_scheme ) . '">' . $back_desc_safe . '</p>';
 					if ( ! empty( $read_more_text ) && ! empty( $flipbox_url ) ) {
 						$layout_html .= '<a target="' . esc_attr( $dynamic_target ) . '" href="' . esc_url( $flipbox_url ) . '" style="color:' . esc_attr( $flipbox_color_scheme ) . '" class="back-layout-btn">' . esc_html( $read_more_text ) . '</a>';

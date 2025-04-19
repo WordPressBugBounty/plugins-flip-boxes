@@ -1,0 +1,221 @@
+.wp-block-cp-cool-flipbox-block {
+	--cfb-block-width: 100%;
+	--cfb-block-height: 400px;
+	--cfb-block-padding: 35px 55px;
+	--cfb-block-border-width: 1px;
+	--cfb-block-border-color: currentColor;
+	--cfb-block-border-radius: 10px;
+	--cfb-block-front-background: #0693E3;
+	--cfb-block-back-background: linear-gradient(135deg,rgb(6,147,227) 0%,rgb(0,180,216) 100%);
+	--cfb-block-box-shadow: none;
+	--cfb-block-front-vertical-align: center;
+	--cfb-block-front-horizontal-align: center;
+	--cfb-block-back-vertical-align: center;
+	--cfb-block-back-horizontal-align: center;
+	--cfb-block-front-media-width: 150px;
+	--cfb-block-front-media-height: 150px;
+	--cfb-block-flip-anim: unset;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	margin-left: auto;
+	margin-right: auto;
+	height: var( --cfb-block-height );
+	perspective: 1000px; /* Remove this if you don't want the 3D effect */
+
+	--cfb-block-font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen-Sans, Ubuntu, Cantarell, Helvetica Neue, sans-serif;
+
+	&.has-dark-front-bg .cfb-block-flip-front {
+		color: var( --cfb-block-nv-text-dark-bg , #fff );
+	}
+
+	&.has-light-front-bg .cfb-block-flip-front {
+		color: var( --cfb-block-nv-text-color , #000 );
+	}
+
+	&.has-dark-back-bg .cfb-block-flip-back {
+		color: var( --cfb-block-nv-text-dark-bg , #fff );
+	}
+
+	&.has-light-back-bg .cfb-block-flip-back {
+		color: var( --cfb-block-nv-text-color , #000 );
+	}
+
+	&.flipX {
+		--cfb-block-flip-anim: rotateX(180deg);
+	}
+
+	&.flipX-rev {
+		--cfb-block-flip-anim: rotateX(-180deg);
+	}
+
+	&.flipY {
+		--cfb-block-flip-anim: rotateY(180deg);
+	}
+
+	&.flipY-rev {
+		--cfb-block-flip-anim: rotateY(-180deg);
+	}
+
+	&:hover {
+		&.anim {
+			 > .cfb-block-flip-inner {
+				transform: var( --cfb-block-flip-anim );
+			}
+		}
+	}
+
+	.cfb-block-flip-inner {
+		position: relative;
+		width: var(--cfb-block-width);
+		height: 100%;
+		text-align: center;
+		transition: transform 0.8s;
+		transform-style: preserve-3d;
+		background-size: cover;
+
+		.cfb-block-flip-front{
+			.cfb-block-front-title{
+				font-size: var(--cfb-block-font-size, 1.625rem);
+				font-family: var(--cfb-block-font-family);
+				font-weight: var(--cfb-block-font-weight, 600);
+				line-height: var(--cfb-block-line-height, 1.2em);
+				color: var(--cfb-block-title-color, #fff);
+				text-align: var(--cfb-block-front-text-align, center);
+			}
+			.cfb-block-front-desc{
+				font-size: var(--cfb-block-font-size, 1rem);
+				font-family: var(--cfb-block-font-family);
+				font-weight: var(--cfb-block-font-weight, inherit);
+				line-height: var(--cfb-block-line-height, 1.6em);
+				color: var(--cfb-block-desc-color, #fff);
+				text-align: var(--cfb-block-front-text-align, center);
+			}
+		}
+		.cfb-block-flip-back{
+			.cfb-block-back-title{
+				font-size: var(--cfb-block-font-size, 1.625rem);
+				font-family: var(--cfb-block-font-family);
+				font-weight: var(--cfb-block-font-weight, 600);
+				line-height: var(--cfb-block-line-height, 1.2em);
+				color: var(--cfb-block-title-color, #fff);
+				text-align: var(--cfb-block-back-text-align, center);
+			}
+			.cfb-block-back-desc{
+				font-size: var(--cfb-block-font-size, 1rem);
+				font-family: var(--cfb-block-font-family);
+				font-weight: var(--cfb-block-font-weight, inherit);
+				line-height: var(--cfb-block-line-height, 1.6em);
+				color: var(--cfb-block-desc-color, #fff);
+				text-align: var(--cfb-block-back-text-align, center);
+			}
+			.cfb-block-back-btn,
+			.cfb-block-back-btn .wp-element-button{
+				padding: .5rem 1rem;
+			}
+		}
+	}
+
+	.cfb-block-flip-front, .cfb-block-flip-back {
+		width: 100%;
+		height: 100%;
+		-webkit-backface-visibility: hidden; /* Safari */
+		backface-visibility: hidden;
+		overflow-x: hidden;
+		overflow-y: auto;
+		background-size: inherit;
+		border-width: var(--cfb-block-border-width);
+		border-color: var(--cfb-block-border-color);
+		border-style: solid;
+		border-radius: var( --cfb-block-border-radius );
+		box-sizing: border-box;
+	}
+
+	.cfb-block-flip-front {
+		background: var( --cfb-block-front-background );
+		transform: rotate(0deg);
+
+		&:hover {
+			box-shadow: var( --cfb-block-box-shadow );
+		}
+	}
+
+	.cfb-block-flip-content {
+		display: flex;
+		flex-direction: column;
+		width: 100%;
+		height: auto;
+		box-sizing: border-box;
+		padding: var( --cfb-block-padding );
+		min-height: 100%;
+		h3, p {
+			margin: 0.5rem;
+		}
+	}
+
+	.cfb-block-flip-front,
+	.cfb-block-flip-back{
+		box-shadow: var( --cfb-block-box-shadow );
+	}
+
+	.cfb-block-flip-front{
+		.cfb-block-flip-content{
+			justify-content: var( --cfb-block-front-vertical-align );
+			.cfb-block-img {
+				width: var( --cfb-block-front-media-width );
+				height: var( --cfb-block-front-media-height );
+				align-self: var( --cfb-block-front-horizontal-align );
+			}
+			.cfb-block-front-icon{
+				text-align: var(--cfb-block-front-text-align, center);
+				i{
+					color: var(--cfb-block-front-icon-color, #fff);
+					font-size: var(--cfb-block-front-icon-size, 4rem);
+				}
+			}
+			.wp-block-buttons{
+				justify-content: var( --cfb-block-front-horizontal-align );
+			}
+		}
+	}
+	
+	.cfb-block-flip-back {
+		position: absolute;
+		top: 0px;
+		background: var( --cfb-block-back-background );
+		transform: var( --cfb-block-flip-anim );
+		.cfb-block-flip-content{
+			justify-content: var( --cfb-block-back-vertical-align );
+			.cfb-block-img {
+				width: var( --cfb-block-back-media-width );
+				height: var( --cfb-block-back-media-height );
+				align-self: var( --cfb-block-back-horizontal-align );
+			}
+			.cfb-block-back-icon{
+				text-align: var(--cfb-block-back-text-align, center);
+				i{
+					font-size: var(--cfb-block-back-icon-size, 4rem);
+					color: var(--cfb-block-back-icon-color);
+				}
+			}
+		}
+		.wp-block-buttons{
+			justify-content: var( --cfb-block-back-horizontal-align );
+		}
+	}
+
+	.invert {
+		.cfb-block-flip-front {
+			transform: var( --cfb-block-flip-anim );
+			box-shadow: var( --cfb-block-box-shadow );
+		}
+
+		.cfb-block-flip-back {
+			transform: rotate(0deg);
+			box-shadow: unset;
+			&:hover {
+				box-shadow: var( --cfb-block-box-shadow );
+			}
+		}
+	}
+}

@@ -2,19 +2,21 @@
 namespace CoolPlugins\GutenbergBlocks;
 
 /**
- * Class Registration.
+ * Class Registration
+ *
+ * This class handles the registration of custom Gutenberg blocks.
  */
 class Registration {
 
 	/**
-	 * The main instance var.
+	 * The main instance variable for the Registration class.
 	 *
 	 * @var Registration|null
 	 */
 	public static $instance = null;
 
 	/**
-	 * Flag to list all the blocks.
+	 * An array containing all the registered blocks.
 	 *
 	 * @var array
 	 */
@@ -22,20 +24,20 @@ class Registration {
 
 
 	/**
-	 * Initialize the class
+	 * Initializes the class and registers the blocks.
 	 */
 	public function init() {
 		add_action( 'init', array( $this, 'register_blocks' ) );
-		add_action( 'enqueue_block_editor_assets', array( $this, 'enqueue_block_editor_assets' ) ); // Don't change the priority or else Blocks CSS will stop working.
+		add_action( 'enqueue_block_editor_assets', array( $this, 'enqueue_block_editor_assets' ) );
 		add_action( 'enqueue_block_assets', array( $this, 'enqueue_block_assets' ) );
 	}
 
 	/**
-	 * Get block metadata from file.
+	 * Retrieves block metadata from a file.
 	 *
-	 * @param string $metadata_file Metadata file link.
+	 * @param string $metadata_file The link to the metadata file.
 	 *
-	 * @return mixed
+	 * @return mixed The block metadata if found, false otherwise.
 	 * @since   2.0.0
 	 * @access public
 	 */
@@ -43,8 +45,6 @@ class Registration {
 		if ( ! file_exists( $metadata_file ) ) {
 			return false;
 		}
-
-		$metadata = array();
 
 		$metadata = json_decode( file_get_contents( $metadata_file ), true );
 
@@ -56,7 +56,9 @@ class Registration {
 	}
 
 	/**
-	 * Load Gutenberg blocks.
+	 * Enqueue assets for the Gutenberg block editor.
+	 *
+	 * This method enqueues the necessary scripts and styles for the Gutenberg block editor.
 	 *
 	 * @since   2.0.0
 	 * @access  public
@@ -91,17 +93,25 @@ class Registration {
 	}
 
 	/**
-	 * Load frontend assets for our blocks.
+	 * Enqueue frontend assets for the cool flip box blocks.
+	 *
+	 * This method enqueues the necessary scripts and styles for the cool flip box blocks on the frontend.
 	 *
 	 * @since   2.0.0
 	 * @access  public
 	 */
 	public function enqueue_block_assets() {
 
+		/**
+		 * Check if the current context is in the admin area and return early if true.
+		 */
 		if ( is_admin() ) {
 			return;
 		}
 
+		/**
+		 * Enqueue block styles if the current context is singular.
+		 */
 		if ( is_singular() ) {
 			$this->enqueue_block_styles();
 		}
@@ -109,24 +119,27 @@ class Registration {
 	}
 
 	/**
-	 * Enqueue block styles.
+	 * Enqueue block styles for the cool flip box blocks.
+	 *
+	 * This method enqueues the necessary styles for the cool flip box blocks in the editor.
 	 *
 	 * @since   2.0.0
 	 * @param null $post Current post.
 	 * @access  public
 	 */
 	public function enqueue_block_styles( $post = null ) {
+		// Check if the cool flip box block is present in the post.
 		if ( has_block( 'cp/cool-flipbox-block', $post ) ) {
-			$block_path = CFB_DIR_PATH . 'includes/cfb-block/build';
-
+			// Define the path for the block and style files.
+			$block_path    = CFB_DIR_PATH . 'includes/cfb-block/build';
 			$metadata_file = trailingslashit( $block_path ) . 'block.json';
 			$style_file    = trailingslashit( $block_path ) . 'style-index.css';
 			$metadata      = $this->get_metadata( $metadata_file );
-			// $metadata_file = CFB_URL . 'includes/cfb-block/build/' . 'block.json';
-			$style_path = CFB_URL . 'includes/cfb-block/build/' . 'style-index.css';
+			$style_path    = CFB_URL . 'includes/cfb-block/build/style-index.css';
+			// Enqueue the block styles if metadata is available.
 			if ( false !== $metadata ) {
 				$asset_file = include $block_path . '/index.asset.php';
-
+				// Register and enqueue the block style.
 				if ( file_exists( $style_file ) && ! empty( $metadata['style'] ) ) {
 					wp_register_style(
 						$metadata['style'],
@@ -134,7 +147,6 @@ class Registration {
 						array(),
 						$asset_file['version']
 					);
-
 					wp_style_add_data( $metadata['style'], 'path', $style_path );
 				}
 			}
@@ -142,22 +154,22 @@ class Registration {
 	}
 
 	/**
-	 * Blocks Registration.
+	 * Register the cool flip box blocks.
+	 *
+	 * This method registers the cool flip box blocks and enqueues the necessary editor styles.
 	 *
 	 * @since   2.0.0
 	 * @access  public
 	 */
 	public function register_blocks() {
-
-			$block_path   = CFB_DIR_PATH . 'includes/cfb-block/build/';
-			$editor_style = CFB_URL . 'includes/cfb-block/build/index.css';
-
-			$metadata_file = trailingslashit( $block_path ) . 'block.json';
-
-			$metadata = $this->get_metadata( $metadata_file );
-
-			$asset_file = include CFB_DIR_PATH . 'includes/cfb-block/build/index.asset.php';
-			$deps       = array();
+		// Define the path for the block and editor style files.
+		$block_path    = CFB_DIR_PATH . 'includes/cfb-block/build/';
+		$editor_style  = CFB_URL . 'includes/cfb-block/build/index.css';
+		$metadata_file = trailingslashit( $block_path ) . 'block.json';
+		$metadata      = $this->get_metadata( $metadata_file );
+		$asset_file    = include CFB_DIR_PATH . 'includes/cfb-block/build/index.asset.php';
+		$deps          = array();
+		// Enqueue the editor styles if metadata is available.
 		if ( file_exists( $editor_style ) && ! empty( $metadata['editorStyle'] ) ) {
 			wp_register_style(
 				$metadata['editorStyle'],
@@ -166,13 +178,14 @@ class Registration {
 				$asset_file['version']
 			);
 		}
-
+		// Register the block type from metadata.
 		register_block_type_from_metadata( $metadata_file );
 	}
 
 	/**
-	 * The instance method for the static class.
-	 * Defines and returns the instance of the static class.
+	 * Returns the instance of the static class.
+	 *
+	 * This method ensures that only one instance of the class is created and returns that instance.
 	 *
 	 * @static
 	 * @since 1.0.0
@@ -187,31 +200,5 @@ class Registration {
 
 		return self::$instance;
 	}
-
-	/**
-	 * Throw error on object clone
-	 *
-	 * The whole idea of the singleton design pattern is that there is a single
-	 * object therefore, we don't want the object to be cloned.
-	 *
-	 * @access public
-	 * @since 1.0.0
-	 * @return void
-	 */
-	public function __clone() {
-		// Cloning instances of the class is forbidden.
-		_doing_it_wrong( __FUNCTION__, esc_html__( 'Cheatin&#8217; huh?', 'cfb-blocks' ), '1.0.0' );
-	}
-
-	/**
-	 * Disable unserializing of the class
-	 *
-	 * @access public
-	 * @since 1.0.0
-	 * @return void
-	 */
-	public function __wakeup() {
-		// Unserializing instances of the class is forbidden.
-		_doing_it_wrong( __FUNCTION__, esc_html__( 'Cheatin&#8217; huh?', 'cfb-blocks' ), '1.0.0' );
-	}
 }
+

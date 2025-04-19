@@ -1,21 +1,27 @@
 <?php
 if ( ! class_exists( 'CFB_post_type' ) ) {
 	class CFB_post_type {
+		private $prefix = '_cfb_';
 
-		function __construct() {
-			if ( get_option( 'cfb_flip_type_option', 'post' ) === 'post' ) {
-				add_action( 'init', array( $this, 'cfb_register_post_type' ) );
-				add_action( 'cmb2_admin_init', array( $this, 'cfb_metaboxes' ) );
-				add_action( 'cmb2_admin_init', array( $this, 'cfb_general_settings' ) );
-				add_action( 'cmb2_admin_init', array( $this, 'cfb_advanced_settings' ) );
-				add_action( 'cmb2_admin_init', array( $this, 'cfb_rating_metabox' ) );
-				add_filter( 'manage_edit-flipboxes_columns', array( $this, 'cfb_add_custom_columns' ) );
-				add_action( 'manage_flipboxes_posts_custom_column', array( $this, 'cfb_columns_content' ), 10, 2 );
-				add_action( 'add_meta_boxes', array( $this, 'cfb_shortcode_metabox' ) );
-			}
-			add_action( 'admin_menu', array( $this, 'cfb_menu_page' ) );
-			add_action( 'admin_init', array( $this, 'register_settings' ) );
-		}
+		public function __construct() {
+            add_action( 'admin_menu', array( $this, 'cfb_menu_page' ) );
+            add_action( 'admin_init', array( $this, 'register_settings' ) );
+
+            if ( get_option( 'cfb_flip_type_option', 'post' ) === 'post' ) {
+                $this->init_post_type_hooks();
+            }
+        }
+
+		private function init_post_type_hooks() {
+            add_action( 'init', array( $this, 'cfb_register_post_type' ) );
+            add_action( 'cmb2_admin_init', array( $this, 'cfb_metaboxes' ) );
+            add_action( 'cmb2_admin_init', array( $this, 'cfb_general_settings' ) );
+            add_action( 'cmb2_admin_init', array( $this, 'cfb_advanced_settings' ) );
+            add_action( 'cmb2_admin_init', array( $this, 'cfb_rating_metabox' ) );
+            add_filter( 'manage_edit-flipboxes_columns', array( $this, 'cfb_add_custom_columns' ) );
+            add_action( 'manage_flipboxes_posts_custom_column', array( $this, 'cfb_columns_content' ), 10, 2 );
+            add_action( 'add_meta_boxes', array( $this, 'cfb_shortcode_metabox' ) );
+        }
 
 		function cfb_menu_page() {
 			add_options_page(
@@ -39,7 +45,7 @@ if ( ! class_exists( 'CFB_post_type' ) ) {
 		// callback function for flip box settings page
 		public function page_callback_function() {          ?>
 				<div class="wrap" style="max-width: 100vw; padding: 20px; background-color: #fff; box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);">
-					<h1 style="color: #333; font-size: 32px;">Cool Flipbox Settings</h1>
+				<h1 style="color: #333; font-size: 32px;"><?php echo esc_html__('Cool Flipbox Settings', 'c-flipboxes'); ?></h1>
 					<style>
 						.cfb_setting_form {
 							margin-top: 20px;
@@ -102,30 +108,29 @@ if ( ! class_exists( 'CFB_post_type' ) ) {
 						});
 					});
 					</script>
-
 					<form method="post" action="options.php" class="cfb_setting_form">
-						<?php
-						settings_fields( 'cfb_options_group' );
-						$saved_flip_type = get_option( 'cfb_flip_type_option', 'post' );
-						?>
-						<h2>Flipbox Builder Type:</h2>
-						<fieldset class="cfb_setting_fieldset">
-							<legend class="screen-reader-text">
-								<span>Flipbox builder type</span>
-							</legend>
-							<label for="post" class="cfb_setting_label">
-							<p><input type="radio" name="cfb_flip_type_option" id="post" value="post" <?php checked( 'post', $saved_flip_type ); ?> />Classic Post Type</p>
-								<img src="<?php echo CFB_URL . '/assets/images/flipbox-shortcode.png'; ?>"  alt="" width="100">
-							</label>
-							<label for="block" class="cfb_setting_label">
-							<p><input type="radio" name="cfb_flip_type_option" id="block" value="block" <?php checked( 'block', $saved_flip_type ); ?> />Modern Block Based</p>
-								<img src="<?php echo CFB_URL . '/assets/images/flipbox-block.png'; ?>"  alt="" width="100">
-							</label>
-						</fieldset>
-						<?php submit_button( 'Save Changes', 'primary', 'submit-btn' ); ?>
-					</form>
-					<h2 class="frame_heading">Classic Post Type</h2>
-					<iframe class="cfb_setting_iframe" src="https://www.youtube.com/embed/qjC_TXUJ3-w" frameborder="0" allowfullscreen></iframe>
+								<?php
+								settings_fields( 'cfb_options_group' );
+								$saved_flip_type = get_option( 'cfb_flip_type_option', 'post' );
+								?>
+								<h2><?php echo esc_html__('Flipbox Builder Type:', 'c-flipboxes'); ?></h2>
+								<fieldset class="cfb_setting_fieldset">
+									<legend class="screen-reader-text">
+										<span><?php echo esc_html__('Flipbox builder type', 'c-flipboxes'); ?></span>
+									</legend>
+									<label for="post" class="cfb_setting_label">
+									<p><input type="radio" name="cfb_flip_type_option" id="post" value="post" <?php checked( 'post', $saved_flip_type ); ?> /><?php echo esc_html__('Classic Post Type', 'c-flipboxes'); ?></p>
+										<img src="<?php echo esc_url(CFB_URL . '/assets/images/flipbox-shortcode.png'); ?>"  alt="" width="100">
+									</label>
+									<label for="block" class="cfb_setting_label">
+									<p><input type="radio" name="cfb_flip_type_option" id="block" value="block" <?php checked( 'block', $saved_flip_type ); ?> /><?php echo esc_html__('Modern Block Based', 'c-flipboxes'); ?></p>
+										<img src="<?php echo esc_url(CFB_URL . '/assets/images/flipbox-block.png'); ?>"  alt="" width="100">
+									</label>
+								</fieldset>
+								<?php submit_button( esc_html__('Save Changes', 'c-flipboxes'), 'primary', 'submit-btn' ); ?>
+							</form>
+							<h2 class="frame_heading"><?php echo esc_html__('Classic Post Type', 'c-flipboxes'); ?></h2>
+							<iframe class="cfb_setting_iframe" src="https://www.youtube.com/embed/qjC_TXUJ3-w" frameborder="0" allowfullscreen></iframe>
 				</div>
 				<?php
 		}
@@ -193,7 +198,7 @@ if ( ! class_exists( 'CFB_post_type' ) ) {
 			$cmb2 = new_cmb2_box(
 				array(
 					'id'           => 'cfb_live_preview',
-					'title'        => __( 'Cool Flipbox Live Preview', 'cmb2' ),
+					'title'        => __( 'Cool Flipbox Live Preview', 'c-flipboxes' ),
 					'object_types' => array( 'flipboxes' ), // Post type
 					'context'      => 'normal',
 					'priority'     => 'high',
@@ -216,7 +221,7 @@ if ( ! class_exists( 'CFB_post_type' ) ) {
 			$flip = new_cmb2_box(
 				array(
 					'id'           => 'test_metabox',
-					'title'        => __( 'Add Flipboxes', 'cmb2' ),
+					'title'        => __( 'Add Flipboxes', 'c-flipboxes' ),
 					'object_types' => array( 'flipboxes' ), // Post type
 					'context'      => 'normal',
 					'priority'     => 'high',
@@ -228,14 +233,14 @@ if ( ! class_exists( 'CFB_post_type' ) ) {
 				array(
 					'id'          => $prefix . 'flip_repeat_group',
 					'type'        => 'group',
-					'description' => __( '', 'cmb2' ),
+					'description' => __( '', 'c-flipboxes' ),
 					'options'     => array(
-						'group_title'    => __( 'Item {#}', 'cmb2' ), // since version 1.1.4, {#} gets replaced by row number
-						'add_button'     => __( 'Add Another Flipbox', 'cmb2' ),
-						'remove_button'  => __( 'Remove Flipbox', 'cmb2' ),
+						'group_title'    => __( 'Item {#}', 'c-flipboxes' ), // since version 1.1.4, {#} gets replaced by row number
+						'add_button'     => __( 'Add Another Flipbox', 'c-flipboxes' ),
+						'remove_button'  => __( 'Remove Flipbox', 'c-flipboxes' ),
 						'sortable'       => true, // beta
 						'closed'         => true, // true to have the groups closed by default
-						'remove_confirm' => esc_html__( 'Are you sure you want to remove?', 'cmb2' ), // Performs confirmation before removing group.
+						'remove_confirm' => esc_html__( 'Are you sure you want to remove?', 'c-flipboxes' ), // Performs confirmation before removing group.
 					),
 				)
 			);
@@ -342,7 +347,7 @@ if ( ! class_exists( 'CFB_post_type' ) ) {
 			$flip = new_cmb2_box(
 				array(
 					'id'           => 'cfb-side-mt',
-					'title'        => __( 'Flipbox General Settings', 'cmb2' ),
+					'title'        => __( 'Flipbox General Settings', 'c-flipboxes' ),
 					'object_types' => array( 'flipboxes' ), // Post type
 					'context'      => 'side',
 					'priority'     => 'low',
@@ -353,63 +358,63 @@ if ( ! class_exists( 'CFB_post_type' ) ) {
 			// Regular text field
 			$flip->add_field(
 				array(
-					'name'             => __( 'layout', 'cmb2' ),
-					'desc'             => __( 'Select Flipbox Layout', 'cmb2' ),
+					'name'             => __( 'layout', 'c-flipboxes' ),
+					'desc'             => __( 'Select Flipbox Layout', 'c-flipboxes' ),
 					'id'               => $prefix . 'flip_layout',
 					'type'             => 'select',
 					'show_option_none' => false,
 					'default'          => 'dashed-with-icon',
 					'options'          => array(
-						'dashed-with-icon' => __( 'Layout 1 (Dashed With Icon)', 'cmb2' ),
-						'with-image'       => __( 'Layout 2 (With Image)', 'cmb2' ),
-						'solid-with-icon'  => __( 'Layout 3 (Solid With Icon)', 'cmb2' ),
-						'layout-4'         => __( 'Layout 4', 'cmb2' ),
-						'layout-5'         => __( 'Layout 5', 'cmb2' ),
-						'layout-6'         => __( 'Layout 6', 'cmb2' ),
-						'layout-7'         => __( 'Layout 7', 'cmb2' ),
-						'layout-8'         => __( 'Layout 8', 'cmb2' ),
-						'layout-9'         => __( 'Layout 9', 'cmb2' ),
+						'dashed-with-icon' => __( 'Layout 1 (Dashed With Icon)', 'c-flipboxes' ),
+						'with-image'       => __( 'Layout 2 (With Image)', 'c-flipboxes' ),
+						'solid-with-icon'  => __( 'Layout 3 (Solid With Icon)', 'c-flipboxes' ),
+						'layout-4'         => __( 'Layout 4', 'c-flipboxes' ),
+						'layout-5'         => __( 'Layout 5', 'c-flipboxes' ),
+						'layout-6'         => __( 'Layout 6', 'c-flipboxes' ),
+						'layout-7'         => __( 'Layout 7', 'c-flipboxes' ),
+						'layout-8'         => __( 'Layout 8', 'c-flipboxes' ),
+						'layout-9'         => __( 'Layout 9', 'c-flipboxes' ),
 					),
 				)
 			);
 
 			$flip->add_field(
 				array(
-					'name'             => __( 'Effect', 'cmb2' ),
-					'desc'             => __( 'Select Flipbox Effect', 'cmb2' ),
+					'name'             => __( 'Effect', 'c-flipboxes' ),
+					'desc'             => __( 'Select Flipbox Effect', 'c-flipboxes' ),
 					'id'               => $prefix . 'effect',
 					'type'             => 'select',
 					'show_option_none' => false,
 					'default'          => 'left-to-right',
 					'options'          => array(
-						'x' => __( 'Bottom To Top', 'cmb2' ),
-						'y' => __( 'Left To Right', 'cmb2' ),
+						'x' => __( 'Bottom To Top', 'c-flipboxes' ),
+						'y' => __( 'Left To Right', 'c-flipboxes' ),
 					),
 				)
 			);
 
 			$flip->add_field(
 				array(
-					'name'             => __( 'Number of columns', 'cmb2' ),
-					'desc'             => __( 'Select Number of columns', 'cmb2' ),
+					'name'             => __( 'Number of columns', 'c-flipboxes' ),
+					'desc'             => __( 'Select Number of columns', 'c-flipboxes' ),
 					'id'               => $prefix . 'column',
 					'type'             => 'select',
 					'show_option_none' => false,
 					'default'          => 'col-md-4',
 					'options'          => array(
-						'col-md-12' => __( 'One', 'cmb2' ),
-						'col-md-6'  => __( 'Two', 'cmb2' ),
-						'col-md-4'  => __( 'Three', 'cmb2' ),
-						'col-md-3'  => __( 'Four', 'cmb2' ),
-						'col-md-2'  => __( 'Six', 'cmb2' ),
+						'col-md-12' => __( 'One', 'c-flipboxes' ),
+						'col-md-6'  => __( 'Two', 'c-flipboxes' ),
+						'col-md-4'  => __( 'Three', 'c-flipboxes' ),
+						'col-md-3'  => __( 'Four', 'c-flipboxes' ),
+						'col-md-2'  => __( 'Six', 'c-flipboxes' ),
 					),
 				)
 			);
 
 			$flip->add_field(
 				array(
-					'name'        => __( 'Skin Color', 'cmb2' ),
-					'description' => __( 'Choose a skin color', 'cmb2' ),
+					'name'        => __( 'Skin Color', 'c-flipboxes' ),
+					'description' => __( 'Choose a skin color', 'c-flipboxes' ),
 					'id'          => $prefix . 'skin_color',
 					'type'        => 'colorpicker',
 					'default'     => '#f4bf64',
@@ -418,15 +423,15 @@ if ( ! class_exists( 'CFB_post_type' ) ) {
 
 			$flip->add_field(
 				array(
-					'name'             => __( 'Height', 'cmb2' ),
-					'desc'             => __( 'Select height for Flipbox', 'cmb2' ),
+					'name'             => __( 'Height', 'c-flipboxes' ),
+					'desc'             => __( 'Select height for Flipbox', 'c-flipboxes' ),
 					'id'               => $prefix . 'height',
 					'type'             => 'select',
 					'show_option_none' => false,
 					'default'          => 'default',
 					'options'          => array(
-						'default' => __( 'Default(according to content)', 'cmb2' ),
-						'equal'   => __( 'Equal height of each Flipbox', 'cmb2' ),
+						'default' => __( 'Default(according to content)', 'c-flipboxes' ),
+						'equal'   => __( 'Equal height of each Flipbox', 'c-flipboxes' ),
 					),
 				)
 			);
@@ -441,7 +446,7 @@ if ( ! class_exists( 'CFB_post_type' ) ) {
 			$flip = new_cmb2_box(
 				array(
 					'id'           => 'cfb_advanced_settings',
-					'title'        => __( 'Flipbox Advanced Settings', 'cmb2' ),
+					'title'        => __( 'Flipbox Advanced Settings', 'c-flipboxes' ),
 					'object_types' => array( 'flipboxes' ), // Post type
 					'context'      => 'side',
 					'priority'     => 'low',
@@ -451,8 +456,8 @@ if ( ! class_exists( 'CFB_post_type' ) ) {
 
 			$flip->add_field(
 				array(
-					'name' => __( 'Number of Flipboxes', 'cmb2' ),
-					'desc' => __( 'Enter number of flipboxes to show', 'cmb2' ),
+					'name' => __( 'Number of Flipboxes', 'c-flipboxes' ),
+					'desc' => __( 'Enter number of flipboxes to show', 'c-flipboxes' ),
 					'id'   => $prefix . 'no_of_items',
 					'type' => 'text',
 				)
@@ -460,8 +465,8 @@ if ( ! class_exists( 'CFB_post_type' ) ) {
 
 			$flip->add_field(
 				array(
-					'name'    => __( 'Icon Size(in px)', 'cmb2' ),
-					'desc'    => __( 'Enter icon size', 'cmb2' ),
+					'name'    => __( 'Icon Size(in px)', 'c-flipboxes' ),
+					'desc'    => __( 'Enter icon size', 'c-flipboxes' ),
 					'id'      => $prefix . 'icon_size',
 					'type'    => 'text',
 					'default' => '52px',
@@ -470,8 +475,8 @@ if ( ! class_exists( 'CFB_post_type' ) ) {
 
 			$flip->add_field(
 				array(
-					'name' => __( 'Read More link in same tab', 'cmb2' ),
-					'desc' => __( 'Check if you want to open Read More link in same tab', 'cmb2' ),
+					'name' => __( 'Read More link in same tab', 'c-flipboxes' ),
+					'desc' => __( 'Check if you want to open Read More link in same tab', 'c-flipboxes' ),
 					'id'   => $prefix . 'LinkTarget',
 					'type' => 'checkbox',
 				)
@@ -479,39 +484,39 @@ if ( ! class_exists( 'CFB_post_type' ) ) {
 
 			$flip->add_field(
 				array(
-					'name'    => __( 'Bootstrap', 'cmb2' ),
+					'name'    => __( 'Bootstrap', 'c-flipboxes' ),
 					'id'      => $prefix . 'bootstrap',
 					'default' => 'enable',
 					'type'    => 'radio',
 					'options' => array(
-						'enable'  => __( 'Enable Bootstrap', 'cmb2' ),
-						'disable' => __( 'Disable Bootstrap', 'cmb2' ),
+						'enable'  => __( 'Enable Bootstrap', 'c-flipboxes' ),
+						'disable' => __( 'Disable Bootstrap', 'c-flipboxes' ),
 					),
 				)
 			);
 
 			$flip->add_field(
 				array(
-					'name'    => __( 'Fontawesome', 'cmb2' ),
+					'name'    => __( 'Fontawesome', 'c-flipboxes' ),
 					'id'      => $prefix . 'font',
 					'default' => 'enable',
 					'type'    => 'radio',
 					'options' => array(
-						'enable'  => __( 'Enable Fontawesome', 'cmb2' ),
-						'disable' => __( 'Disable Fontawesome', 'cmb2' ),
+						'enable'  => __( 'Enable Fontawesome', 'c-flipboxes' ),
+						'disable' => __( 'Disable Fontawesome', 'c-flipboxes' ),
 					),
 				)
 			);
 
 			$flip->add_field(
 				array(
-					'name'    => __( 'Flipbox Event', 'cmb2' ),
+					'name'    => __( 'Flipbox Event', 'c-flipboxes' ),
 					'id'      => $prefix . 'event',
 					'default' => 'hover',
 					'type'    => 'radio',
 					'options' => array(
-						'hover' => __( 'Hover', 'cmb2' ),
-						'click'  => __( 'Click', 'cmb2' ),
+						'hover' => __( 'Hover', 'c-flipboxes' ),
+						'click'  => __( 'Click', 'c-flipboxes' ),
 					),
 				)
 			);
@@ -524,7 +529,7 @@ if ( ! class_exists( 'CFB_post_type' ) ) {
 			$rating_metabox = new_cmb2_box(
 				array(
 					'id'           => 'cfb_rating_metabox',
-					'title'        => __( 'Please Share Your Feedback', 'cmb2' ),
+					'title'        => __( 'Please Share Your Feedback', 'c-flipboxes' ),
 					'object_types' => array( 'flipboxes' ),
 					'context'      => 'side',
 					'priority'     => 'low',
@@ -539,7 +544,7 @@ if ( ! class_exists( 'CFB_post_type' ) ) {
 				<img src="' . CFB_URL . '/assets/images/stars5.png"/>
 				<a href="https://wordpress.org/support/plugin/flip-boxes/reviews/#new-post" target="_blank" class="button button-primary">Submit Review ★★★★★</a>
 				',
-						'cmb2'
+						'c-flipboxes'
 					),
 					'id'   => $prefix . 'rate_us_link',
 					'type' => 'title',
@@ -567,43 +572,43 @@ if ( ! class_exists( 'CFB_post_type' ) ) {
 			$prefix = '_cfb_';
 			// global $layouts;
 			$layouts = array(
-				'dashed-with-icon' => __( 'Dashed With Icons', 'cmb2' ),
-				'with-image'       => __( 'With Image', 'cmb2' ),
-				'solid-with-icon'  => __( 'Solid With Icon', 'cmb2' ),
-				'layout-4'         => __( 'Layout 4', 'cmb2' ),
-				'layout-5'         => __( 'Layout 5', 'cmb2' ),
-				'layout-6'         => __( 'Layout 6', 'cmb2' ),
-				'layout-7'         => __( 'Layout 7', 'cmb2' ),
-				'layout-8'         => __( 'Layout 8', 'cmb2' ),
-				'layout-9'         => __( 'Layout 9', 'cmb2' ),
+				'dashed-with-icon' => __( 'Dashed With Icons', 'c-flipboxes' ),
+				'with-image'       => __( 'With Image', 'c-flipboxes' ),
+				'solid-with-icon'  => __( 'Solid With Icon', 'c-flipboxes' ),
+				'layout-4'         => __( 'Layout 4', 'c-flipboxes' ),
+				'layout-5'         => __( 'Layout 5', 'c-flipboxes' ),
+				'layout-6'         => __( 'Layout 6', 'c-flipboxes' ),
+				'layout-7'         => __( 'Layout 7', 'c-flipboxes' ),
+				'layout-8'         => __( 'Layout 8', 'c-flipboxes' ),
+				'layout-9'         => __( 'Layout 9', 'c-flipboxes' ),
 			);
 			// global $effects;
 			$effects = array(
-				'x' => __( 'Bottom To Top', 'cmb2' ),
-				'y' => __( 'Left To Right', 'cmb2' ),
+				'x' => __( 'Bottom To Top', 'c-flipboxes' ),
+				'y' => __( 'Left To Right', 'c-flipboxes' ),
 			);
 
-			switch ( $flip_cols ) {
+		    switch ( $flip_cols ) {
 				case 'flip_layout':
 					$lt = get_post_meta( $post, $prefix . 'flip_layout', true );
 					if ( isset( $layouts[ $lt ] ) ) {
-						echo $layouts[ $lt ];
+						echo esc_html($layouts[ $lt ]);
 					}
 					break;
 				case 'effect':
 					$eff = get_post_meta( $post, $prefix . 'effect', true );
 					if ( isset( $effects[ $eff ] ) ) {
-						echo $effects[ $eff ];
+						echo esc_html($effects[ $eff ]);
 					}
 					break;
 				case 'code':
 					global $dynamic_attr;
 					global $id;
 					$dynamic_attr = "[flipboxes id=\"{$id}\"]";
-					echo "<input type='text' value='" . $dynamic_attr . "' readonly>";
+					echo "<input type='text' value='" . esc_attr($dynamic_attr) . "' readonly>";
 					break;
 				default:
-					echo esc_html_e( 'Not Matched', 'cfb2' );
+					esc_html_e( 'Not Matched', 'cfb2' );
 					break;
 			}
 		}
@@ -615,7 +620,7 @@ if ( ! class_exists( 'CFB_post_type' ) ) {
 		function cfb_shortcode_text() {
 			$id           = get_the_ID();
 			$dynamic_attr = '';
-			_e( 'Paste this shortcode anywhere (page/post).', 'c-flipbox' );
+			esc_html_e( 'Paste this shortcode anywhere (page/post).', 'c-flipbox' );
 			$dynamic_attr .= "[flipboxes id=\"{$id}\"";
 			$dynamic_attr .= ']';
 			$prefix        = '_cfb_';
@@ -625,9 +630,10 @@ if ( ! class_exists( 'CFB_post_type' ) ) {
 			<input type="text" class="regular-small" name="my_meta_box_text" id="my_meta_box_text" value="<?php echo esc_attr( $dynamic_attr ); ?>" readonly/>
 			<br>
 			<br>
-			<a href='https://demos.coolplugins.net/flipboxes-demo/?utm_source=cfb_plugin&utm_medium=inside_classic&utm_campaign=demo&utm_content=classic' target="_blank" class='button button-primary'>View Demos</a>
+			<a href='<?php echo esc_url('https://demos.coolplugins.net/flipboxes-demo/?utm_source=cfb_plugin&utm_medium=inside_classic&utm_campaign=demo&utm_content=classic'); ?>' target="_blank" class='button button-primary'><?php echo esc_html__('View Demos', 'c-flipbox'); ?></a>
 			<?php
 		}
+		
 
 
 	}

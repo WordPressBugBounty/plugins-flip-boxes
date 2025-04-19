@@ -12,10 +12,10 @@ if( !class_exists( 'CFB_Shortcode' ) ){
         function __construct()  
 		{            
 			// Add shortcode for flipboxes
-			add_shortcode( 'flipboxes',array($this,'cfb_shortcode'));
+			add_shortcode( 'flipboxes',[$this,'cfb_shortcode']);
 			// Register frontend assets for flipboxes
-			add_action( 'wp_enqueue_scripts',array($this,'cfb_register_frontend_assets')); 
-			add_action( 'admin_enqueue_scripts',array($this,'cfb_register_frontend_assets'));
+			add_action( 'wp_enqueue_scripts',[$this,'cfb_register_frontend_assets']); 
+			add_action( 'admin_enqueue_scripts',[$this,'cfb_register_frontend_assets']);
         }
         
         /**
@@ -31,7 +31,10 @@ if( !class_exists( 'CFB_Shortcode' ) ){
                 'id' => '',
             ), $atts, 'ccpw');
 
-			$id = $atts['id'];
+			$id = absint($atts['id']); // Sanitize to positive integer
+			if ($id <= 0) {
+				return __('Invalid flipbox ID', 'c-flipboxes');
+			}
 
 			$prefix   = "_cfb_";
 			$flip_layout    = get_post_meta( $id, $prefix . 'flip_layout', true );
@@ -64,7 +67,7 @@ if( !class_exists( 'CFB_Shortcode' ) ){
 			{
 				$i = 1;
 				$flipbox_html = ''; 
-				$flipbox_html .= '<div id="flipbox-widget-'.esc_attr($id).'" class="cfb_wrapper '.esc_attr($flip_layout).' flex-row" data-flipboxid="flipbox-widget-'.esc_attr($id).'">';
+				$flipbox_html .= '<div id="flipbox-widget-'.esc_attr($id).'" class="cfb_wrapper '.esc_attr($flip_layout).' flex-row" data-flipboxid="flipbox-widget-'.esc_attr($id).'" data-bootstrap-status="'.esc_attr($bootstrap).'" data-fontawesome-icons="'.esc_attr($fontawesome).'">';
 				foreach ( $entries as $entry ) 
 				{
 					if($i > $no_of_items){
@@ -93,21 +96,29 @@ if( !class_exists( 'CFB_Shortcode' ) ){
         function cfb_register_frontend_assets() 
 		{
 			// Register custom js for flipboxes
-			wp_register_script( 'cfb-custom-js', CFB_URL . 'assets/js/flipboxes-custom.min.js', array('jquery'), CFB_VERSION );
+			wp_register_script( 'cfb-custom-js', CFB_URL . 'assets/js/flipboxes-custom.min.js',['jquery'], CFB_VERSION );
 			
 			// Register fontawesome css
-			wp_register_style( 'cfb-fontawesome',CFB_URL . 'assets/css/font-awesome.min.css', array(), CFB_VERSION);
+			wp_register_style( 'cfb-fontawesome',CFB_URL . 'assets/css/font-awesome.min.css', [], CFB_VERSION);
 
 			// Register jquery flip js
-			wp_register_script( 'cfb-jquery-flip', CFB_URL . 'assets/js/jquery.flip.min.js', array('jquery'), CFB_VERSION );
+			wp_register_script( 'cfb-jquery-flip', CFB_URL . 'assets/js/jquery.flip.min.js', ['jquery'], CFB_VERSION );
 			
 			// Register flexboxgrid style if enabled
-			wp_register_style( 'cfb-flexboxgrid-style',CFB_URL . 'assets/css/flipboxes-flexboxgrid.min.css', array(), CFB_VERSION);
+			wp_register_style( 'cfb-flexboxgrid-style',CFB_URL . 'assets/css/flipboxes-flexboxgrid.min.css', [], CFB_VERSION);
 			// Register default styles
-			wp_register_style( 'cfb-styles',CFB_URL . 'assets/css/flipboxes-styles.min.css', array(), CFB_VERSION);
+			wp_register_style( 'cfb-styles',CFB_URL . 'assets/css/flipboxes-styles.min.css', [], CFB_VERSION);
 			
-			wp_register_script( 'cfb-imagesloader', CFB_URL . 'assets/js/jquery-imagesloader.min.js', array('jquery'), CFB_VERSION );
+			wp_register_script( 'cfb-imagesloader', CFB_URL . 'assets/js/jquery-imagesloader.min.js', ['jquery'], CFB_VERSION );
 			
+			wp_enqueue_script(
+				'cfb-remove-grid',
+				CFB_URL . 'assets/js/remove-grid.js',
+				[ 'jquery' ],
+				CFB_VERSION,
+				true
+			);
+
 			global $post; 
 			if(is_page()){
 				if( is_a( $post, 'WP_Post' )&& has_shortcode( $post->post_content, 'flipboxes')){  								

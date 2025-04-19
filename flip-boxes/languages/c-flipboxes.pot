@@ -1,9 +1,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: Flip Boxes\n"
+"Project-Id-Version: Cool Flipbox\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-01-22 12:36+0000\n"
+"POT-Creation-Date: 2024-09-12 09:25+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: \n"
@@ -13,67 +13,285 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Loco https://localise.biz/\n"
-"X-Loco-Version: 2.3.1; wp-5.3.2"
+"X-Loco-Version: 2.6.6; wp-6.5.5\n"
+"X-Domain: c-flipboxes"
 
-msgid "%1$s &#38; %2$s"
-msgstr ""
-
-msgid "%s week"
-msgid_plural "%s weeks"
-msgstr[0] ""
-msgstr[1] ""
-
-msgid "%s day"
-msgid_plural "%s days"
-msgstr[0] ""
-msgstr[1] ""
-
-msgid "%s hour"
-msgid_plural "%s hours"
-msgstr[0] ""
-msgstr[1] ""
-
-msgid "%s minute"
-msgid_plural "%s minutes"
-msgstr[0] ""
-msgstr[1] ""
-
-msgid "%s second"
-msgid_plural "%s seconds"
-msgstr[0] ""
-msgstr[1] ""
-
-msgid "Not recently active"
-msgstr ""
-
-msgid "Member Profiles"
-msgstr ""
-
+#: admin/cfb-post-type.php:536
 msgid ""
-"Everything in a community website revolves around its members. All website "
-"users are given member profiles."
+"/assets/images/stars5.png\"/>\n"
+"\t\t\t\t<a href=\"https://wordpress.org/support/plugin/flip-"
+"boxes/reviews/#new-post\" target=\"_blank\" class=\"button button-primary\">"
+"Submit Review ★★★★★</a>\n"
+"\t\t\t\t"
 msgstr ""
 
+#: admin/cfb-post-type.php:233
+msgid "Add Another Flipbox"
+msgstr ""
+
+#: admin/cfb-post-type.php:218
+msgid "Add Flipboxes"
+msgstr ""
+
+#: admin/cfb-post-type.php:237
+msgid "Are you sure you want to remove?"
+msgstr ""
+
+#: admin/cfb-post-type.php:481
+msgid "Bootstrap"
+msgstr ""
+
+#: admin/cfb-post-type.php:384 admin/cfb-post-type.php:581
+msgid "Bottom To Top"
+msgstr ""
+
+#: admin/cfb-post-type.php:473
+msgid "Check if you want to open Read More link in same tab"
+msgstr ""
+
+#: admin/cfb-post-type.php:411
+msgid "Choose a skin color"
+msgstr ""
+
+#: admin/cfb-post-type.php:116 admin/cfb-post-type.php:126
+msgid "Classic Post Type"
+msgstr ""
+
+#: admin/cfb-post-type.php:513
+msgid "Click"
+msgstr ""
+
+#. Name of the plugin
+msgid "Cool Flipbox"
+msgstr ""
+
+#: admin/cfb-post-type.php:195
+msgid "Cool Flipbox Live Preview"
+msgstr ""
+
+#: admin/cfb-post-type.php:42
+msgid "Cool Flipbox Settings"
+msgstr ""
+
+#. Author of the plugin
+msgid "Cool Plugins"
+msgstr ""
+
+#: admin/cfb-post-type.php:569
+msgid "Dashed With Icons"
+msgstr ""
+
+#: admin/cfb-post-type.php:427
+msgid "Default(according to content)"
+msgstr ""
+
+#: admin/cfb-post-type.php:487
+msgid "Disable Bootstrap"
+msgstr ""
+
+#: admin/cfb-post-type.php:500
+msgid "Disable Fontawesome"
+msgstr ""
+
+#: admin/cfb-post-type.php:377
+msgid "Effect"
+msgstr ""
+
+#: admin/cfb-post-type.php:486
+msgid "Enable Bootstrap"
+msgstr ""
+
+#: admin/cfb-post-type.php:499
+msgid "Enable Fontawesome"
+msgstr ""
+
+#: admin/cfb-post-type.php:463
+msgid "Enter icon size"
+msgstr ""
+
+#: admin/cfb-post-type.php:454
+msgid "Enter number of flipboxes to show"
+msgstr ""
+
+#: admin/cfb-post-type.php:428
+msgid "Equal height of each Flipbox"
+msgstr ""
+
+#: admin/cfb-post-type.php:443
+msgid "Flipbox Advanced Settings"
+msgstr ""
+
+#: admin/cfb-post-type.php:113
+msgid "Flipbox builder type"
+msgstr ""
+
+#: admin/cfb-post-type.php:110
+msgid "Flipbox Builder Type:"
+msgstr ""
+
+#: admin/cfb-post-type.php:507
+msgid "Flipbox Event"
+msgstr ""
+
+#: admin/cfb-post-type.php:344
+msgid "Flipbox General Settings"
+msgstr ""
+
+#: admin/cfb-post-type.php:494
+msgid "Fontawesome"
+msgstr ""
+
+#: admin/cfb-post-type.php:402
+msgid "Four"
+msgstr ""
+
+#: admin/cfb-post-type.php:420
+msgid "Height"
+msgstr ""
+
+#: admin/cfb-post-type.php:512
+msgid "Hover"
+msgstr ""
+
+#. URI of the plugin
+#. Author URI of the plugin
+msgid "https://coolplugins.net/"
+msgstr ""
+
+#: admin/cfb-post-type.php:462
+msgid "Icon Size(in px)"
+msgstr ""
+
+#: includes/cfb-shortcode.php:36
+msgid "Invalid flipbox ID"
+msgstr ""
+
+#: admin/cfb-post-type.php:232
+msgid "Item {#}"
+msgstr ""
+
+#: admin/cfb-post-type.php:355
+msgid "layout"
+msgstr ""
+
+#: admin/cfb-post-type.php:362
+msgid "Layout 1 (Dashed With Icon)"
+msgstr ""
+
+#: admin/cfb-post-type.php:363
+msgid "Layout 2 (With Image)"
+msgstr ""
+
+#: admin/cfb-post-type.php:364
+msgid "Layout 3 (Solid With Icon)"
+msgstr ""
+
+#: admin/cfb-post-type.php:365 admin/cfb-post-type.php:572
+msgid "Layout 4"
+msgstr ""
+
+#: admin/cfb-post-type.php:366 admin/cfb-post-type.php:573
+msgid "Layout 5"
+msgstr ""
+
+#: admin/cfb-post-type.php:367 admin/cfb-post-type.php:574
+msgid "Layout 6"
+msgstr ""
+
+#: admin/cfb-post-type.php:368 admin/cfb-post-type.php:575
+msgid "Layout 7"
+msgstr ""
+
+#: admin/cfb-post-type.php:369 admin/cfb-post-type.php:576
+msgid "Layout 8"
+msgstr ""
+
+#: admin/cfb-post-type.php:370 admin/cfb-post-type.php:577
+msgid "Layout 9"
+msgstr ""
+
+#: admin/cfb-post-type.php:385 admin/cfb-post-type.php:582
+msgid "Left To Right"
+msgstr ""
+
+#: admin/cfb-post-type.php:120
+msgid "Modern Block Based"
+msgstr ""
+
+#: includes/cfb-shortcode.php:89
+msgid "No flipbox content added"
+msgstr ""
+
+#: admin/cfb-post-type.php:392
+msgid "Number of columns"
+msgstr ""
+
+#: admin/cfb-post-type.php:453
+msgid "Number of Flipboxes"
+msgstr ""
+
+#: admin/cfb-post-type.php:399
+msgid "One"
+msgstr ""
+
+#: admin/cfb-post-type.php:526
+msgid "Please Share Your Feedback"
+msgstr ""
+
+#: admin/cfb-post-type.php:472
+msgid "Read More link in same tab"
+msgstr ""
+
+#: admin/cfb-post-type.php:234
+msgid "Remove Flipbox"
+msgstr ""
+
+#: admin/cfb-post-type.php:124
+msgid "Save Changes"
+msgstr ""
+
+#: admin/cfb-post-type.php:378
+msgid "Select Flipbox Effect"
+msgstr ""
+
+#: admin/cfb-post-type.php:356
+msgid "Select Flipbox Layout"
+msgstr ""
+
+#: admin/cfb-post-type.php:421
+msgid "Select height for Flipbox"
+msgstr ""
+
+#: admin/cfb-post-type.php:393
+msgid "Select Number of columns"
+msgstr ""
+
+#: admin/cfb-post-type.php:403
+msgid "Six"
+msgstr ""
+
+#: admin/cfb-post-type.php:410
+msgid "Skin Color"
+msgstr ""
+
+#: admin/cfb-post-type.php:571
+msgid "Solid With Icon"
+msgstr ""
+
+#: admin/cfb-post-type.php:401
+msgid "Three"
+msgstr ""
+
+#: admin/cfb-post-type.php:400
+msgid "Two"
+msgstr ""
+
+#. Description of the plugin
 msgid ""
-"<strong>The Events Calendar Annual Survey:</strong> share your feedback with "
-"our team—%1$s!"
+"Use animated Flip Boxes WordPress plugin to highlight your content inside "
+"your page in a great way. Use shortcode to add anywhere."
 msgstr ""
 
-msgid "Search results: &ldquo;%s&rdquo;"
-msgstr ""
-
-msgid ""
-"<strong>Additional Settings %s</strong> provides a place where you can "
-"customize the behavior of this contact form by adding code snippets."
-msgstr ""
-
-msgid ""
-"While form-tags, you don&#8217;t need to know the syntax to add form-tags "
-"because (<strong>Generate Tag</strong> button on this screen)."
-msgstr ""
-
-msgid "<%s class=\"timeline-main-title center-block\">%s</%s>"
-msgstr ""
-
-msgid "d/M/Y"
+#: admin/cfb-post-type.php:570
+msgid "With Image"
 msgstr ""

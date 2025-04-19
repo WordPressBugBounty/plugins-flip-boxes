@@ -1,0 +1,15 @@
+.block-editor-block-inspector .cfb-background-selector-control {
+    margin: 0;
+
+	.cfb-background-image-manage .components-dropdown {
+			width: 100%;
+
+		.components-toolbar__control {
+			box-shadow: inset 0 0 0 1px var(--wp-admin-theme-color);
+			outline: 1px solid transparent;
+			color: var(--wp-admin-theme-color);
+			width: 100%;
+			justify-content: center;
+		}
+	}
+}

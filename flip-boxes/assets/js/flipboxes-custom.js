@@ -8,7 +8,7 @@ jQuery(document).ready(function($){
         var cfb_flip = $(this).find('.cfb-flip');
         var effect = cfb_flip.data('effect');
 
-        var cfb_event = (cfb_flip.hasClass('hover')) ? 'hover' : 'click';
+        var cfb_event = (cfb_flip.hasClass('cfb-click')) ? 'click' : 'hover';
  
         cfb_flip.flip({
             axis: effect,

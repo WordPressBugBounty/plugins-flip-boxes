@@ -1,10 +1,10 @@
 ﻿=== Cool Flipbox - Shortcode & Gutenberg Block ===
 Contributors: narinder-singh,satindersingh,coolplugins
-Requires at least:5.0
-Tags:flipbox,flipbox block,flip images,flipboxes,cool flipbox
-Tested up to:6.6
-Requires PHP:7.2
-Stable tag:1.8.3
+Requires at least: 4.5
+Tags:flipbox,flipbox block,flip images,flipboxes,cool flipbox, content box
+Tested up to:6.8
+Requires PHP: 5.6
+Stable tag:1.9.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -44,6 +44,10 @@ The WordPress Cool Flipbox plugin offers a variety of special features to enhanc
 The plugin is incredibly easy to use, and it allows you to add the flip box anywhere on your webpage by simply using shortcodes and blocks.
 
 [](http://coderisk.com/wp/plugin/flip-boxes/RIPS-3vGGprj2Jh)
+
+= How can I report security bugs? =
+You can report security bugs through the Patchstack Vulnerability Disclosure Program. The Patchstack team help validate, triage and handle any security vulnerabilities. [Report a security vulnerability.](https://patchstack.com/database/vdp/flip-boxes)
+
 == Installation ==
 <h6>There are 3 ways to install Flip Boxes inside your WordPress website.</h6>
 <ol>
@@ -53,7 +57,6 @@ The plugin is incredibly easy to use, and it allows you to add the flip box anyw
 
 <li><strong>Install the plugin via FTP</strong>:- In this method you also first need to download the plugin zip file from the WordPress plugins directory. After this open your FTP manager and Go to > wp-content/plugins folder. Here you need to upload the extracted version of <strong>flip-boxes</strong> (please remember don't upload a zip file directly here) After this you can activate the plugin from the wp-admin panel plugins page.</li>
 </ol>
-
 
 == Frequently Asked Questions ==
 
@@ -90,10 +93,19 @@ Yes, you can flexibly set the number of columns for the flip boxes to suit your 
 = Is Cool Flipbox easy to use? =
 Yes, Cool Flipbox is incredibly easy to use and allows you to create and customize flip boxes with ease.
 
+= How can I report security bugs? =
+You can report security bugs through the Patchstack Vulnerability Disclosure Program. The Patchstack team help validate, triage and handle any security vulnerabilities. [Report a security vulnerability.](https://patchstack.com/database/vdp/flip-boxes)
+
 == Upgrade Notice ==
 --After upgrading your installed plugin with latest version(1.0.1),Please update your flipboxes effect.-- 
 
 == Changelog ==
+<strong>Version 1.9.0 | 19 Apr 2025</strong>
+<pre>
+Fixed: Fixed security issue.
+Improvements: code improvements.
+Tested up to: WordPress 6.8.
+</pre>
 <strong>Version 1.8.3 | 23 Jan 2024</strong>
 <pre>
 Added: wp_kses_post() function added for full HTML support.

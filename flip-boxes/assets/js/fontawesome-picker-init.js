@@ -1,20 +1,12 @@
-
 jQuery(document).ready(function($) {
   'use strict';
-  $('.fontawesome-icon-select').iconpicker({
-    hideOnSelect: true
+  // Initialize all existing pickers
+  $('.fontawesome-icon-select').iconpicker({ hideOnSelect: true });
+
+  // Re‑initialize any pickers in newly‑added group rows
+  $(document).on('cmb2_add_row', function(event, newRow) {
+    // newRow is the <div> that CMB2 just added
+    $(newRow).find('.fontawesome-icon-select')
+             .iconpicker({ hideOnSelect: true });
   });
-
-}); // End Ready
-
-/**
- * Group fix
- */
-jQuery(document).bind('DOMNodeInserted', function (event) {
-    if (jQuery(event.target).find('div.cmb-type-fontawesome-icon').length > 0) {
-        jQuery(event.target).find('.fontawesome-icon-select').iconpicker({
-            hideOnSelect: true
-        });
-    }
 });
-

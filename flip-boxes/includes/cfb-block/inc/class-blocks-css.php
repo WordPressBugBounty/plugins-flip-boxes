@@ -1,10 +1,11 @@
 <?php
 /**
- * Class for CSS logic.
+ * Class for managing server-side CSS logic for Gutenberg blocks.
  *
  * @package CoolPlugins
+ * @subpackage GutenbergBlocks
+ * @since 1.0.0
  */
-
 namespace CoolPlugins\GutenbergBlocks;
 
 /**
@@ -13,14 +14,14 @@ namespace CoolPlugins\GutenbergBlocks;
 class Blocks_CSS {
 
 	/**
-	 * The main instance var.
+	 * The main instance variable.
 	 *
 	 * @var Blocks_CSS|null
 	 */
 	public static $instance = null;
 
 	/**
-	 * Initialize the class
+	 * Initializes the class and sets up the necessary actions.
 	 */
 	public function init() {
 		if ( ! defined( 'BLOCKS_CSS_URL' ) ) {
@@ -32,7 +33,7 @@ class Blocks_CSS {
 	}
 
 	/**
-	 * Render server-side CSS
+	 * Renders server-side CSS for blocks.
 	 *
 	 * @since   1.0.0
 	 * @access  public
@@ -99,7 +100,7 @@ class Blocks_CSS {
 	}
 
 	/**
-	 * Cycle through Blocks
+	 * Cycle through blocks to generate CSS.
 	 *
 	 * @param array $inner_blocks Array of blocks.
 	 * @param int   $id Post ID.
@@ -125,8 +126,7 @@ class Blocks_CSS {
 	}
 
 	/**
-	 * The instance method for the static class.
-	 * Defines and returns the instance of the static class.
+	 * Retrieves the instance of the static class and initializes it if necessary.
 	 *
 	 * @static
 	 * @since 1.0.0
@@ -140,32 +140,5 @@ class Blocks_CSS {
 		}
 
 		return self::$instance;
-	}
-
-	/**
-	 * Throw error on object clone
-	 *
-	 * The whole idea of the singleton design pattern is that there is a single
-	 * object therefore, we don't want the object to be cloned.
-	 *
-	 * @access public
-	 * @since 1.0.0
-	 * @return void
-	 */
-	public function __clone() {
-		// Cloning instances of the class is forbidden.
-		_doing_it_wrong( __FUNCTION__, 'Cheatin&#8217; huh?', '1.0.0' );
-	}
-
-	/**
-	 * Disable unserializing of the class
-	 *
-	 * @access public
-	 * @since 1.0.0
-	 * @return void
-	 */
-	public function __wakeup() {
-		// Unserializing instances of the class is forbidden.
-		_doing_it_wrong( __FUNCTION__, 'Cheatin&#8217; huh?', '1.0.0' );
 	}
 }

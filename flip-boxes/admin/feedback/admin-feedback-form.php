@@ -3,11 +3,11 @@ namespace CFB\feedback;
 
 class cp_feedback{
     private static $instance = null;
-	private $plugin_url = CFB_URL;
-	private $plugin_version = CFB_VERSION;
-	private $plugin_name = 'Flip Boxes';
-	private $plugin_slug = 'cfb';
-	private $feedback_url = 'http://feedback.coolplugins.net/wp-json/coolplugins-feedback/v1/feedback';
+    private $plugin_url;
+    private $plugin_version;
+    private $plugin_name;
+    private $plugin_slug;
+    private $feedback_url;
 
     /**
      * Avoid creating multiple instance of this class
@@ -30,9 +30,16 @@ class cp_feedback{
         if( !is_admin() ){
             return;
         }
-        add_action('admin_enqueue_scripts', array( $this, 'cfb_enqueue_feedback_scripts') );
-        add_action('admin_head', array( $this, 'cfb_show_deactivate_feedback_popup') );
-        add_action('wp_ajax_'.$this->plugin_slug.'_cfb_submit_deactivation_response', array($this, 'cfb_submit_deactivation_response' ));
+
+        $this->plugin_url = CFB_URL;
+        $this->plugin_version = CFB_VERSION;
+        $this->plugin_name = 'Flip Boxes';
+        $this->plugin_slug = 'cfb';
+        $this->feedback_url = 'https://feedback.coolplugins.net/wp-json/coolplugins-feedback/v1/feedback';
+
+        add_action('admin_enqueue_scripts', [$this, 'cfb_enqueue_feedback_scripts']);
+        add_action('admin_head', [$this, 'cfb_show_deactivate_feedback_popup']);
+        add_action("wp_ajax_{$this->plugin_slug}_cfb_submit_deactivation_response", [$this, 'cfb_submit_deactivation_response']);
     }
 
     /*
@@ -43,10 +50,11 @@ class cp_feedback{
     function cfb_enqueue_feedback_scripts(){
         $screen = get_current_screen();
         if( isset( $screen ) && $screen->id == 'plugins' ){
-            wp_enqueue_script(__NAMESPACE__.'feedback-script', $this->plugin_url .'admin/feedback/js/admin-feedback.js' );
+            wp_enqueue_script(__NAMESPACE__.'feedback-script', $this->plugin_url .'admin/feedback/js/admin-feedback.js', array('jquery'), $this->plugin_version, true);
             wp_enqueue_style('cool-plugins-feedback-style', $this->plugin_url .'admin/feedback/css/admin-feedback.css' );
         }
     }
+    
 
     /*
     |-----------------------------------------------------------------|
@@ -61,24 +69,24 @@ class cp_feedback{
 		}
 		$deactivate_reasons = [
 			'didnt_work_as_expected' => [
-				'title' => __( 'The plugin didn\'t work as expected', 'cool-plugins' ),
-				'input_placeholder' => 'What did you expect?',
+				'title' => esc_html__( 'The plugin didn\'t work as expected', 'cool-plugins' ),
+				'input_placeholder' => esc_html__('What did you expect?', 'cool-plugins'),
 			],
 			'found_a_better_plugin' => [
-				'title' => __( 'I found a better plugin', 'cool-plugins' ),
-				'input_placeholder' => __( 'Please share which plugin', 'cool-plugins' ),
+				'title' => esc_html__( 'I found a better plugin', 'cool-plugins' ),
+				'input_placeholder' => esc_html__( 'Please share which plugin', 'cool-plugins' ),
 			],
 			'couldnt_get_the_plugin_to_work' => [
-				'title' => __( 'The plugin is not working', 'cool-plugins' ),
-				'input_placeholder' => 'Please share your issue. So we can fix that for other users.',
+				'title' => esc_html__( 'The plugin is not working', 'cool-plugins' ),
+				'input_placeholder' => esc_html__('Please share your issue. So we can fix that for other users.', 'cool-plugins'),
 			],
 			'temporary_deactivation' => [
-				'title' => __( 'It\'s a temporary deactivation', 'cool-plugins' ),
+				'title' => esc_html__( 'It\'s a temporary deactivation', 'cool-plugins' ),
 				'input_placeholder' => '',
 			],
 			'other' => [
-				'title' => __( 'Other', 'cool-plugins' ),
-				'input_placeholder' => __( 'Please share the reason', 'cool-plugins' ),
+				'title' => esc_html__( 'Other', 'cool-plugins' ),
+				'input_placeholder' => esc_html__( 'Please share the reason', 'cool-plugins' ),
 			],
 		];
 
@@ -87,7 +95,7 @@ class cp_feedback{
 			            
             <div class="cool-plugins-deactivation-response">
             <div id="cool-plugins-deactivate-feedback-dialog-header">
-				<span id="cool-plugins-feedback-form-title"><?php echo __( 'Quick Feedback', 'cool-plugins' ); ?></span>
+				<span id="cool-plugins-feedback-form-title"><?php echo esc_html__( 'Quick Feedback', 'cool-plugins' ); ?></span>
             </div>
             <div id="cool-plugins-loader-wrapper">
 				<div class="cool-plugins-loader-container">
@@ -100,7 +108,7 @@ class cp_feedback{
 				wp_nonce_field( '_cool-plugins_deactivate_feedback_nonce',"$this->plugin_slug-wpnonce" );
 				?>
 				<input type="hidden" name="action" value="cool-plugins_deactivate_feedback" />
-                <div id="cool-plugins-deactivate-feedback-dialog-form-caption"><?php echo __( 'If you have a moment, please share why you are deactivating this plugin.', 'cool-plugins' ); ?></div>
+                <div id="cool-plugins-deactivate-feedback-dialog-form-caption"><?php echo esc_html__( 'If you have a moment, please share why you are deactivating this plugin.', 'cool-plugins' ); ?></div>
 				<div id="cool-plugins-deactivate-feedback-dialog-form-body">
 					<?php foreach ( $deactivate_reasons as $reason_key => $reason ) : ?>
 						<div class="cool-plugins-deactivate-feedback-dialog-input-wrapper">
@@ -114,7 +122,7 @@ class cp_feedback{
 							<?php endif; ?>
 						</div>
                     <?php endforeach; ?>
-                    <input class="cool-plugins-GDPR-data-notice" id="cool-plugins-GDPR-data-notice" type="checkbox"><label for="cool-plugins-GDPR-data-notice"><?php echo __('I consent to having Cool Plugins store my all submitted information via this form, they can also respond to my inquiry.','cool-plugins');?></label>
+                    <input class="cool-plugins-GDPR-data-notice" id="cool-plugins-GDPR-data-notice" type="checkbox"><label for="cool-plugins-GDPR-data-notice"><?php echo esc_html__('I consent to having Cool Plugins store my all submitted information via this form, they can also respond to my inquiry.','cool-plugins');?></label>
                 </div>
                 <div class="cool-plugin-popup-button-wrapper">
                     <a class="cool-plugins-button button-deactivate" id="cool-plugin-submitNdeactivate">Submit and Deactivate</a>
@@ -130,8 +138,8 @@ class cp_feedback{
 
     function cfb_submit_deactivation_response(){
         if ( ! isset( $_POST['_wpnonce'] ) || ! wp_verify_nonce( $_POST['_wpnonce'], '_cool-plugins_deactivate_feedback_nonce' ) ) {
-			wp_send_json_error();
-		} else {
+            wp_send_json_error('Invalid nonce. Security check failed.');
+        } else {
             $reason = sanitize_text_field($_POST['reason']);
             $deactivate_reasons = [
                 'didnt_work_as_expected' => [
@@ -172,10 +180,60 @@ class cp_feedback{
 					'domain' => $site_url,
                 ],
 			]);
+            
+            if (is_wp_error($response)) {
+                wp_send_json_error('Failed to submit feedback: ' . $response->get_error_message());
+            }
 			
             wp_send_json(['response' => $response]);
         }
+               
+        $reason = sanitize_text_field($_POST['reason']);
+        $deactivate_reasons = $this->get_deactivate_reasons();
 
+        $deactivation_reason = array_key_exists($reason, $deactivate_reasons) ? $reason : 'other';
+        $sanitized_message = !empty($_POST['message']) ? sanitize_text_field($_POST['message']) : 'N/A';
+        
+        $response = wp_remote_post($this->feedback_url, [
+            'timeout' => 30,
+            'body' => [
+                'plugin_version' => $this->plugin_version,
+                'plugin_name' => $this->plugin_name,
+                'reason' => $deactivation_reason,
+                'review' => $sanitized_message,
+                'email' => get_option('admin_email'),
+                'domain' => site_url(),
+            ],
+        ]);
+
+        wp_send_json(['response' => $response]);
     }
+
+    private function get_deactivate_reasons() {
+        return [
+            'didnt_work_as_expected' => [
+                'title' => __('The plugin didn\'t work as expected', 'cool-plugins'),
+                'input_placeholder' => __('What did you expect?', 'cool-plugins'),
+            ],
+            'found_a_better_plugin' => [
+            'title' => esc_html__('I found a better plugin', 'cool-plugins'),
+            'input_placeholder' => esc_html__('Please share which plugin', 'cool-plugins'),
+            ],
+            'couldnt_get_the_plugin_to_work' => [
+                'title' => esc_html__('The plugin is not working', 'cool-plugins'),
+                'input_placeholder' => esc_html__('Please share your issue. So we can fix that for other users.', 'cool-plugins'),
+            ],
+            'temporary_deactivation' => [
+                'title' => esc_html__('It\'s a temporary deactivation', 'cool-plugins'),
+                'input_placeholder' => '',
+            ],
+            'other' => [
+                'title' => esc_html__('Other', 'cool-plugins'),
+                'input_placeholder' => esc_html__('Please share the reason', 'cool-plugins'),
+            ],
+            
+        ];
+     }
 }
+
 cp_feedback::get_instance();;
