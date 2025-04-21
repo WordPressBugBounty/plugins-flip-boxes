@@ -8,9 +8,6 @@ if (!defined('ABSPATH')) {
 |   Admin Side Plugin Review Notice - CoolPlugins.net          |
 |--------------------------------------------------------------|
 */
-if (!defined('ABSPATH')) {
-    exit; // Exit if accessed directly
-}
 
 if ( ! class_exists( 'CFB_CoolPlugins_Review_Notice' ) ) {
 	class CFB_CoolPlugins_Review_Notice {
@@ -42,7 +39,7 @@ if ( ! class_exists( 'CFB_CoolPlugins_Review_Notice' ) ) {
 		/**
 		 * @var string $plugin_logo The plugin logo.
 		 */
-		private $plugin_logo = 'assets/images/flipboxes-logo.png';
+		private $plugin_logo = 'assets/images/cool-flipbox.png';
 		/**
 		 * @var string $buy_link The buy link.
 		 */
@@ -174,24 +171,28 @@ if ( ! class_exists( 'CFB_CoolPlugins_Review_Notice' ) ) {
 
 			// check if installation days is greator then week
 			if ( isset( $diff_days ) && $diff_days >= 3 ) {
-				echo wp_kses_post( $this->cool_create_notice_content() );
+				echo $this->cool_create_notice_content();
 			}
 		}
 
 		// generated review notice HTML
 		function cool_create_notice_content() {
+			$nonce = wp_create_nonce( $this->plugin_slug . '_dismiss_notice_nonce' );
 			$plugin_buy_button = '';
 			if ( $this->buy_link != '' ) {
 				$plugin_buy_button = '<li><a href="' . esc_url( $this->buy_link ) . '" target="_blank" class="buy-pro-btn button button-secondary" title="Buy Pro">Buy Pro</a></li>';
 			}
 
 			$html = '
-            <div data-ajax-url="' . esc_url( admin_url( 'admin-ajax.php' ) ) . '" data-ajax-callback="' . esc_attr( $this->plugin_slug . '_dismiss_notice' ) . '" class="' . esc_attr( $this->plugin_slug ) . '-review-notice-wrapper notice">
+            <div data-ajax-url="' . esc_url( admin_url( 'admin-ajax.php' ) ) . '" data-ajax-callback="' . esc_attr( $this->plugin_slug . '_dismiss_notice' ) . '"
+			data-nonce="' . esc_attr( $nonce ) . '" class="' . esc_attr( $this->plugin_slug ) . '-review-notice-wrapper notice">
+			    <span class="notice-dismiss dashicons dashicons-no-alt ' . esc_attr( $this->plugin_slug ) . '_dismiss_notice" title="Dismiss this notice"></span>
+
                 <div class="logo_container">
                     <a href="' . esc_url( $this->review_link ) . '" target="_blank"><img src="' . esc_url( $this->plugin_url . $this->plugin_logo ) . '" alt="' . esc_attr( $this->plugin_name ) . '"></a>
                 </div>
                 <div class="message_container">
-                    <p>' . sprintf( esc_html__( 'Thanks for using %s WordPress plugin. We hope it meets your expectations!', 'text-domain' ), '<b>' . esc_html( $this->plugin_name ) . '</b>' ) . '</p>
+                    <p>' . sprintf( esc_html__( 'Thanks for using the %s WordPress plugin. We hope it meets your expectations! Please give us a quick rating — it works as a boost for us to keep working on more ', 'text-domain' ), '<b>' . esc_html( $this->plugin_name ) . '</b>' ) . '<a href="https://coolplugins.net/" target="_blank">Cool Plugins</a></p>
                     <ul>
                         <li><a href="' . esc_url( $this->review_link ) . '" class="rate-it-btn button button-primary" target="_blank" title="Submit A Review...">Rate Now! ★★★★★</a></li>
                         <li><a href="javascript:void(0);" class="already-rated-btn button button-secondary ' . esc_attr( $this->plugin_slug ) . '_dismiss_notice" title="Already Rated - Close This Notice!">Already Rated</a></li>
@@ -209,7 +210,6 @@ if ( ! class_exists( 'CFB_CoolPlugins_Review_Notice' ) ) {
                 padding: 5px;
                 margin: 5px 0;
                 display: table;
-                max-width: 820px;
                 border-radius: 5px;
                 border: 1px solid #ced3d6;
                 box-sizing: border-box;
@@ -269,13 +269,26 @@ if ( ! class_exists( 'CFB_CoolPlugins_Review_Notice' ) ) {
                 line-height: 14px;
                 font-family: dashicons;
             }
+			.' . esc_attr( $this->plugin_slug ) . '-review-notice-wrapper .notice-dismiss {
+				position: absolute;
+				top: -4px;
+				color: #72777c;
+				text-decoration: none;
+				cursor: pointer;
+				font-size: 18px;
+			}
+			.' . esc_attr( $this->plugin_slug ) . '-review-notice-wrapper {
+				position: relative;
+			}
+
             .' . esc_attr( $this->plugin_slug ) . '-review-notice-wrapper ul li .button-primary:hover {
                 background: #222;
                 border-color: #000;
             }
-            @media screen and (max-width: 660px) {
-                .' . esc_attr( $this->plugin_slug ) . '-review-notice-wrapper .logo_container{
-                    display:none;
+            @media screen and (max-width: 768px) {
+                #wpbody .' . esc_attr( $this->plugin_slug ) . '-review-notice-wrapper.notice {
+                    display: flex;
+					flex-direction:column;
                 }
                 .' . esc_attr( $this->plugin_slug ) . '-review-notice-wrapper .message_container {
                     display: flow-root;
@@ -292,8 +305,9 @@ if ( ! class_exists( 'CFB_CoolPlugins_Review_Notice' ) ) {
                     var $this = $(this);
                     var wrapper=$this.parents(".' . esc_js( $this->plugin_slug ) . '-review-notice-wrapper");
                     var ajaxURL=wrapper.data("ajax-url");
-                    var ajaxCallback=wrapper.data("ajax-callback");         
-                    $.post(ajaxURL, { "action":ajaxCallback }, function( data ) {
+                    var ajaxCallback=wrapper.data("ajax-callback");
+					var nonce = wrapper.data("nonce");         
+                    $.post(ajaxURL, { "action":ajaxCallback,_nonce: nonce }, function( data ) {
                         wrapper.slideUp("fast");
                     }, "json");
                 });
