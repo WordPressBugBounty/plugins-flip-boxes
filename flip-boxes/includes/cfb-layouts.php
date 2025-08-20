@@ -42,7 +42,7 @@ if ( ! class_exists( 'CFB_Layouts' ) ) {
 
 			$flipbox_title        = sanitize_text_field($entry['flipbox_title'] ?? '');
 			$back_desc = mb_strimwidth(
-				sanitize_text_field( $entry['flipbox_desc'] ?? '' ),
+				$entry['flipbox_desc'] ?? '',
 				0,
 				absint( $entry['flipbox_desc_length'] ?? 75 ),
 				'...'
@@ -52,7 +52,7 @@ if ( ! class_exists( 'CFB_Layouts' ) ) {
 			$flipbox_image        = sanitize_text_field($entry['flipbox_image'] ?? '');
 			$flipbox_url          = sanitize_text_field($entry['flipbox_url'] ?? '');
 			$front_desc = mb_strimwidth(
-				sanitize_text_field( $entry['flipbox_label']  ?? '' ),
+				$entry['flipbox_label']  ?? '',
 				0,
 				absint( $entry['flipbox_desc_length'] ?? 75 ),
 				'...'

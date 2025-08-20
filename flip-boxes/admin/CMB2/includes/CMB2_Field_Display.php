@@ -169,7 +169,7 @@ class CMB2_Field_Display {
 	 * @since 2.2.2
 	 */
 	protected function _display() {
-		print_r( $this->value );
+		echo '<pre>' . esc_html( print_r( $this->value, true ) ) . '</pre>';
 	}
 }
 
@@ -285,7 +285,7 @@ class CMB2_Display_Textarea_Code extends CMB2_Field_Display {
 	 * @since 2.2.2
 	 */
 	protected function _display() {
-		echo '<xmp class="cmb2-code">' . print_r( $this->value, true ) . '</xmp>';
+		echo '<xmp class="cmb2-code">' . esc_html( print_r( $this->value, true ) ) . '</xmp>';
 	}
 }
 

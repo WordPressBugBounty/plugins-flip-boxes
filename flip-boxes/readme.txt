@@ -4,7 +4,7 @@ Requires at least: 4.5
 Tags:flipbox,flipbox block,flip images,flipboxes,cool flipbox, content box
 Tested up to:6.8
 Requires PHP: 5.6
-Stable tag:1.9.1
+Stable tag:1.9.2
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -100,6 +100,12 @@ You can report security bugs through the Patchstack Vulnerability Disclosure Pro
 --After upgrading your installed plugin with latest version(1.0.1),Please update your flipboxes effect.-- 
 
 == Changelog ==
+<strong>Version 1.9.2 | 20 Aug 2025</strong>
+<pre>
+Fixed: HTML render issue.
+Improvements: security code improvements.
+</pre>
+
 <strong>Version 1.9.1 | 21 Apr 2025</strong>
 <pre>
 Fixed: Review notice render issue.

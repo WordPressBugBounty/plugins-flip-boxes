@@ -99,7 +99,7 @@ class cp_feedback{
             </div>
             <div id="cool-plugins-loader-wrapper">
 				<div class="cool-plugins-loader-container">
-                    <img class="cool-plugins-preloader" src="<?php echo $this->plugin_url; ?>admin/feedback/images/cool-plugins-preloader.gif">
+                    <img class="cool-plugins-preloader" src="<?php echo esc_url( $this->plugin_url ); ?>admin/feedback/images/cool-plugins-preloader.gif">
                 </div>
             </div>
             <div id="cool-plugins-form-wrapper" class="cool-plugins-form-wrapper-cls">
