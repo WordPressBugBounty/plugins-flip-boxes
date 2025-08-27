@@ -4,64 +4,68 @@ Requires at least: 4.5
 Tags:flipbox,flipbox block,flip images,flipboxes,cool flipbox, content box
 Tested up to:6.8
 Requires PHP: 5.6
-Stable tag:1.9.2
+Stable tag:1.9.3
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
-Show off your team members, staff, and employees in a cool and eye-catching way. Make sure your team's profiles not only grab attention but also stick in the reader's mind easily.
+Show off your team members, staff, and employees in a visually appealing way. Make sure your team's profiles not only grab attention but also stick in the reader's mind easily.
 
 == Description ==
 
-Cool Flipbox empowers you to <strong>showcase content</strong> in a visually appealing manner, enabling your audience to flip boxes and discover messages. This plugin allows you to easily create flip boxes within <strong>Gutenberg</strong>, making your website interactive for visitors. 
-
-Whether it's displaying your <strong>team members, staff, employees</strong>, or any other <strong>content box</strong>, <strong>Cool Flipbox</strong> is the ideal tool for creating engaging Info Boxes on your site.
-
-<strong>Please check the Cool Flipbox Demos:-</strong>
-
-<a href="https://demos.coolplugins.net/flipboxes-demo/?utm_source=cfb_plugin&utm_medium=readme_classic&utm_campaign=demo&utm_content=classic">View Classic Flipbox Demos</a>
-<a href="https://demos.coolplugins.net/flipbox-block-demos/?utm_source=cfb_plugin&utm_medium=readme_block&utm_campaign=demo&utm_content=block">View Flipbox Block Demos</a>
+**[Cool Flipbox](https://coolplugins.net/product/flipboxes/?utm_source=cfb_plugin&utm_medium=readme&utm_campaign=view_plugin&utm_content=top_description)** is a simple yet powerful plugin that lets you display content in an interactive **“flip”** style. Visitors can hover or click on a box to flip it and reveal hidden details. 
 
 https://www.youtube.com/watch?v=qjC_TXUJ3-w
 
+Whether it's displaying your **team members, staff, employees**, or any other **content box**, **Cool Flipbox** is the ideal tool for creating engaging Info Boxes on your site.
+
 https://www.youtube.com/watch?v=aSqsRIQO2-U
 
-Highlight the unique qualities and expertise of each <strong>team member</strong> as you present their information in a visually appealing flipbox format. Engage your audience with a seamless and interactive experience, making it easy for visitors to connect with your team on a personal level.
+### Key Features
+* **Customizable Design**: You can style flip boxes to perfectly match your website. Change background colors, text colors, and fonts.
 
-The WordPress Cool Flipbox plugin offers a variety of special features to enhance the appearance and functionality of your content:
-<ul>
-<li>Customize the look and feel of the flip boxes using your color scheme.</li>
-<li>Easily add font-awesome icons to complement the content in the boxes.</li>
-<li>Fully customize both sides of the flip box, including the title, description, and styling.</li>
-<li>Incorporate buttons, images, and icons into the content.</li>
-<li>Re-order the position of the flip boxes with ease.</li>
-<li>Flexibly set the number of columns for the flip boxes to suit your layout needs.</li>
-<li>Create an unlimited number of beautifully designed flip boxes.</li>
-<li>Add links to other web pages for more detailed information.</li>
-</ul>
+* **Add Icons and Images**: Easily insert Font Awesome icons, upload images, or include buttons to make your flip boxes more informative and visually appealing. For example, use an icon for a service or a profile photo for a team member.
 
-<strong>Cool Flipbox WordPress</strong> plugin is a powerful tool for adding visual interest and interactivity to your website's content. By using this plugin, you can easily create flip boxes that showcase your content in an engaging and dynamic way.
+* **Two-Sided Content**: Each flip box has a front and a back. You can customize both sides with different titles, descriptions, and styles. Use the front for short highlights and the back for detailed information.
 
-The plugin is incredibly easy to use, and it allows you to add the flip box anywhere on your webpage by simply using shortcodes and blocks.
+* **Flexible Layout Options**: Choose how many flip boxes you want to show in a row by setting the number of columns. You can also reorder boxes anytime, making it easy to arrange your content exactly as you want.
 
-[](http://coderisk.com/wp/plugin/flip-boxes/RIPS-3vGGprj2Jh)
+* **Unlimited Flipboxes**: There’s no limit on how many flip boxes you can create. Whether you need a few to showcase services or a whole grid for team members, the plugin can handle it.
 
-= How can I report security bugs? =
-You can report security bugs through the Patchstack Vulnerability Disclosure Program. The Patchstack team help validate, triage and handle any security vulnerabilities. [Report a security vulnerability.](https://patchstack.com/database/vdp/flip-boxes)
+* **Clickable Links**: Add links to your flip boxes so users can click through other pages, services, or external websites for more details.
+
+* **Easy to Use with Gutenberg & Shortcodes**: The plugin comes with a Gutenberg block for drag-and-drop editing. If you prefer, you can also use a shortcode to place flip boxes anywhere on your site.
+
+### Check our other cool plugins
+
+* **[Cool FormKit For Elementor Forms](https://coolplugins.net/cool-formkit-for-elementor-forms/?utm_source=cfb_plugin&utm_medium=readme&utm_campaign=get_pro&utm_content=cfkef_check_out)**: Add advanced fields and features to your Elementor form widget, like conditional fields, range sliders, country code, and more.
+
+* **[Automatic Translate Addon for Loco Translate](https://locoaddon.com/?utm_source=cfb_plugin&utm_medium=readme&utm_campaign=get_pro&utm_content=atlt_check_out)**: It is a powerful addon that enhances the functionality of the Loco Translate plugin by enabling the automatic translation of WordPress themes and plugins. This addon connects with sources like Google, Yandex, DeepL, or AI-powered sources like ChatGPT, Gemini AI and Chrome AI to provide instant and automated translations.
+
+* **[AutoPoly - AI Translation For Polylang](https://coolplugins.net/product/automatic-translations-for-polylang/?utm_source=cfb_plugin&utm_medium=readme&utm_campaign=get_pro&utm_content=atfp_check_out)**: This addon duplicates your page or post titles, content, images, galleries, or meta fields, and automatically translates them into the selected language. Whether you’re using Elementor or Gutenberg, this addon makes the translation process easier.
+
+* **[Timeline Widget For Elementor](https://cooltimeline.com/plugin/elementor-timeline-widget-pro/?utm_source=cfb_plugin&utm_medium=readme&utm_campaign=get_pro&utm_content=twae_check_out)**: Showcase your company history, product roadmap, and personal journey in vertical & horizontal layout directly inside Elementor.
 
 == Installation ==
-<h6>There are 3 ways to install Flip Boxes inside your WordPress website.</h6>
-<ol>
-<li><strong>Automatically install our plugin via WordPress admin panel</strong>:- Open your WordPress website admin panel and go to Plugins > Click Add New & search '<strong>Flip Boxes</strong>' > Here you will find our plugin > Now click on install button > After this you will see a activate button > Just activate it to use Flip Boxes inside your website</li>
+### There are 3 ways to install Flip Boxes inside your WordPress website.</h6>
 
-<li><strong>Install via Zip file</strong>:- In this method first you need to download our plugin from the WordPress plugins directory. Go to https://wordpress.org/plugins/flip-boxes <strong>Flip Boxes</strong>. After this inside your WP-admin panel, click on Plugins > Add New > Upload Button. Now choose the plugin zip file that you just downloaded from the WordPress plugins directory & activate it.</li>
+* **Automatically install our plugin via WordPress admin panel**:- 
+ * Open your WordPress website admin panel and go to Plugins > Click Add New & search '**Flip Boxes**. 
+ * Here you will find our plugin. Now click on the install button > After this, activate it to use Flip Boxes inside your website.
 
-<li><strong>Install the plugin via FTP</strong>:- In this method you also first need to download the plugin zip file from the WordPress plugins directory. After this open your FTP manager and Go to > wp-content/plugins folder. Here you need to upload the extracted version of <strong>flip-boxes</strong> (please remember don't upload a zip file directly here) After this you can activate the plugin from the wp-admin panel plugins page.</li>
-</ol>
+* **Install via Zip file**:- 
+ * In this method, first you need to download our plugin from the WordPress plugins directory. 
+ * Go to https://wordpress.org/plugins/flip-boxes **Flip Boxes**.       
+ * After this, inside your WP-admin panel, click on Plugins > Add New > Upload Button. Now choose the plugin zip file that you just downloaded from the WordPress plugins directory & activate it.
+
+* **Install the plugin via FTP**:- 
+ * In this method, you also first need to download the plugin zip file from the **WordPress plugins directory**. 
+ * After this, open your FTP manager and go to > wp-content/plugins folder. Here you need to upload the extracted version of **flip-boxes** (please remember, don't upload a zip file directly here). 
+ * After this, you can activate the plugin from the **WP-Admin** panel plugins page.
 
 == Frequently Asked Questions ==
 
 = What is Cool Flipbox? =
-Cool Flipbox is a WordPress plugin that allows you to create visually appealing flip boxes to showcase content interactively. It can be used within Gutenberg or via shortcodes.
+Cool Flipbox is a WordPress plugin that allows you to create visually appealing flip boxes to showcase content interactively. It can be used within Gutenberg via shortcodes.
 
 = What can I use Cool Flipbox for? =
 You can use Cool Flipbox to display content such as team members, staff, employees, or any other information in an engaging flip box format.
@@ -96,112 +100,108 @@ Yes, Cool Flipbox is incredibly easy to use and allows you to create and customi
 = How can I report security bugs? =
 You can report security bugs through the Patchstack Vulnerability Disclosure Program. The Patchstack team help validate, triage and handle any security vulnerabilities. [Report a security vulnerability.](https://patchstack.com/database/vdp/flip-boxes)
 
+== Screenshots ==
+1. Flipbox Overview.
+2. Add Flipbox.
+3. Flipbox Settings.
+4. Flipbox Shortcode Generator.
+
 == Upgrade Notice ==
 --After upgrading your installed plugin with latest version(1.0.1),Please update your flipboxes effect.-- 
 
 == Changelog ==
-<strong>Version 1.9.2 | 20 Aug 2025</strong>
-<pre>
-Fixed: HTML render issue.
-Improvements: security code improvements.
-</pre>
 
-<strong>Version 1.9.1 | 21 Apr 2025</strong>
-<pre>
-Fixed: Review notice render issue.
-</pre>
-<strong>Version 1.9.0 | 19 Apr 2025</strong>
-<pre>
-Fixed: Fixed security issue.
-Improvements: code improvements.
-Tested up to: WordPress 6.8.
-</pre>
-<strong>Version 1.8.3 | 23 Jan 2024</strong>
-<pre>
-Added: wp_kses_post() function added for full HTML support.
-</pre>
-<strong>Version 1.8.2 | 20 Jan 2024</strong>
-<pre>
-Added: wp_kses() function added for HTML support.
-</pre>
-<strong>Version 1.8.1 | 16 Jan 2024</strong>
-<pre>
-Added: Flipbox Event Settings: Customize Hover and Click Interactions.
-Improvements : Minor improvements with added escaping for enhanced security.
-</pre>
-<strong>Version 1.8 | 09 Jan 2024</strong>
-<pre>
-Integrated: Integrated Cool FlipBox Block For Gutenberg
-Added: Flipbox setting page for changing plugin type (Post Type to Block).
-Update: CMB2 library latest version.
-Fixed: PHP deprecated errors.
-</pre>
-<strong>Version 1.7.1 | 16 Oct 2020</strong>
-<pre>
-Fixed: missing file warnings
-</pre>
-<strong>Version 1.7 | 15 Oct 2020</strong>
-<pre>
-Added: Integrated and Improved new designs in all layouts.
-Fixed: Feedback from bug
-Improved: Overall plugin code
-Fixed: compatibility issues with WordPress 5.5
-</pre>
-<strong>Version 1.6.2 | 02 Jan 2020</strong>
-<pre>
-Fixed:- Content formatting issues.
-</pre>
-<strong>Version 1.6.1 | 16 Dec 2019</strong>
-<pre>
-Added:- Added Security checks
-Improvements:-Minor code improvements
-</pre>
+= Version 1.9.3 | 27 Aug 2025 =
+* **Update:** Plugin and readme links.
 
-<strong>Version 1.6 | 06 Sep 2019</strong>
-<pre>
-Added:-Integrate Shortcode Live Preview on the admin side.
-Fixed:-Undefined content length bug fixed.
-Improvements:- All layouts
-Improvements:- Improved CSS
-Improvements:- Improved all designs
+= Version 1.9.2 | 20 Aug 2025 =
+* **Fixed:** HTML render issue.
+* **Improvements:** security code improvements.
 
-</pre>
-<strong>Version :- 1.5</strong>
-<pre>
-Added:- Integrated feedback on plugin deactivation 
-Added:- Dynamic Target option for Read More link
-Improvements:- Improved CSS
-Fixed:- CSS issue in Google Chrome
-</pre>
-<strong>Version :- 1.4</strong>
-<pre>
-Added:- Integrated six new designs
-Fixed:- Fixed responsive issues
-Fixed:-  Fixed Bootstrap conflict
-Fixed:- Created new options for Flipbox Height in Flipbox Settings
-Improvements: Minified CSS and JS files
-Improvements: Added post ID into flip boxes
-Fixed:- Fixed link issue in mobile device
-</pre>
-<strong>Version :- 1.3</strong>
-Updated:- updated CMB2 version and included on a specific page.
-Fixed: Read More link issue in mobile devices
-Fixed:- CMB2 (to fix cmb2 color picker issue)
-Fixed:- Reset Default Flipbox settings  
+= Version 1.9.1 | 21 Apr 2025 =
+* **Fixed:** Review notice render issue.
 
-Version 1.2.2
-Added:- Fixed Minor issues
-Added:- Improved styles.
-Version 1.2
-Added:- Integrated flip box description length settings
-Added:- flip box item-based color selection settings.
-Added:- Set compatibility with mobile devices and added flip effect on touch
-Fixed:- Mobile devices landscape problem 
-Improvements: minor CSS improvements.
+= Version 1.9.0 | 19 Apr 2025 =
 
-Version 1.0.1 
-After upgrading your installed plugin with the latest version(1.0.1), Please update your flipboxes effect.
-Fixed: Fixed Mobile device flipping problem
-Version 1.0 
+* **Fixed:** Fixed security issue.
+* **Improvements:** code improvements.
+* **Tested up to:** WordPress 6.8.
+
+= Version 1.8.3 | 23 Jan 2024 =
+
+* **Added:** wp_kses_post() function added for full HTML support.
+
+= Version 1.8.2 | 20 Jan 2024 =
+* **Added:** wp_kses() function added for HTML support.
+
+= Version 1.8.1 | 16 Jan 2024 =
+* **Added:** Flipbox Event Settings: Customize Hover and Click Interactions.
+* **Improvements:** Minor improvements with added escaping for enhanced security.
+
+= Version 1.8 | 09 Jan 2024 =
+* **Integrated:** Integrated Cool FlipBox Block For Gutenberg
+* **Added:** Flipbox setting page for changing plugin type (Post Type to Block).
+* **Update:** CMB2 library latest version.
+* **Fixed:** PHP deprecated errors.
+
+= Version 1.7.1 | 16 Oct 2020 =
+* **Fixed:** missing file warnings
+
+= Version 1.7 | 15 Oct 2020 =
+* **Added:** Integrated and Improved new designs in all layouts.
+* **Fixed:** Feedback from bug
+* **Improved:** Overall plugin code
+* **Fixed:** compatibility issues with WordPress 5.5
+
+= Version 1.6.2 | 02 Jan 2020 =
+* **Fixed:** Content formatting issues.
+
+= Version 1.6.1 | 16 Dec 2019 =
+* **Added:** Added Security checks
+* **Improvements:** Minor code improvements
+
+= Version 1.6 | 06 Sep 2019 =
+* **Added:** Integrate Shortcode Live Preview on the admin side.
+* **Fixed:** Undefined content length bug fixed.
+* **Improvements:** All layouts
+* **Improvements:** Improved CSS
+* **Improvements:** Improved all designs
+
+= Version :- 1.5 =
+* **Added:** Integrated feedback on plugin deactivation 
+* **Added:** Dynamic Target option for Read More link
+* **Improvements:** Improved CSS
+* **Fixed:** CSS issue in Google Chrome
+
+= Version :- 1.4 =
+* **Added:** Integrated six new designs
+* **Fixed:** Fixed responsive issues
+* **Fixed:**  Fixed Bootstrap conflict
+* **Fixed:** Created new options for Flipbox Height in Flipbox Settings
+* **Improvements:** Minified CSS and JS files
+* **Improvements:** Added post ID into flip boxes
+* **Fixed:** Fixed link issue in mobile device
+
+= Version :- 1.3 =
+* **Updated:** updated CMB2 version and included on a specific page.
+* **Fixed:** Read More link issue in mobile devices
+* **Fixed:** CMB2 (to fix cmb2 color picker issue)
+* **Fixed:** Reset Default Flipbox settings  
+
+= Version 1.2.2 =
+* **Added:** Fixed Minor issues
+* **Added:** Improved styles.
+
+= Version 1.2 =
+* **Added:** Integrated flip box description length settings
+* **Added:** flip box item-based color selection settings.
+* **Added:** Set compatibility with mobile devices and added flip effect on touch
+* **Fixed:** Mobile devices landscape problem 
+* **Improvements:** minor CSS improvements.
+
+= Version 1.0.1 =
+* After upgrading your installed plugin with the latest version(1.0.1), Please update your flipboxes effect.
+* **Fixed:** Fixed Mobile device flipping problem
+
+= Version 1.0 =
 --Initial release--
- 

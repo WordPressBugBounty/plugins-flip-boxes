@@ -628,9 +628,6 @@ if ( ! class_exists( 'CFB_post_type' ) ) {
 			<br>
 			<br>
 			<input type="text" class="regular-small" name="my_meta_box_text" id="my_meta_box_text" value="<?php echo esc_attr( $dynamic_attr ); ?>" readonly/>
-			<br>
-			<br>
-			<a href='<?php echo esc_url('https://demos.coolplugins.net/flipboxes-demo/?utm_source=cfb_plugin&utm_medium=inside_classic&utm_campaign=demo&utm_content=classic'); ?>' target="_blank" class='button button-primary'><?php echo esc_html__('View Demos', 'c-flipbox'); ?></a>
 			<?php
 		}
 		
