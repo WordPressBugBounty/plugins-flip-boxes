@@ -1,4 +1,9 @@
 <?php
+
+if ( ! defined( 'ABSPATH' ) ) {
+    exit; // Exit if accessed directly
+}
+
 /**
  * CMB2 Helper Functions
  *
@@ -27,6 +32,7 @@ function cmb2_dir( $path = '' ) {
  * @param  string $class_name Name of the class being requested.
  */
 function cmb2_autoload_classes( $class_name ) {
+	// phpcs:ignore WordPress.WP.I18n.TextDomainMismatch
 	if ( 0 !== strpos( $class_name, 'CMB2' ) ) {
 		return;
 	}
@@ -103,8 +109,8 @@ function cmb2_get_oembed( $args = array() ) {
 	}
 
 	$error = sprintf(
-		/* translators: 1: results for. 2: link to codex.wordpress.org/Embeds */
-		esc_html__( 'No oEmbed Results Found for %1$s. View more info at %2$s.', 'cmb2' ),
+		/* translators: 1: results for. 2: link to codex.wordpress.org/Embeds   */
+		esc_html__( 'No oEmbed Results Found for %1$s. View more info at %2$s.', 'cmb2' ), // phpcs:ignore WordPress.WP.I18n.TextDomainMismatch
 		$oembed['fallback'],
 		'<a href="https://wordpress.org/support/article/embeds/" target="_blank">codex.wordpress.org/Embeds</a>'
 	);
@@ -126,6 +132,7 @@ function cmb2_get_oembed( $args = array() ) {
  * @param array $args oEmbed args.
  */
 function cmb2_do_oembed( $args = array() ) {
+	// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- cmb2_get_oembed() returns safe HTML
 	echo cmb2_get_oembed( $args );
 }
 add_action( 'cmb2_do_oembed', 'cmb2_do_oembed' );
@@ -209,6 +216,7 @@ function cmb2_get_field_value( $meta_box, $field_id, $object_id = 0, $object_typ
  * @param  array $meta_box_config Metabox Config array.
  * @return CMB2 object            Instantiated CMB2 object
  */
+// phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedFunctionFound
 function new_cmb2_box( array $meta_box_config ) {
 	return cmb2_get_metabox( $meta_box_config );
 }
@@ -305,6 +313,7 @@ function cmb2_print_metabox_form( $meta_box, $object_id = 0, $args = array() ) {
 
 	$args = wp_parse_args( $args, array(
 		'form_format' => '<form class="cmb-form" method="post" id="%1$s" enctype="multipart/form-data" encoding="multipart/form-data"><input type="hidden" name="object_id" value="%2$s">%3$s<input type="submit" name="submit-cmb" value="%4$s" class="button-primary"></form>',
+		// phpcs:ignore WordPress.WP.I18n.TextDomainMismatch
 		'save_button' => esc_html__( 'Save', 'cmb2' ),
 		'object_type' => $cmb->mb_object_type(),
 		'cmb_styles'  => $cmb->prop( 'cmb_styles' ),
@@ -341,10 +350,12 @@ function cmb2_print_metabox_form( $meta_box, $object_id = 0, $args = array() ) {
 	$format_parts = explode( '%3$s', $form_format );
 
 	// Show cmb form.
+	// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Format string from filter expected to be safe HTML
 	printf( $format_parts[0], esc_attr( $cmb->cmb_id ), esc_attr( $object_id ) );
 	$cmb->show_form();
 
 	if ( isset( $format_parts[1] ) && $format_parts[1] ) {
+		// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Format string from filter expected to be safe HTML
 		printf( str_ireplace( '%4$s', '%1$s', $format_parts[1] ), esc_attr( $args['save_button'] ) );
 	}
 

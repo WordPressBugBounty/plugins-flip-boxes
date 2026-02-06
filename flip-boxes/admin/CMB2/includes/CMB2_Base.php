@@ -1,4 +1,9 @@
 <?php
+
+if ( ! defined( 'ABSPATH' ) ) {
+    exit; // Exit if accessed directly
+}
+
 /**
  * CMB2 Base - Base object functionality.
  *
@@ -246,6 +251,7 @@ abstract class CMB2_Base {
 	 * @param string $param Field parameter.
 	 */
 	public function peform_param_callback( $param ) {
+		// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Callback results may intentionally contain HTML
 		echo $this->get_param_callback_result( $param );
 	}
 
@@ -420,11 +426,13 @@ abstract class CMB2_Base {
 			switch ( $message ) {
 
 				case self::DEPRECATED_PARAM:
-					$message = sprintf( __( 'The "%1$s" field parameter has been deprecated in favor of the "%2$s" parameter.', 'cmb2' ), $args[3], $args[4] );
+					/* translators: %1$s: deprecated field parameter name, %2$s: new field parameter name */
+					$message = sprintf( __( 'The "%1$s" field parameter has been deprecated in favor of the "%2$s" parameter.', 'flip-boxes' ), $args[3], $args[4] );
 					break;
 
 				case self::DEPRECATED_CB_PARAM:
-					$message = sprintf( __( 'Using the "%1$s" field parameter as a callback has been deprecated in favor of the "%2$s" parameter.', 'cmb2' ), $args[3], $args[4] );
+					/* translators: %1$s: deprecated field parameter name, %2$s: new field parameter name */
+					$message = sprintf( __( 'Using the "%1$s" field parameter as a callback has been deprecated in favor of the "%2$s" parameter.', 'flip-boxes' ), $args[3], $args[4] );
 					break;
 
 				default:
@@ -442,6 +450,7 @@ abstract class CMB2_Base {
 		 * @param string $message  A message regarding the change.
 		 * @param string $version  The version of CMB2 that deprecated the argument used.
 		 */
+		// phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound
 		do_action( 'deprecated_argument_run', $function, $message, $version );
 
 		/**
@@ -451,17 +460,22 @@ abstract class CMB2_Base {
 		 *
 		 * @param bool $trigger Whether to trigger the error for deprecated arguments. Default true.
 		 */
+		// phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound
 		if ( defined( 'WP_DEBUG' ) && WP_DEBUG && apply_filters( 'deprecated_argument_trigger_error', true ) ) {
 			if ( function_exists( '__' ) ) {
 				if ( ! is_null( $message ) ) {
-					trigger_error( sprintf( __( '%1$s was called with a parameter that is <strong>deprecated</strong> since version %2$s! %3$s', 'cmb2' ), $function, $version, $message ) );
+					/* translators: %1$s: function name, %2$s: version number, %3$s: deprecation message */
+					trigger_error( sprintf( __( '%1$s was called with a parameter that is <strong>deprecated</strong> since version %2$s! %3$s', 'flip-boxes' ), $function, $version, $message ) );// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- trigger_error is not browser output
 				} else {
-					trigger_error( sprintf( __( '%1$s was called with a parameter that is <strong>deprecated</strong> since version %2$s with no alternative available.', 'cmb2' ), $function, $version ) );
+					/* translators: %1$s: function name, %2$s: version number */
+					trigger_error( sprintf( __( '%1$s was called with a parameter that is <strong>deprecated</strong> since version %2$s with no alternative available.', 'flip-boxes' ), $function, $version ) );// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- trigger_error is not browser output
 				}
 			} else {
 				if ( ! is_null( $message ) ) {
+					// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- trigger_error is not browser output
 					trigger_error( sprintf( '%1$s was called with a parameter that is <strong>deprecated</strong> since version %2$s! %3$s', $function, $version, $message ) );
 				} else {
+					// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- trigger_error is not browser output
 					trigger_error( sprintf( '%1$s was called with a parameter that is <strong>deprecated</strong> since version %2$s with no alternative available.', $function, $version ) );
 				}
 			}
@@ -489,7 +503,9 @@ abstract class CMB2_Base {
 			case 'object_type':
 				return $this->{$field};
 			default:
-				throw new Exception( sprintf( esc_html__( 'Invalid %1$s property: %2$s', 'cmb2' ), __CLASS__, $field ) );
+				/* translators: %1$s: class name, %2$s: property name */
+				
+				throw new Exception( sprintf( esc_html__( 'Invalid %1$s property: %2$s', 'flip-boxes' ), __CLASS__, $field ) );// phpcs:ignore WordPress.Security.EscapeOutput.ExceptionNotEscaped -- Exception messages are not browser output
 		}
 	}
 
@@ -507,7 +523,8 @@ abstract class CMB2_Base {
 		$object_class = strtolower( get_class( $this ) );
 
 		if ( ! has_filter( "{$object_class}_inherit_{$method}" ) ) {
-			throw new Exception( sprintf( esc_html__( 'Invalid %1$s method: %2$s', 'cmb2' ), get_class( $this ), $method ) );
+			/* translators: %1$s: class name, %2$s: method name */
+			throw new Exception( sprintf( esc_html__( 'Invalid %1$s method: %2$s', 'flip-boxes' ), get_class( $this ), $method ) );// phpcs:ignore WordPress.Security.EscapeOutput.ExceptionNotEscaped -- Exception messages are not browser output
 		}
 
 		array_unshift( $args, $this );
@@ -529,6 +546,8 @@ abstract class CMB2_Base {
 		 * @param array $args The arguments to be passed to the hook.
 		 *                    The first argument will always be this object instance.
 		 */
+		
+		// phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.DynamicHooknameFound -- Dynamic hook for CMB2 extensibility
 		return apply_filters_ref_array( "{$object_class}_inherit_{$method}", $args );
 	}
 }

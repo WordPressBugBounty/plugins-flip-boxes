@@ -24,16 +24,20 @@ class CMB2_REST_Controller_Fields extends CMB2_REST_Controller_Boxes {
 	public function register_routes() {
 		$args = array(
 			'_embed' => array(
+				// phpcs:ignore WordPress.WP.I18n.TextDomainMismatch
 				'description' => __( 'Includes the box object which the fields are registered to in the response.', 'cmb2' ),
 			),
 			'_rendered' => array(
-				'description' => __( 'When the \'_rendered\' argument is passed, the renderable field attributes will be returned fully rendered. By default, the names of the callback handers for the renderable attributes will be returned.', 'cmb2' ),
+				// phpcs:ignore WordPress.WP.I18n.TextDomainMismatch
+				'description' => __( 'When the \'_rendered\' argument is passed, the renderable field attributes will be returned fully rendered. By default, the names of the callback handers for the renderable attributes will be returned.', 'cmb2' ), // phpcs:ignore WordPress.WP.I18n.TextDomainMismatch
 			),
 			'object_id' => array(
+				// phpcs:ignore WordPress.WP.I18n.TextDomainMismatch
 				'description' => __( 'To view or modify the field\'s value, the \'object_id\' and \'object_type\' arguments are required.', 'cmb2' ),
 			),
 			'object_type' => array(
-				'description' => __( 'To view or modify the field\'s value, the \'object_id\' and \'object_type\' arguments are required.', 'cmb2' ),
+				// phpcs:ignore WordPress.WP.I18n.TextDomainMismatch
+				'description' => __( 'To view or modify the field\'s value, the \'object_id\' and \'object_type\' arguments are required.', 'cmb2' ), 
 			),
 		);
 
@@ -233,6 +237,7 @@ class CMB2_REST_Controller_Fields extends CMB2_REST_Controller_Boxes {
 		$this->initiate_rest_read_box( $request, 'field_value_update' );
 
 		if ( ! $this->request['value'] ) {
+			// phpcs:ignore WordPress.WP.I18n.TextDomainMismatch
 			return new WP_Error( 'cmb2_rest_update_field_error', __( 'CMB2 Field value cannot be updated without the value parameter specified.', 'cmb2' ), array(
 				'status' => 400,
 			) );
@@ -294,6 +299,7 @@ class CMB2_REST_Controller_Fields extends CMB2_REST_Controller_Boxes {
 	public function modify_field_value( $activity ) {
 
 		if ( ! $this->request['object_id'] || ! $this->request['object_type'] ) {
+			// phpcs:ignore WordPress.WP.I18n.TextDomainMismatch
 			return new WP_Error( 'cmb2_rest_modify_field_value_error', __( 'CMB2 Field value cannot be modified without the object_id and object_type parameters specified.', 'cmb2' ), array(
 				'status' => 400,
 			) );
@@ -309,6 +315,7 @@ class CMB2_REST_Controller_Fields extends CMB2_REST_Controller_Boxes {
 		);
 
 		if ( ! $this->field ) {
+			// phpcs:ignore WordPress.WP.I18n.TextDomainMismatch
 			return new WP_Error( 'cmb2_rest_no_field_by_id_error', __( 'No field found by that id.', 'cmb2' ), array(
 				'status' => 403,
 			) );
@@ -338,6 +345,7 @@ class CMB2_REST_Controller_Fields extends CMB2_REST_Controller_Boxes {
 		$this->field = $this->rest_box->field_can_read( $field, true );
 
 		if ( ! $this->field ) {
+			// phpcs:ignore WordPress.WP.I18n.TextDomainMismatch
 			return new WP_Error( 'cmb2_rest_no_field_by_id_error', __( 'No field found by that id.', 'cmb2' ), array(
 				'status' => 403,
 			) );
@@ -409,11 +417,12 @@ class CMB2_REST_Controller_Fields extends CMB2_REST_Controller_Boxes {
 
 			$key = isset( $params_to_rename[ $key ] ) ? $params_to_rename[ $key ] : $key;
 
-			if ( empty( $value ) || is_scalar( $value ) || is_array( $value ) ) {
-				$field_data[ $key ] = $value;
-			} else {
-				$field_data[ $key ] = sprintf( __( 'Value Error for %s', 'cmb2' ), $key );
-			}
+		if ( empty( $value ) || is_scalar( $value ) || is_array( $value ) ) {
+			$field_data[ $key ] = $value;
+		} else {
+			/* translators: %s: field key name */
+			$field_data[ $key ] = sprintf( __( 'Value Error for %s', 'cmb2' ), $key ); // phpcs:ignore WordPress.WP.I18n.TextDomainMismatch
+		}
 		}
 
 		if ( $field->args( 'has_supporting_data' ) ) {

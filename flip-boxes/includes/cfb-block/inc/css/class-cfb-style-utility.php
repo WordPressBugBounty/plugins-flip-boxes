@@ -2,6 +2,10 @@
 
 namespace CoolPlugins\GutenbergBlocks\CSS;
 
+if ( ! defined( 'ABSPATH' ) ) {
+    exit;
+}
+
 /**
  * Utility class for managing styles related to CoolPlugins Gutenberg Blocks on the frontend.
  *

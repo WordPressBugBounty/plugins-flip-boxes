@@ -1,5 +1,9 @@
 <?php
 
+if ( ! defined( 'ABSPATH' ) ) {
+    exit; // Exit if accessed directly
+}
+
 if (!class_exists('CFB_Functions')) {
 
     class CFB_Functions {
@@ -44,9 +48,11 @@ if (!class_exists('CFB_Functions')) {
             wp_enqueue_script('cfb-custom-js');   
         }
     
-        public static function cfb_display_live_preview() {
-            if (isset($_REQUEST['post']) && !is_array($_REQUEST['post'])) {
-                $id=(int) filter_var( $_REQUEST['post'], FILTER_SANITIZE_NUMBER_INT );
+    public static function cfb_display_live_preview() {
+        // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Reading URL parameter in admin context for display purposes only
+        if (isset($_REQUEST['post']) && !is_array($_REQUEST['post'])) {
+            // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Reading URL parameter in admin context for display purposes only
+            $id=(int) filter_var( wp_unslash( $_REQUEST['post'] ), FILTER_SANITIZE_NUMBER_INT );
                 return do_shortcode("[flipboxes id='$id']") . 
                        '<br><br><p><strong class="micon-info-circled"></strong>' .
                        'Backend preview may be a little bit different from frontend / actual view. ' .
@@ -58,11 +64,13 @@ if (!class_exists('CFB_Functions')) {
         public static function cfb_get_post_type_page() {
             global $post, $typenow, $current_screen;
             
-            if ($post && $post->post_type) return $post->post_type;
-            if ($typenow) return $typenow;
-            if ($current_screen && $current_screen->post_type) return $current_screen->post_type;
-            if (isset($_REQUEST['post_type'])) return sanitize_key($_REQUEST['post_type']);
-            if (isset($_REQUEST['post'])) return get_post_type(sanitize_key($_REQUEST['post']));
+        if ($post && $post->post_type) return $post->post_type;
+        if ($typenow) return $typenow;
+        if ($current_screen && $current_screen->post_type) return $current_screen->post_type;
+        // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Reading URL parameter in admin context to determine current post type
+        if (isset($_REQUEST['post_type'])) return sanitize_key($_REQUEST['post_type']);
+        // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Reading URL parameter in admin context to determine current post type
+        if (isset($_REQUEST['post'])) return get_post_type(sanitize_key($_REQUEST['post']));
             
             return null;
         }

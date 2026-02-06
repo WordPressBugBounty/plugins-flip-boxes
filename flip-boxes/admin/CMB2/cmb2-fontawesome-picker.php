@@ -1,7 +1,12 @@
 <?php
+
+if ( ! defined( 'ABSPATH' ) ) {
+    exit; // Exit if accessed directly
+}
 /**
  * Class KS_FontAwesome_IconPicker
  */
+// phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedClassFound
 class KS_FontAwesome_IconPicker2 {
 
 	/**
@@ -24,7 +29,8 @@ class KS_FontAwesome_IconPicker2 {
 
 		$this->setup_admin_scripts();
 
-    echo $field_type->input( array( 'type' => 'text', 'class' => 'fontawesome-icon-select regular-text' ) );
+		// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- CMB2's input() method returns pre-escaped HTML
+		echo $field_type->input( array( 'type' => 'text', 'class' => 'fontawesome-icon-select regular-text' ) );
 	}
 
   /**

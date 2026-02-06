@@ -1,5 +1,9 @@
 <?php
 
+if ( ! defined( 'ABSPATH' ) ) {
+    exit; // Exit if accessed directly
+}
+
 /**
  * CMB2 ajax methods
  * (i.e. a lot of work to get oEmbeds to work with non-post objects)
@@ -72,6 +76,7 @@ class CMB2_Ajax {
 
 		// Send back error if empty.
 		if ( empty( $oembed_string ) ) {
+			// phpcs:ignore WordPress.WP.I18n.TextDomainMismatch
 			wp_send_json_error( '<p class="ui-state-error-text">' . esc_html__( 'Please Try Again', 'cmb2' ) . '</p>' );
 		}
 
@@ -178,6 +183,7 @@ class CMB2_Ajax {
 
 		// Send back our embed.
 		if ( $oembed['embed'] && $oembed['embed'] != $oembed['fallback'] ) {
+			// phpcs:ignore WordPress.WP.I18n.TextDomainMismatch
 			return '<div class="cmb2-oembed embed-status">' . $oembed['embed'] . '<p class="cmb2-remove-wrapper"><a href="#" class="cmb2-remove-file-button" rel="' . $oembed['args']['field_id'] . '">' . esc_html__( 'Remove Embed', 'cmb2' ) . '</a></p></div>';
 		}
 
@@ -186,7 +192,7 @@ class CMB2_Ajax {
 			'<p class="ui-state-error-text">%s</p>',
 			sprintf(
 				/* translators: 1: results for. 2: link to codex.wordpress.org/Embeds */
-				esc_html__( 'No oEmbed Results Found for %1$s. View more info at %2$s.', 'cmb2' ),
+				esc_html__( 'No oEmbed Results Found for %1$s. View more info at %2$s.', 'cmb2' ), // phpcs:ignore WordPress.WP.I18n.TextDomainMismatch
 				$oembed['fallback'],
 				'<a href="https://wordpress.org/support/article/embeds/" target="_blank">codex.wordpress.org/Embeds</a>'
 			)
@@ -291,6 +297,7 @@ class CMB2_Ajax {
 		$modified = false;
 		if ( is_array( $options ) ) {
 
+			// phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound
 			$ttl = apply_filters( 'oembed_ttl', DAY_IN_SECONDS, '', array(), 0 );
 			$now = time();
 

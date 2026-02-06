@@ -1,0 +1,35 @@
+.cool-feedback-notice-wrapper.notice.notice-info.is-dismissible {
+  padding: 5px;
+  width: 65%;
+  display: table;
+  width: calc(100% - 10px);
+  max-width: 870px;
+  clear: both;
+  box-sizing: border-box;
+}
+
+.cool-feedback-notice-wrapper .message_container {
+  width: calc(100% - 120px);
+  margin: 0;
+  vertical-align: top;
+  padding: 4px;
+}
+.cool-feedback-notice-wrapper ul li {
+  float: left;
+  margin: 0px 5px;
+}
+.clrfix {
+  clear: both;
+}
+
+.callto_action .love_it {
+  margin: unset;
+}
+.cool-feedback-notice-wrapper ul li.already_rated a:after {
+  color: #f12945;
+  content: "\f153";
+  font: normal 18px/21px dashicons;
+
+  vertical-align: middle;
+  margin-left: 5px;
+}

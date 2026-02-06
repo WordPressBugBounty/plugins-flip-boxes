@@ -134,6 +134,7 @@ abstract class CMB2_REST_Controller extends WP_REST_Controller {
 		 * @param bool   $default_access Whether this CMB2 endpoint can be accessed.
 		 * @param object $controller     This CMB2_REST_Controller object.
 		 */
+		// phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.DynamicHooknameFound
 		$default_access = apply_filters( $filter, $default_access, $this );
 
 		$this->maybe_unhook_registered_callback( $filter );
@@ -254,6 +255,7 @@ abstract class CMB2_REST_Controller extends WP_REST_Controller {
 		$this->initiate_rest_box( $request, $request_type );
 
 		if ( ! is_wp_error( $this->rest_box ) && ! $this->rest_box->rest_read ) {
+			// phpcs:ignore WordPress.WP.I18n.TextDomainMismatch
 			$this->rest_box = new WP_Error( 'cmb2_rest_no_read_error', __( 'This box does not have read permissions.', 'cmb2' ), array(
 				'status' => 403,
 			) );
@@ -274,6 +276,7 @@ abstract class CMB2_REST_Controller extends WP_REST_Controller {
 		$this->initiate_rest_box( $request, $request_type );
 
 		if ( ! is_wp_error( $this->rest_box ) && ! $this->rest_box->rest_edit ) {
+			// phpcs:ignore WordPress.WP.I18n.TextDomainMismatch
 			$this->rest_box = new WP_Error( 'cmb2_rest_no_write_error', __( 'This box does not have write permissions.', 'cmb2' ), array(
 				'status' => 403,
 			) );
@@ -296,7 +299,7 @@ abstract class CMB2_REST_Controller extends WP_REST_Controller {
 		$this->rest_box = CMB2_REST::get_rest_box( $this->request->get_param( 'cmb_id' ) );
 
 		if ( ! $this->rest_box ) {
-
+			// phpcs:ignore WordPress.WP.I18n.TextDomainMismatch
 			$this->rest_box = new WP_Error( 'cmb2_rest_box_not_found_error', __( 'No box found by that id. A box needs to be registered with the "show_in_rest" parameter configured.', 'cmb2' ), array(
 				'status' => 403,
 			) );
@@ -375,6 +378,7 @@ abstract class CMB2_REST_Controller extends WP_REST_Controller {
 			'type'                 => 'object',
 			'properties'           => array(
 				'description' => array(
+					// phpcs:ignore WordPress.WP.I18n.TextDomainMismatch
 					'description' => __( 'A human-readable description of the object.', 'cmb2' ),
 					'type'        => 'string',
 					'context'     => array(
@@ -382,6 +386,7 @@ abstract class CMB2_REST_Controller extends WP_REST_Controller {
 					),
 				),
 				'name' => array(
+					// phpcs:ignore WordPress.WP.I18n.TextDomainMismatch
 					'description' => __( 'The id for the object.', 'cmb2' ),
 					'type'        => 'integer',
 					'context'     => array(
@@ -389,6 +394,7 @@ abstract class CMB2_REST_Controller extends WP_REST_Controller {
 					),
 				),
 				'name' => array(
+					// phpcs:ignore WordPress.WP.I18n.TextDomainMismatch
 					'description' => __( 'The title for the object.', 'cmb2' ),
 					'type'        => 'string',
 					'context'     => array(

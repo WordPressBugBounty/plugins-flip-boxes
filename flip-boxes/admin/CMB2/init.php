@@ -1,4 +1,9 @@
 <?php
+
+if ( ! defined( 'ABSPATH' ) ) {
+    exit; // Exit if accessed directly
+}
+
 if ( ! class_exists( 'CMB2_Bootstrap_2100_Develop', false ) ) {
 
 	/**
@@ -129,6 +134,7 @@ if ( ! class_exists( 'CMB2_Bootstrap_2100_Develop', false ) ) {
 			}
 
 			if ( ! $loaded ) {
+				 // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound
 				$locale = apply_filters( 'plugin_locale', function_exists( 'determine_locale' ) ? determine_locale() : get_locale(), 'cmb2' );
 				$mofile = dirname( __FILE__ ) . '/languages/cmb2-' . $locale . '.mo';
 				load_textdomain( 'cmb2', $mofile );

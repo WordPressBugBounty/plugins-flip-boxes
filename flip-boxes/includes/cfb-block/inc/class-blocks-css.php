@@ -8,6 +8,10 @@
  */
 namespace CoolPlugins\GutenbergBlocks;
 
+if ( ! defined( 'ABSPATH' ) ) {
+    exit;
+}
+
 /**
  * Class Blocks_CSS.
  */
@@ -25,7 +29,9 @@ class Blocks_CSS {
 	 */
 	public function init() {
 		if ( ! defined( 'BLOCKS_CSS_URL' ) ) {
+			// phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedConstantFound
 			define( 'BLOCKS_CSS_URL', CFB_URL );
+			// phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedConstantFound
 			define( 'BLOCKS_CSS_PATH', CFB_DIR_PATH );
 		}
 

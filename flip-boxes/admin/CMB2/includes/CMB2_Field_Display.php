@@ -1,4 +1,9 @@
 <?php
+
+if ( ! defined( 'ABSPATH' ) ) {
+    exit; // Exit if accessed directly
+}
+
 /**
  * CMB2 field display base.
  *
@@ -149,14 +154,15 @@ class CMB2_Field_Display {
 			// And has a repeatable value.
 			if ( is_array( $this->field->value ) ) {
 
-				// Then loop and output.
-				echo '<ul class="cmb2-' . esc_attr( sanitize_html_class( str_replace( '_', '-', $this->field->type() ) ) ) . '">';
-				foreach ( $this->field->value as $val ) {
-					$this->value = $val;
-					echo '<li>', $this->_display(), '</li>';
-					;
-				}
-				echo '</ul>';
+			// Then loop and output.
+			echo '<ul class="cmb2-' . esc_attr( sanitize_html_class( str_replace( '_', '-', $this->field->type() ) ) ) . '">';
+			foreach ( $this->field->value as $val ) {
+				$this->value = $val;
+				// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- _display() methods intentionally output HTML
+				echo '<li>', $this->_display(), '</li>';
+				;
+			}
+			echo '</ul>';
 			}
 		} else {
 			$this->_display();
@@ -180,6 +186,7 @@ class CMB2_Display_Text_Url extends CMB2_Field_Display {
 	 * @since 2.2.2
 	 */
 	protected function _display() {
+		// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- make_clickable() returns safe HTML
 		echo make_clickable( esc_url( $this->value ) );
 	}
 }
@@ -192,7 +199,7 @@ class CMB2_Display_Text_Money extends CMB2_Field_Display {
 	 */
 	protected function _display() {
 		$this->value = $this->value ? $this->value : '0';
-		echo ( ! $this->field->get_param_callback_result( 'before_field' ) ? '$' : ' ' ), $this->value;
+		echo ( ! $this->field->get_param_callback_result( 'before_field' ) ? '$' : ' ' ), esc_html( $this->value );
 	}
 }
 
@@ -232,9 +239,9 @@ class CMB2_Display_Select extends CMB2_Field_Display {
 			$fallback = $options[''];
 		}
 		if ( ! $this->value && $fallback ) {
-			echo $fallback;
+			echo esc_html( $fallback );
 		} elseif ( isset( $options[ $this->value ] ) ) {
-			echo $options[ $this->value ];
+			echo esc_html( $options[ $this->value ] );
 		} else {
 			echo esc_attr( $this->value );
 		}
@@ -257,12 +264,13 @@ class CMB2_Display_Multicheck extends CMB2_Field_Display {
 		$output = array();
 		foreach ( $this->value as $val ) {
 			if ( isset( $options[ $val ] ) ) {
-				$output[] = $options[ $val ];
+				$output[] = esc_html( $options[ $val ] );
 			} else {
-				$output[] = esc_attr( $val );
+				$output[] = esc_html( $val );
 			}
 		}
 
+		// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- $output array contains escaped values
 		echo implode( ', ', $output );
 	}
 }
@@ -274,6 +282,7 @@ class CMB2_Display_Textarea extends CMB2_Field_Display {
 	 * @since 2.2.2
 	 */
 	protected function _display() {
+		// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- wpautop() and wp_kses_post() already sanitize
 		echo wpautop( wp_kses_post( $this->value ) );
 	}
 }
@@ -296,7 +305,7 @@ class CMB2_Display_Text_Time extends CMB2_Field_Display {
 	 * @since 2.2.2
 	 */
 	protected function _display() {
-		echo $this->field->get_timestamp_format( 'time_format', $this->value );
+		echo esc_html( $this->field->get_timestamp_format( 'time_format', $this->value ) );
 	}
 }
 
@@ -307,7 +316,7 @@ class CMB2_Display_Text_Date extends CMB2_Field_Display {
 	 * @since 2.2.2
 	 */
 	protected function _display() {
-		echo $this->field->get_timestamp_format( 'date_format', $this->value );
+		echo esc_html( $this->field->get_timestamp_format( 'date_format', $this->value ) );
 	}
 }
 
@@ -336,7 +345,7 @@ class CMB2_Display_Text_Date_Timezone extends CMB2_Field_Display {
 		$date = $this->field->get_timestamp_format( 'date_format', $this->value );
 		$time = $this->field->get_timestamp_format( 'time_format', $this->value );
 
-		echo $date, ( $time ? ' ' . $time : '' ), ( $tzstring ? ', ' . $tzstring : '' );
+		echo esc_html( $date ), ( $time ? ' ' . esc_html( $time ) : '' ), ( $tzstring ? ', ' . esc_html( $tzstring ) : '' );
 	}
 }
 
@@ -398,6 +407,7 @@ class CMB2_Display_Taxonomy_Multicheck extends CMB2_Field_Display {
 			}
 			// Then loop and output.
 			echo '<div class="cmb2-taxonomy-terms-', esc_attr( sanitize_html_class( $taxonomy ) ), '">';
+			// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- $links array contains escaped HTML anchor tags
 			echo implode( ', ', $links );
 			echo '</div>';
 		}
@@ -442,14 +452,16 @@ class CMB2_Display_File extends CMB2_Field_Display {
 				) );
 			} else {
 				$size = is_array( $img_size ) ? $img_size[0] : 200;
-				$image = '<img class="cmb-image-display" style="max-width: ' . absint( $size ) . 'px; width: 100%; height: auto;" src="' . esc_url( $url_value ) . '" alt="" />';
-			}
+			$image = '<img class="cmb-image-display" style="max-width: ' . absint( $size ) . 'px; width: 100%; height: auto;" src="' . esc_url( $url_value ) . '" alt="" />';
+		}
 
-			echo $image;
+		// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- $image contains escaped HTML from wp_get_attachment_image() or constructed with esc_url()
+		echo $image;
 
 		} else {
 
 			printf( '<div class="file-status"><span>%1$s <strong><a href="%2$s">%3$s</a></strong></span></div>',
+			// phpcs:ignore WordPress.WP.I18n.TextDomainMismatch
 				esc_html( $field_type->_text( 'file_text', __( 'File:', 'cmb2' ) ) ),
 				esc_url( $url_value ),
 				esc_html( CMB2_Utils::get_file_name_from_path( $url_value ) )
@@ -475,6 +487,7 @@ class CMB2_Display_File_List extends CMB2_Display_File {
 
 		echo '<ul class="cmb2-display-file-list">';
 		foreach ( $this->value as $id => $fullurl ) {
+			// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- file_output() returns escaped HTML
 			echo '<li>', $this->file_output( esc_url_raw( $fullurl ), $id, $type ), '</li>';
 		}
 		echo '</ul>';

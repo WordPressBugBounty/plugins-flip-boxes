@@ -1,4 +1,9 @@
 <?php
+
+if ( ! defined( 'ABSPATH' ) ) {
+    exit; // Exit if accessed directly
+}
+
 /**
  * Handles hooking CMB2 forms/metaboxes into the post/attachement/user screens
  * and handles hooking in and saving those fields.
@@ -58,8 +63,8 @@ class CMB2_Options_Hookup extends CMB2_Hookup {
 			require_once ABSPATH . 'wp-admin/includes/plugin.php';
 		}
 
-		// Register setting to cmb2 group.
-		register_setting( 'cmb2', $this->option_key );
+	// Register setting to cmb2 group.
+	register_setting( 'cmb2', $this->option_key, 'sanitize_text_field' );
 
 		// Handle saving the data.
 		add_action( 'admin_post_' . $this->option_key, array( $this, 'save_options' ) );
@@ -136,10 +141,12 @@ class CMB2_Options_Hookup extends CMB2_Hookup {
 		$is_updated      = $should_notify && 'true' === $_GET['settings-updated'];
 		$setting         = "{$this->option_key}-notices";
 		$code            = '';
+		// phpcs:ignore WordPress.WP.I18n.TextDomainMismatch
 		$message         = __( 'Nothing to update.', 'cmb2' );
 		$type            = 'notice-warning';
 
 		if ( $is_updated ) {
+			// phpcs:ignore WordPress.WP.I18n.TextDomainMismatch
 			$message = __( 'Settings updated.', 'cmb2' );
 			$type    = 'updated';
 		}
@@ -200,7 +207,7 @@ class CMB2_Options_Hookup extends CMB2_Hookup {
 				<h2><?php echo wp_kses_post( $this->cmb->prop( 'title' ) ); ?></h2>
 			<?php endif; ?>
 			<?php $this->options_page_tab_nav_output(); ?>
-			<form class="cmb-form" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>" method="POST" id="<?php echo $this->cmb->cmb_id; ?>" enctype="multipart/form-data" encoding="multipart/form-data">
+			<form class="cmb-form" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>" method="POST" id="<?php echo esc_attr( $this->cmb->cmb_id ); ?>" enctype="multipart/form-data" encoding="multipart/form-data">
 				<input type="hidden" name="action" value="<?php echo esc_attr( $this->option_key ); ?>">
 				<?php $this->options_page_metabox(); ?>
 				<?php submit_button( esc_attr( $this->cmb->prop( 'save_button' ) ), 'primary', 'submit-cmb' ); ?>
@@ -365,8 +372,9 @@ class CMB2_Options_Hookup extends CMB2_Hookup {
 			case 'option_key':
 			case 'cmb':
 				return $this->{$field};
-			default:
-				throw new Exception( sprintf( esc_html__( 'Invalid %1$s property: %2$s', 'cmb2' ), __CLASS__, $field ) );
+		default:
+			/* translators: %1$s: class name, %2$s: property name */
+			throw new Exception( sprintf( esc_html__( 'Invalid %1$s property: %2$s', 'cmb2' ), __CLASS__, esc_html( $field ) ) );// phpcs:ignore WordPress.WP.I18n.TextDomainMismatch
 		}
 	}
 }

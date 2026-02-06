@@ -1,6 +1,10 @@
 <?php
 namespace CoolPlugins\GutenbergBlocks;
 
+if ( ! defined( 'ABSPATH' ) ) {
+    exit;
+}
+
 /**
  * Base class for managing CSS related functionality for CoolPlugins Gutenberg Blocks.
  *
@@ -240,6 +244,7 @@ class Cfb_CSS_Base {
 					}
 				}
 			}
+			// phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound
 			$custom_css = apply_filters( 'cfb_blocks_css', $block );
 
 			if ( is_string( $custom_css ) ) {

@@ -1,4 +1,9 @@
 <?php
+
+if ( ! defined( 'ABSPATH' ) ) {
+    exit; // Exit if accessed directly
+}
+
 /**
  * CMB2 field objects
  *
@@ -908,25 +913,26 @@ class CMB2_Field extends CMB2_Base {
 		 *
 		 * @param CMB2_Field $field The current field object.
 		 */
-		do_action( "cmb2_before_{$field_type}_field_row", $this );
+	do_action( "cmb2_before_{$field_type}_field_row", $this );
 
-		$this->peform_param_callback( 'before_row' );
+	$this->peform_param_callback( 'before_row' );
 
-		printf( "<div class=\"cmb-row %s\" data-fieldtype=\"%s\">\n", $this->row_classes(), $field_type );
+	printf( "<div class=\"cmb-row %s\" data-fieldtype=\"%s\">\n", esc_attr( $this->row_classes() ), esc_attr( $field_type ) );
 
 		if ( ! $this->args( 'show_names' ) ) {
 			echo "\n\t<div class=\"cmb-td\">\n";
 
 			$this->peform_param_callback( 'label_cb' );
 
-		} else {
+	} else {
 
-			if ( $this->get_param_callback_result( 'label_cb' ) ) {
-				echo '<div class="cmb-th">', $this->peform_param_callback( 'label_cb' ), '</div>';
-			}
-
-			echo "\n\t<div class=\"cmb-td\">\n";
+		if ( $this->get_param_callback_result( 'label_cb' ) ) {
+			// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Callback result expected to return safe HTML
+			echo '<div class="cmb-th">', $this->peform_param_callback( 'label_cb' ), '</div>';
 		}
+
+		echo "\n\t<div class=\"cmb-td\">\n";
+	}
 
 		$this->peform_param_callback( 'before' );
 
@@ -1141,18 +1147,19 @@ class CMB2_Field extends CMB2_Base {
 		 * @param CMB2_Field         $field      This field object.
 		 * @param CMB2_Field_Display $display    The `CMB2_Field_Display` object.
 		 */
-		$pre_output = apply_filters( "cmb2_pre_field_display_{$field_type}", null, $this, $display );
+	$pre_output = apply_filters( "cmb2_pre_field_display_{$field_type}", null, $this, $display );
 
-		if ( null !== $pre_output ) {
-			echo $pre_output;
-			return;
-		}
+	if ( null !== $pre_output ) {
+		// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Filter result expected to return safe HTML
+		echo $pre_output;
+		return;
+	}
 
-		$this->peform_param_callback( 'before_display_wrap' );
+	$this->peform_param_callback( 'before_display_wrap' );
 
-		printf( "<div class=\"cmb-column %s\" data-fieldtype=\"%s\">\n", $this->row_classes(), $field_type );
+	printf( "<div class=\"cmb-column %s\" data-fieldtype=\"%s\">\n", esc_attr( $this->row_classes() ), esc_attr( $field_type ) );
 
-		$this->peform_param_callback( 'before_display' );
+	$this->peform_param_callback( 'before_display' );
 
 		CMB2_Field_Display::get( $this )->display();
 
@@ -1440,7 +1447,9 @@ class CMB2_Field extends CMB2_Base {
 	 */
 	protected function set_field_defaults_group( $args ) {
 		$args['options'] = wp_parse_args( $args['options'], array(
+			// phpcs:ignore WordPress.WP.I18n.TextDomainMismatch
 			'add_button'     => esc_html__( 'Add Group', 'cmb2' ),
+			// phpcs:ignore WordPress.WP.I18n.TextDomainMismatch
 			'remove_button'  => esc_html__( 'Remove Group', 'cmb2' ),
 			'remove_confirm' => '',
 		) );
@@ -1473,10 +1482,12 @@ class CMB2_Field extends CMB2_Base {
 	 */
 	protected function set_field_defaults_all_or_nothing_types( $args ) {
 		$args['show_option_none'] = isset( $args['show_option_none'] ) ? $args['show_option_none'] : null;
+		// phpcs:ignore WordPress.WP.I18n.TextDomainMismatch
 		$args['show_option_none'] = true === $args['show_option_none'] ? esc_html__( 'None', 'cmb2' ) : $args['show_option_none'];
 
 		if ( null === $args['show_option_none'] ) {
 			$off_by_default = in_array( $args['type'], array( 'select', 'radio', 'radio_inline' ), true );
+			// phpcs:ignore WordPress.WP.I18n.TextDomainMismatch
 			$args['show_option_none'] = $off_by_default ? false : esc_html__( 'None', 'cmb2' );
 		}
 
@@ -1591,6 +1602,7 @@ class CMB2_Field extends CMB2_Base {
 	 */
 	public function get_cmb() {
 		if ( ! $this->cmb_id ) {
+			// phpcs:ignore WordPress.WP.I18n.TextDomainMismatch
 			return new WP_Error( 'no_cmb_id', esc_html__( 'Sorry, this field does not have a cmb_id specified.', 'cmb2' ) );
 		}
 

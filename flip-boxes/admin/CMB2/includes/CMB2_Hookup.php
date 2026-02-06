@@ -1,4 +1,8 @@
 <?php
+
+if ( ! defined( 'ABSPATH' ) ) {
+    exit; // Exit if accessed directly
+}
 /**
  *
  * @since  2.0.0
@@ -186,10 +190,12 @@ class CMB2_Hookup extends CMB2_Hookup_Base {
 
 	public function term_hooks() {
 		if ( ! function_exists( 'get_term_meta' ) ) {
+			// phpcs:ignore WordPress.WP.I18n.TextDomainMismatch
 			wp_die( esc_html__( 'Term Metadata is a WordPress 4.4+ feature. Please upgrade your WordPress install.', 'cmb2' ) );
 		}
 
 		if ( ! $this->cmb->prop( 'taxonomies' ) ) {
+			// phpcs:ignore WordPress.WP.I18n.TextDomainMismatch
 			wp_die( esc_html__( 'Term metaboxes configuration requires a "taxonomies" parameter.', 'cmb2' ) );
 		}
 
@@ -269,8 +275,9 @@ class CMB2_Hookup extends CMB2_Hookup_Base {
 		 * @param array $dependencies The registered style dependencies for the cmb2 stylesheet.
 		 */
 		$dependencies = apply_filters( 'cmb2_style_dependencies', array() );
-		wp_register_style( 'cmb2-styles', CMB2_Utils::url( "css/cmb2{$front}{$rtl}{$min}.css" ), $dependencies );
-		wp_register_style( 'cmb2-display-styles', CMB2_Utils::url( "css/cmb2-display{$rtl}{$min}.css" ), $dependencies );
+		
+		wp_register_style( 'cmb2-styles', CMB2_Utils::url( "css/cmb2{$front}{$rtl}{$min}.css" ), $dependencies, CMB2_VERSION );
+		wp_register_style( 'cmb2-display-styles', CMB2_Utils::url( "css/cmb2-display{$rtl}{$min}.css" ), $dependencies, CMB2_VERSION );
 
 		self::$css_registration_done = true;
 	}
@@ -577,34 +584,37 @@ class CMB2_Hookup extends CMB2_Hookup_Base {
 				: '';
 		}
 
-		$toggle_button = sprintf(
-			'<button type="button" class="handlediv button-link" aria-expanded="true"><span class="screen-reader-text">%s</span><span class="toggle-indicator" aria-hidden="true"></span></button>',
-			/* translators: %s: name of CMB2 box (panel) */
-			sprintf( __( 'Toggle panel: %s' ), $title )
-		);
-		$title_tag = '<h2 class="hndle"><span>' . esc_attr( $title ) . '</span></h2>' . "\n";
+	$toggle_button = sprintf(
+		'<button type="button" class="handlediv button-link" aria-expanded="true"><span class="screen-reader-text">%s</span><span class="toggle-indicator" aria-hidden="true"></span></button>',
+		/* translators: %s: name of CMB2 box (panel) */ 
+		sprintf( __( 'Toggle panel: %s', 'cmb2' ), $title )); // phpcs:ignore WordPress.WP.I18n.TextDomainMismatch
+	$title_tag = '<h2 class="hndle"><span>' . esc_attr( $title ) . '</span></h2>' . "\n";
 
-		echo '<div id="' . $cmb_id . '" class="' . postbox_classes( $cmb_id, $page ) . $hidden_class . '">' . "\n";
+	echo '<div id="' . esc_attr( $cmb_id ) . '" class="' . esc_attr( postbox_classes( $cmb_id, $page ) . $hidden_class ) . '">' . "\n";
 
-		if ( $add_handle ) {
+	if ( $add_handle ) {
 
-			if ( $is_55 ) {
-				echo '<div class="postbox-header">';
-				echo $title_tag;
+		if ( $is_55 ) {
+			echo '<div class="postbox-header">';
+			// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Safe HTML with escaped title
+			echo $title_tag;
 
-				echo '<div class="handle-actions hide-if-no-js">';
-				echo $toggle_button;
-				echo '</div>';
+			echo '<div class="handle-actions hide-if-no-js">';
+			// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Safe HTML button markup
+			echo $toggle_button;
+			echo '</div>';
 
-				echo '</div>' . "\n";
+			echo '</div>' . "\n";
 
-			} else {
-				echo $toggle_button;
-				echo $title_tag;
-			}
-
-			echo '<div class="inside">' . "\n";
+		} else {
+			// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Safe HTML button markup
+			echo $toggle_button;
+			// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Safe HTML with escaped title
+			echo $title_tag;
 		}
+
+		echo '<div class="inside">' . "\n";
+	}
 	}
 
 	/**

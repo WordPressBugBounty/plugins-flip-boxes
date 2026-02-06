@@ -1,4 +1,9 @@
 <?php
+
+if ( ! defined( 'ABSPATH' ) ) {
+    exit; // Exit if accessed directly
+}
+
 /**
  * Base class for hooking CMB2 into WordPress.
  *
@@ -41,7 +46,9 @@ abstract class CMB2_Hookup_Base {
 	 * @param  CMB2 $cmb The CMB2 object to hookup.
 	 */
 	public static function maybe_init_and_hookup( CMB2 $cmb ) {
-		throw new Exception( sprintf( esc_html__( '%1$s should be implemented by the extended class.', 'cmb2' ), __FUNCTION__ ) );
+		
+		/* translators: %1$s: function name */
+		throw new Exception( sprintf( esc_html__( '%1$s should be implemented by the extended class.', 'cmb2' ), __FUNCTION__ ) );// phpcs:ignore WordPress.WP.I18n.TextDomainMismatch 
 	}
 
 	/**
@@ -99,7 +106,9 @@ abstract class CMB2_Hookup_Base {
 			case 'cmb':
 				return $this->{$field};
 			default:
-				throw new Exception( sprintf( esc_html__( 'Invalid %1$s property: %2$s', 'cmb2' ), __CLASS__, $field ) );
+				
+				/* translators: %1$s: class name, %2$s: property name */
+				throw new Exception( sprintf( esc_html__( 'Invalid %1$s property: %2$s', 'cmb2' ), __CLASS__, esc_html( $field ) ) ); // phpcs:ignore WordPress.WP.I18n.TextDomainMismatch
 		}
 	}
 }

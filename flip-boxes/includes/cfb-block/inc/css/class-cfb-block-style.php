@@ -5,6 +5,10 @@ use CoolPlugins\GutenbergBlocks\Cfb_CSS_Base;
 
 use CoolPlugins\GutenbergBlocks\CSS\CFB_Style_Utility;
 
+if ( ! defined( 'ABSPATH' ) ) {
+    exit;
+}
+
 /**
  * Class representing the style for CFB blocks.
  *

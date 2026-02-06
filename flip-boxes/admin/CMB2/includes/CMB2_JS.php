@@ -1,4 +1,9 @@
 <?php
+
+if ( ! defined( 'ABSPATH' ) ) {
+    exit; // Exit if accessed directly
+}
+
 /**
  * Handles the dependencies and enqueueing of the CMB2 JS scripts
  *
@@ -124,10 +129,10 @@ class CMB2_JS {
 
 		// if SCRIPT_DEBUG, we need to enqueue separately.
 		if ( $enqueue_wysiwyg ) {
-			wp_enqueue_script( 'cmb2-wysiwyg', CMB2_Utils::url( 'js/cmb2-wysiwyg.js' ), array( 'jquery', 'wp-util' ), CMB2_VERSION );
+			wp_enqueue_script( 'cmb2-wysiwyg', CMB2_Utils::url( 'js/cmb2-wysiwyg.js' ), array( 'jquery', 'wp-util' ), CMB2_VERSION, true );
 		}
 		if ( $enqueue_char_counter ) {
-			wp_enqueue_script( 'cmb2-char-counter', CMB2_Utils::url( 'js/cmb2-char-counter.js' ), array( 'jquery', 'wp-util' ), CMB2_VERSION );
+			wp_enqueue_script( 'cmb2-char-counter', CMB2_Utils::url( 'js/cmb2-char-counter.js' ), array( 'jquery', 'wp-util' ), CMB2_VERSION, true );
 		}
 
 		self::localize( $debug );
@@ -171,12 +176,16 @@ class CMB2_JS {
 	 * @since  2.0.7
 	 */
 	protected static function colorpicker_frontend() {
-		wp_register_script( 'iris', admin_url( 'js/iris.min.js' ), array( 'jquery-ui-draggable', 'jquery-ui-slider', 'jquery-touch-punch' ), CMB2_VERSION );
-		wp_register_script( 'wp-color-picker', admin_url( 'js/color-picker.min.js' ), array( 'iris' ), CMB2_VERSION );
+		wp_register_script( 'iris', admin_url( 'js/iris.min.js' ), array( 'jquery-ui-draggable', 'jquery-ui-slider', 'jquery-touch-punch' ), CMB2_VERSION, true );
+		wp_register_script( 'wp-color-picker', admin_url( 'js/color-picker.min.js' ), array( 'iris' ), CMB2_VERSION, true );
 		wp_localize_script( 'wp-color-picker', 'wpColorPickerL10n', array(
+			// phpcs:ignore WordPress.WP.I18n.TextDomainMismatch
 			'clear'         => esc_html__( 'Clear', 'cmb2' ),
+			// phpcs:ignore WordPress.WP.I18n.TextDomainMismatch
 			'defaultString' => esc_html__( 'Default', 'cmb2' ),
+			// phpcs:ignore WordPress.WP.I18n.TextDomainMismatch
 			'pick'          => esc_html__( 'Select Color', 'cmb2' ),
+			// phpcs:ignore WordPress.WP.I18n.TextDomainMismatch
 			'current'       => esc_html__( 'Current Color', 'cmb2' ),
 		) );
 	}
@@ -209,38 +218,64 @@ class CMB2_JS {
 				'date_picker'  => array(
 					'changeMonth'     => true,
 					'changeYear'      => true,
+					// phpcs:ignore WordPress.WP.I18n.TextDomainMismatch
 					'dateFormat'      => _x( 'mm/dd/yy', 'Valid formatDate string for jquery-ui datepicker', 'cmb2' ),
+					// phpcs:ignore WordPress.WP.I18n.TextDomainMismatch
 					'dayNames'        => explode( ',', esc_html__( 'Sunday, Monday, Tuesday, Wednesday, Thursday, Friday, Saturday', 'cmb2' ) ),
+					// phpcs:ignore WordPress.WP.I18n.TextDomainMismatch
 					'dayNamesMin'     => explode( ',', esc_html__( 'Su, Mo, Tu, We, Th, Fr, Sa', 'cmb2' ) ),
+					// phpcs:ignore WordPress.WP.I18n.TextDomainMismatch
 					'dayNamesShort'   => explode( ',', esc_html__( 'Sun, Mon, Tue, Wed, Thu, Fri, Sat', 'cmb2' ) ),
+					// phpcs:ignore WordPress.WP.I18n.TextDomainMismatch
 					'monthNames'      => explode( ',', esc_html__( 'January, February, March, April, May, June, July, August, September, October, November, December', 'cmb2' ) ),
+					// phpcs:ignore WordPress.WP.I18n.TextDomainMismatch
 					'monthNamesShort' => explode( ',', esc_html__( 'Jan, Feb, Mar, Apr, May, Jun, Jul, Aug, Sep, Oct, Nov, Dec', 'cmb2' ) ),
+					// phpcs:ignore WordPress.WP.I18n.TextDomainMismatch
 					'nextText'        => esc_html__( 'Next', 'cmb2' ),
+					// phpcs:ignore WordPress.WP.I18n.TextDomainMismatch
 					'prevText'        => esc_html__( 'Prev', 'cmb2' ),
+					// phpcs:ignore WordPress.WP.I18n.TextDomainMismatch
 					'currentText'     => esc_html__( 'Today', 'cmb2' ),
+					// phpcs:ignore WordPress.WP.I18n.TextDomainMismatch
 					'closeText'       => esc_html__( 'Done', 'cmb2' ),
+					// phpcs:ignore WordPress.WP.I18n.TextDomainMismatch
 					'clearText'       => esc_html__( 'Clear', 'cmb2' ),
 				),
 				'time_picker'  => array(
+					// phpcs:ignore WordPress.WP.I18n.TextDomainMismatch
 					'timeOnlyTitle' => esc_html__( 'Choose Time', 'cmb2' ),
+					// phpcs:ignore WordPress.WP.I18n.TextDomainMismatch
 					'timeText'      => esc_html__( 'Time', 'cmb2' ),
+					// phpcs:ignore WordPress.WP.I18n.TextDomainMismatch
 					'hourText'      => esc_html__( 'Hour', 'cmb2' ),
+					// phpcs:ignore WordPress.WP.I18n.TextDomainMismatch
 					'minuteText'    => esc_html__( 'Minute', 'cmb2' ),
+					// phpcs:ignore WordPress.WP.I18n.TextDomainMismatch
 					'secondText'    => esc_html__( 'Second', 'cmb2' ),
+					// phpcs:ignore WordPress.WP.I18n.TextDomainMismatch
 					'currentText'   => esc_html__( 'Now', 'cmb2' ),
+					// phpcs:ignore WordPress.WP.I18n.TextDomainMismatch
 					'closeText'     => esc_html__( 'Done', 'cmb2' ),
+					// phpcs:ignore WordPress.WP.I18n.TextDomainMismatch
 					'timeFormat'    => _x( 'hh:mm TT', 'Valid formatting string, as per http://trentrichardson.com/examples/timepicker/', 'cmb2' ),
 					'controlType'   => 'select',
 					'stepMinute'    => 5,
 				),
 			),
 			'strings' => array(
+				// phpcs:ignore WordPress.WP.I18n.TextDomainMismatch
 				'upload_file'  => esc_html__( 'Use this file', 'cmb2' ),
+				// phpcs:ignore WordPress.WP.I18n.TextDomainMismatch
 				'upload_files' => esc_html__( 'Use these files', 'cmb2' ),
+				// phpcs:ignore WordPress.WP.I18n.TextDomainMismatch
 				'remove_image' => esc_html__( 'Remove Image', 'cmb2' ),
+				// phpcs:ignore WordPress.WP.I18n.TextDomainMismatch
 				'remove_file'  => esc_html__( 'Remove', 'cmb2' ),
+				// phpcs:ignore WordPress.WP.I18n.TextDomainMismatch
 				'file'         => esc_html__( 'File:', 'cmb2' ),
+				// phpcs:ignore WordPress.WP.I18n.TextDomainMismatch
 				'download'     => esc_html__( 'Download', 'cmb2' ),
+				// phpcs:ignore WordPress.WP.I18n.TextDomainMismatch
 				'check_toggle' => esc_html__( 'Select / Deselect All', 'cmb2' ),
 			),
 		);

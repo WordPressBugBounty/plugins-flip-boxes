@@ -2,6 +2,10 @@
 
 use CoolPlugins\GutenbergBlocks\Registration;
 
+if ( ! defined( 'ABSPATH' ) ) {
+    exit;
+}
+
 /**
  * Class Cfb_Block
  *
@@ -10,6 +14,8 @@ use CoolPlugins\GutenbergBlocks\Registration;
  *
  * @package CoolPlugins\GutenbergBlocks
  */
+
+// phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedClassFound
 class Cfb_Block {
 	/**
 	 * Singleton method to initialize the class instance.
@@ -70,9 +76,9 @@ class Cfb_Block {
 			'CoolPlugins\GutenbergBlocks\CFB_Block_Frontend',
 			'CoolPlugins\GutenbergBlocks\CFB_Style_Handler',
 		);
-
+		// phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound
 		$classnames = apply_filters( 'cfb_blocks_autoloader', $classnames );
-
+	
 		foreach ( $classnames as $classname ) {
 			$classname = new $classname();
 

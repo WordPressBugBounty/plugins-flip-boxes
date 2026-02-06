@@ -1,4 +1,9 @@
 <?php
+
+if ( ! defined( 'ABSPATH' ) ) {
+    exit; // Exit if accessed directly
+}
+
 /**
  * CMB2 Utilities
  *
@@ -46,10 +51,12 @@ class CMB2_Utils {
 
 		$file = basename( $img_url );
 
+		
 		$query_args = array(
 			'post_type'   => 'attachment',
 			'post_status' => 'inherit',
 			'fields'      => 'ids',
+			// phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_query
 			'meta_query'  => array(
 				array(
 					'value'   => $file,

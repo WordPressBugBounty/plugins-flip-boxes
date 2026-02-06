@@ -76,112 +76,112 @@ const Inspector = ({
 
 	const changeBoxShadowColor = value => {
 		setAttributes({
-			boxShadowColor: ( 100 > attributes.boxShadowColorOpacity && value?.includes( 'var(' ) ) ?
-				getComputedStyle( document.documentElement, null ).getPropertyValue( value?.replace( 'var(', '' )?.replace( ')', '' ) ) :
+			boxShadowColor: (100 > attributes.boxShadowColorOpacity && value?.includes('var(')) ?
+				getComputedStyle(document.documentElement, null).getPropertyValue(value?.replace('var(', '')?.replace(')', '')) :
 				value
 		});
 	};
 
 	const changeBoxShadowColorOpacity = value => {
 		const changes = { boxShadowColorOpacity: value };
-		if ( 100 > value && attributes.boxShadowColor?.includes( 'var(' ) ) {
-			changes.boxShadowColor = getComputedStyle( document.documentElement, null ).getPropertyValue( attributes.boxShadowColor.replace( 'var(', '' ).replace( ')', '' ) );
+		if (100 > value && attributes.boxShadowColor?.includes('var(')) {
+			changes.boxShadowColor = getComputedStyle(document.documentElement, null).getPropertyValue(attributes.boxShadowColor.replace('var(', '').replace(')', ''));
 		}
-		setAttributes( changes );
+		setAttributes(changes);
 	};
-	
-	const coolFlipDirectionBtn=<ButtonToggleControl
-		label={ __( 'Current Side', 'cfb-blocks' ) }
+
+	const coolFlipDirectionBtn = <ButtonToggleControl
+		label={__('Current Side', 'cfb-blocks')}
 		options={[
 			{
-				label: __( 'Front', 'cfb-blocks' ),
+				label: __('Front', 'cfb-blocks'),
 				value: 'front'
 			},
 			{
-				label: __( 'Back', 'cfb-blocks' ),
+				label: __('Back', 'cfb-blocks'),
 				value: 'back'
 			}
 		]}
-		value={ currentSide ?? 'none' }
-		onChange={ v => {
+		value={currentSide ?? 'none'}
+		onChange={v => {
 			setSide(v);
-		} }
+		}}
 		className='cfb-block-direction-selector'
 	/>
 
-	const coolFlipboxReviewBox=<PanelBody title={__("Please Share Your Valuable Feedback.", "timeline-block")}>
+	const coolFlipboxReviewBox = <PanelBody title={__("Please Share Your Valuable Feedback.", "timeline-block")}>
 		<CardBody className={"cfb-block-review-tab"}>{__("We hope you liked our plugin created Flipbox. Please share your valuable feedback.", "cfb-block")}<br></br><a href="https://wordpress.org/support/plugin/flip-boxes/reviews/#new-post" className="components-button is-primary is-small" target="_blank" >Rate Us<span> ★★★★★</span></a>
 		</CardBody>
 	</PanelBody>
 
-	const coolFlipboxSettings=<CardBody>
+	const coolFlipboxSettings = <CardBody>
 		<Fragment>
 			{coolFlipDirectionBtn}
 			<PanelBody
-				title={ __( 'Flip Settings', 'cfb-blocks' ) }
+				title={__('Flip Settings', 'cfb-blocks')}
 			>
 				<SelectControl
-					label={ __( 'Flip Direction', 'cfb-blocks' )}
-					value={ attributes.animType }
-					options={ [
-						{ label: __( 'Bottom to Top', 'cfb-blocks' ), value: 'flipX' },
-						{ label: __( 'Top to Bottom', 'cfb-blocks' ), value: 'flipX-rev' },
-						{ label: __( 'Left to Right', 'cfb-blocks' ), value: 'flipY' },
-						{ label: __( 'Right to Left', 'cfb-blocks' ), value: 'flipY-rev' }
+					label={__('Flip Direction', 'cfb-blocks')}
+					value={attributes.animType}
+					options={[
+						{ label: __('Bottom to Top', 'cfb-blocks'), value: 'flipX' },
+						{ label: __('Top to Bottom', 'cfb-blocks'), value: 'flipX-rev' },
+						{ label: __('Left to Right', 'cfb-blocks'), value: 'flipY' },
+						{ label: __('Right to Left', 'cfb-blocks'), value: 'flipY-rev' }
 					]}
-					onChange={ animType => setAttributes({ animType })}
+					onChange={animType => setAttributes({ animType })}
 				/>
 			</PanelBody>
 			<PanelBody
-				title={ __( `${currentSide} Side Content`, 'cfb-blocks' ) }
-				initialOpen={ false }
+				title={__(`${currentSide} Side Content`, 'cfb-blocks')}
+				initialOpen={false}
 			>
 				<ToogleGroupControl
-					value={ attributes[`${currentSide}ContentType`] ?? 'none' }
+					value={attributes[`${currentSide}ContentType`] ?? 'none'}
 					options={[
 						{
-							label: __( 'None', 'cfb-blocks' ),
+							label: __('None', 'cfb-blocks'),
 							value: 'none'
 						},
 						{
-							label: __( 'Image', 'cfb-blocks' ),
+							label: __('Image', 'cfb-blocks'),
 							value: 'image'
 						},
 						{
-							label: __( 'Icon', 'cfb-blocks' ),
+							label: __('Icon', 'cfb-blocks'),
 							value: 'icon'
 						}
 					]}
-					onChange={ v => {
+					onChange={v => {
 						const attrs = {};
-						attrs[`${currentSide}ContentType`] = ! isEmpty( v ) && 'none' !== v ? v : 'none';
-						if ( isEmpty( v ) || 'none' === v ) {
+						attrs[`${currentSide}ContentType`] = !isEmpty(v) && 'none' !== v ? v : 'none';
+						if (isEmpty(v) || 'none' === v) {
 							attrs[`${currentSide}Media`] = undefined;
 						}
-						setAttributes( attrs );
-					} }
+						setAttributes(attrs);
+					}}
 				/>
 				{
 					'image' === attributes[`${currentSide}ContentType`] && (
 						<Fragment>
 							<BaseControl
-								label={ __( 'Media Image', 'cfb-blocks' ) }
-								help={ __( 'Set an image as showcase.', 'cfb-blocks' ) }
+								label={__('Media Image', 'cfb-blocks')}
+								help={__('Set an image as showcase.', 'cfb-blocks')}
 							>
-								{ ! ( attributes[`${currentSide}Media`]?.url ) ? (
+								{!(attributes[`${currentSide}Media`]?.url) ? (
 									<MediaPlaceholder
-										labels={ {
-											title: __( 'Media Image', 'cfb-blocks' )
-										} }
+										labels={{
+											title: __('Media Image', 'cfb-blocks')
+										}}
 										accept="image/*"
-										allowedTypes={ [ 'image' ] }
-										value={ attributes[`${currentSide}Media`] }
+										allowedTypes={['image']}
+										value={attributes[`${currentSide}Media`]}
 										onSelect={
 											value => {
-												const attr={};
-												attr[`${currentSide}Media`]= pick( value, [ 'id', 'alt', 'url' ]),
-												attr[`${currentSide}MediaHeight`]= '100%',
-												attr[`${currentSide}MediaWidth`]= _px( value?.sizes?.medium?.width )
+												const attr = {};
+												attr[`${currentSide}Media`] = pick(value, ['id', 'alt', 'url']),
+													attr[`${currentSide}MediaHeight`] = '100%',
+													attr[`${currentSide}MediaWidth`] = _px(value?.sizes?.medium?.width)
 												setAttributes(attr);
 											}
 										}
@@ -190,8 +190,8 @@ const Inspector = ({
 									<BaseControl
 									>
 										<img
-											src={ attributes[`${currentSide}Media`].url }
-											alt={ attributes[`${currentSide}Media`].alt }
+											src={attributes[`${currentSide}Media`].url}
+											alt={attributes[`${currentSide}Media`].alt}
 											style={{
 												border: '2px solid var( --wp-admin-theme-color)',
 												maxHeight: '250px'
@@ -199,39 +199,39 @@ const Inspector = ({
 										/>
 										<Button
 											isSecondary
-											onClick={ () => {
-												const attr={};
-												attr[`${currentSide}Media`]=undefined;
-												setAttributes(attr) 
+											onClick={() => {
+												const attr = {};
+												attr[`${currentSide}Media`] = undefined;
+												setAttributes(attr)
 											}}
 										>
-											{ __( 'Remove image', 'cfb-blocks' ) }
+											{__('Remove image', 'cfb-blocks')}
 										</Button>
 									</BaseControl>
-								) }
+								)}
 							</BaseControl>
 							<UnitControl
-								onChange={ MediaWidth => {
-									const attr={};
-									attr[`${currentSide}MediaWidth`]=MediaWidth;
+								onChange={MediaWidth => {
+									const attr = {};
+									attr[`${currentSide}MediaWidth`] = MediaWidth;
 									setAttributes(attr)
-								} }
-								label={ __( 'Media Width', 'cfb-blocks' ) }
+								}}
+								label={__('Media Width', 'cfb-blocks')}
 								isUnitSelectTabbable
 								isResetValueOnUnitChange
-								value={ _px( attributes[`${currentSide}MediaWidth`] ) }
+								value={_px(attributes[`${currentSide}MediaWidth`])}
 							/>
 							<br />
 							<UnitControl
-								onChange={ MediaHeight => {
-									const attr={};
-									attr[`${currentSide}MediaHeight`]=MediaHeight;
+								onChange={MediaHeight => {
+									const attr = {};
+									attr[`${currentSide}MediaHeight`] = MediaHeight;
 									setAttributes(attr)
-								} }
-								label={ __( 'Media Height', 'cfb-blocks' ) }
+								}}
+								label={__('Media Height', 'cfb-blocks')}
 								isUnitSelectTabbable
 								isResetValueOnUnitChange
-								value={ _px( attributes[`${currentSide}MediaHeight`] ) }
+								value={_px(attributes[`${currentSide}MediaHeight`])}
 							/>
 						</Fragment>
 					)
@@ -239,7 +239,7 @@ const Inspector = ({
 				{'icon' === attributes[`${currentSide}ContentType`] &&
 					<Fragment>
 						<FontAwesomePicker
-							label={ __( 'Icon Picker', 'cfb-blocks' ) }
+							label={__('Icon Picker', 'cfb-blocks')}
 							attrName={`${currentSide}IconData`}
 							iconObj={attributes[`${currentSide}IconData`]}
 							fontSizeLabel={`${currentSide}IconSize`}
@@ -252,12 +252,12 @@ const Inspector = ({
 				}
 			</PanelBody>
 			<PanelBody
-				title={ __( `${currentSide} Alignment`, 'cfb-blocks' ) }
-				initialOpen={ false }
+				title={__(`${currentSide} Alignment`, 'cfb-blocks')}
+				initialOpen={false}
 			>
 				<Fragment>
 					<BaseControl
-						label={ __( 'Vertical', 'cfb-blocks' ) }
+						label={__('Vertical', 'cfb-blocks')}
 					>
 						<ToogleGroupControl
 							options={[
@@ -274,16 +274,16 @@ const Inspector = ({
 									value: 'flex-end'
 								}
 							]}
-							value={ attributes[`${currentSide}VerticalAlign`] ?? 'center' }
-							onChange={ value => {
-								const attr={};
-								attr[`${currentSide}VerticalAlign`]=value;
+							value={attributes[`${currentSide}VerticalAlign`] ?? 'center'}
+							onChange={value => {
+								const attr = {};
+								attr[`${currentSide}VerticalAlign`] = value;
 								setAttributes(attr)
-							} }
+							}}
 						/>
 					</BaseControl>
 					<BaseControl
-						label={ __( 'Horizontal', 'cfb-blocks' ) }
+						label={__('Horizontal', 'cfb-blocks')}
 					>
 						<ToogleGroupControl
 							options={[
@@ -300,15 +300,15 @@ const Inspector = ({
 									value: 'flex-end'
 								}
 							]}
-							value={ attributes[`${currentSide}HorizontalAlign`] ?? 'center' }
-							onChange={ value => {
-								const attr={};
-								attr[`${currentSide}HorizontalAlign`]=value;
-								const valueSplit=value.split("-")?.[1];
-								const textAlign=valueSplit ? valueSplit : value;
-								attr[`${currentSide}TextAlign`]=textAlign;
+							value={attributes[`${currentSide}HorizontalAlign`] ?? 'center'}
+							onChange={value => {
+								const attr = {};
+								attr[`${currentSide}HorizontalAlign`] = value;
+								const valueSplit = value.split("-")?.[1];
+								const textAlign = valueSplit ? valueSplit : value;
+								attr[`${currentSide}TextAlign`] = textAlign;
 								setAttributes(attr)
-							} }
+							}}
 						/>
 					</BaseControl>
 				</Fragment>
@@ -316,288 +316,279 @@ const Inspector = ({
 		</Fragment>
 	</CardBody>;
 
-	const coolFlipboxStyleSettings=<CardBody>
+	const coolFlipboxStyleSettings = <CardBody>
 		<Fragment>
 			{coolFlipDirectionBtn}
 			<PanelBody
-				title={ __( 'Container Dimensions', 'cfb-blocks' ) }
+				title={__('Container Dimensions', 'cfb-blocks')}
 			>
-					<UnitControl
-						label={ __( 'Width', 'cfb-blocks' ) }
-						value={ isNumber( attributes.width ) ? _px( attributes.width ) : attributes?.width ?? '100%' }
-						onChange={ width =>  setAttributes({width}) }
-						isUnitSelectTabbable
-						isResetValueOnUnitChange
-						allowReset={ true }
-					/>
-					<br />
-					<UnitControl
-						label={ __( 'Height', 'cfb-blocks' ) }
-						value={ isNumber( attributes.height ) ? _px( attributes.height ) : attributes?.height ?? '400px' }
-						onChange={ value => {
-							const height='' !== value ? value : 'auto';
-							setAttributes({height})
-						} }
-						isUnitSelectTabbable
-						isResetValueOnUnitChange
-						allowReset={ true }
-						units={[
-							{
-								default: 300,
-								label: 'px',
-								value: 'px'
-							},
-							{
-								default: 20,
-								label: 'em',
-								value: 'em'
-							},
-							{
-								default: 20,
-								label: 'rem',
-								value: 'rem'
-							},
-							{
-								default: 30,
-								label: 'vw',
-								value: 'vw'
-							},
-							{
-								default: 35,
-								label: 'vh',
-								value: 'vh'
-							}
-						]}
-					/>
-					<br />
-					<BoxControl
-						label={ __( 'Padding', 'cfb-blocks' ) }
-						values={attributes?.padding ?? {top: '0px', bottom: '0px', left: '0px', right: '0px'}}
-						onChange={ value => {
-							let result = {};
-							if ( 'object' === typeof value ) {
-								result = Object.fromEntries( Object.entries( pick( value, [ 'top', 'bottom', 'left', 'right' ]) ).filter( ([ _, v ]) => null !== v && undefined !== v ) );
-							}
-							if ( isEmpty( result ) ) {
-								result = undefined;
-							}
-							setAttributes({padding: result});
-						} }
-						allowReset
-					/>
+				<UnitControl
+					label={__('Width', 'cfb-blocks')}
+					value={isNumber(attributes.width) ? _px(attributes.width) : attributes?.width ?? '100%'}
+					onChange={width => setAttributes({ width })}
+					isUnitSelectTabbable
+					isResetValueOnUnitChange
+					allowReset={true}
+				/>
+				<br />
+				<UnitControl
+					label={__('Height', 'cfb-blocks')}
+					value={isNumber(attributes.height) ? _px(attributes.height) : attributes?.height ?? '400px'}
+					onChange={value => {
+						const height = '' !== value ? value : 'auto';
+						setAttributes({ height })
+					}}
+					isUnitSelectTabbable
+					isResetValueOnUnitChange
+					allowReset={true}
+					units={[
+						{
+							default: 300,
+							label: 'px',
+							value: 'px'
+						},
+						{
+							default: 20,
+							label: 'em',
+							value: 'em'
+						},
+						{
+							default: 20,
+							label: 'rem',
+							value: 'rem'
+						},
+						{
+							default: 30,
+							label: 'vw',
+							value: 'vw'
+						},
+						{
+							default: 35,
+							label: 'vh',
+							value: 'vh'
+						}
+					]}
+				/>
+				<br />
+				<BoxControl
+					label={__('Padding', 'cfb-blocks')}
+					values={attributes?.padding ?? { top: '0px', bottom: '0px', left: '0px', right: '0px' }}
+					onChange={value => {
+						let result = {};
+						if ('object' === typeof value) {
+							result = Object.fromEntries(Object.entries(pick(value, ['top', 'bottom', 'left', 'right'])).filter(([_, v]) => null !== v && undefined !== v));
+						}
+						if (isEmpty(result)) {
+							result = undefined;
+						}
+						setAttributes({ padding: result });
+					}}
+					allowReset
+				/>
 			</PanelBody>
 			<PanelBody
-				title={ __( `Background ${currentSide} Side`, 'cfb-blocks' ) }
-				initialOpen={ false }
+				title={__(`Background ${currentSide} Side`, 'cfb-blocks')}
+				initialOpen={false}
 			>
 				<BackgroundSelectorControl
-					backgroundType={ attributes[`${currentSide}BackgroundType`] }
-					backgroundColor={ attributes[`${currentSide}BackgroundColor`] }
-					image={ attributes[`${currentSide}BackgroundImage`] }
-					gradient={ attributes[`${currentSide}BackgroundGradient`] }
-					focalPoint={ attributes[`${currentSide}BackgroundPosition`] }
-					backgroundAttachment={ attributes[`${currentSide}BackgroundAttachment`] }
-					backgroundRepeat={ attributes[`${currentSide}BackgroundRepeat`] }
-					backgroundSize={ attributes[`${currentSide}BackgroundSize`] }
+					backgroundType={attributes[`${currentSide}BackgroundType`]}
+					backgroundColor={attributes[`${currentSide}BackgroundColor`]}
+					image={attributes[`${currentSide}BackgroundImage`]}
+					gradient={attributes[`${currentSide}BackgroundGradient`]}
+					focalPoint={attributes[`${currentSide}BackgroundPosition`]}
+					backgroundAttachment={attributes[`${currentSide}BackgroundAttachment`]}
+					backgroundRepeat={attributes[`${currentSide}BackgroundRepeat`]}
+					backgroundSize={attributes[`${currentSide}BackgroundSize`]}
 					setAttributes={setAttributes}
 					currentSide={currentSide}
-					changeBackgroundType={ value => 
-						{
-							const attr={};
-							attr[`${currentSide}BackgroundType`]=value;
-							setAttributes( attr )
-						} 
+					changeBackgroundType={value => {
+						const attr = {};
+						attr[`${currentSide}BackgroundType`] = value;
+						setAttributes(attr)
 					}
-					changeImage={ value => 
-						{
-							const attr={};
-							attr[`${currentSide}BackgroundImage`]=pick( value, [ 'id', 'url' ]);
-							setAttributes( attr )
-						}
 					}
-					removeImage={ () => 
-						{
-							setAttributes({ frontBackgroundImage: undefined })
-						}
+					changeImage={value => {
+						const attr = {};
+						attr[`${currentSide}BackgroundImage`] = pick(value, ['id', 'url']);
+						setAttributes(attr)
 					}
-					changeColor={ value => 
-						{
-							const attr={};
-							attr[`${currentSide}BackgroundColor`]=value;
-							setAttributes( attr )
-						}	
 					}
-					changeGradient={ value => 
-						{
-							const attr={};
-							attr[`${currentSide}BackgroundGradient`]=value;
-							setAttributes( attr )
-						}
+					removeImage={() => {
+						setAttributes({ frontBackgroundImage: undefined })
 					}
-					changeBackgroundAttachment={ value => 
-						{
-							const attr={};
-							attr[`${currentSide}BackgroundAttachment`]=value;
-							setAttributes( attr )
-						}	
 					}
-					changeBackgroundRepeat={ value => 
-						{
-							const attr={};
-							attr[`${currentSide}BackgroundRepeat`]=value;
-							setAttributes( attr )
-						}	
+					changeColor={value => {
+						const attr = {};
+						attr[`${currentSide}BackgroundColor`] = value;
+						setAttributes(attr)
 					}
-					changeFocalPoint={ value => 
-						{
-							const attr={};
-							attr[`${currentSide}BackgroundPosition`]=value;
-							setAttributes( attr )
-						}	
 					}
-					changeBackgroundSize={ value => 
-						{ 
-							const attr={};
-							attr[`${currentSide}BackgroundSize`]=value;
-							setAttributes( attr )
-						} 
+					changeGradient={value => {
+						const attr = {};
+						attr[`${currentSide}BackgroundGradient`] = value;
+						setAttributes(attr)
+					}
+					}
+					changeBackgroundAttachment={value => {
+						const attr = {};
+						attr[`${currentSide}BackgroundAttachment`] = value;
+						setAttributes(attr)
+					}
+					}
+					changeBackgroundRepeat={value => {
+						const attr = {};
+						attr[`${currentSide}BackgroundRepeat`] = value;
+						setAttributes(attr)
+					}
+					}
+					changeFocalPoint={value => {
+						const attr = {};
+						attr[`${currentSide}BackgroundPosition`] = value;
+						setAttributes(attr)
+					}
+					}
+					changeBackgroundSize={value => {
+						const attr = {};
+						attr[`${currentSide}BackgroundSize`] = value;
+						setAttributes(attr)
+					}
 					}
 				/>
 			</PanelBody>
 			<PanelBody
-				title={ __( `Typography ${currentSide} Side`, 'cfb-blocks' ) }
-				initialOpen={ false }
+				title={__(`Typography ${currentSide} Side`, 'cfb-blocks')}
+				initialOpen={false}
 			>
 				<TypographyControl
-					label={ __( "Title",'cfb-blocks' ) }
-					attributes = { attributes }
-					setAttributes = { setAttributes }
-					loadGoogleFonts = { { value: attributes[`${currentSide}TitleGoogleFont`], label: `${currentSide}TitleGoogleFont` } }
-					fontFamily = { { value: attributes[`${currentSide}TitleFontFamily`], label: `${currentSide}TitleFontFamily` } }
-					fontWeight = { { value: attributes[`${currentSide}TitleFontWeight`], label: `${currentSide}TitleFontWeight` } }
-					fontSize = { { value: attributes[`${currentSide}TitleFontSize`], label: `${currentSide}TitleFontSize` } }
-					lineHeight = { { value: attributes[`${currentSide}TitleLineHeight`], label: `${currentSide}TitleLineHeight` } }
+					label={__("Title", 'cfb-blocks')}
+					attributes={attributes}
+					setAttributes={setAttributes}
+					loadGoogleFonts={{ value: attributes[`${currentSide}TitleGoogleFont`], label: `${currentSide}TitleGoogleFont` }}
+					fontFamily={{ value: attributes[`${currentSide}TitleFontFamily`], label: `${currentSide}TitleFontFamily` }}
+					fontWeight={{ value: attributes[`${currentSide}TitleFontWeight`], label: `${currentSide}TitleFontWeight` }}
+					fontSize={{ value: attributes[`${currentSide}TitleFontSize`], label: `${currentSide}TitleFontSize` }}
+					lineHeight={{ value: attributes[`${currentSide}TitleLineHeight`], label: `${currentSide}TitleLineHeight` }}
 				/>
 				<TypographyControl
-					label={ __( "Description",'cfb-blocks' ) }
-					attributes = { attributes }
-					setAttributes = { setAttributes }
-					loadGoogleFonts = { { value: attributes[`${currentSide}DescGoogleFont`], label: `${currentSide}DescGoogleFont` } }
-					fontFamily = { { value: attributes[`${currentSide}DescFontFamily`], label: `${currentSide}DescFontFamily` } }
-					fontWeight = { { value: attributes[`${currentSide}DescFontWeight`], label: `${currentSide}DescFontWeight` } }
-					fontSize = { { value: attributes[`${currentSide}DescFontSize`], label: `${currentSide}DescFontSize` } }
-					lineHeight = { { value: attributes[`${currentSide}DescLineHeight`], label: `${currentSide}DescLineHeight` } }
+					label={__("Description", 'cfb-blocks')}
+					attributes={attributes}
+					setAttributes={setAttributes}
+					loadGoogleFonts={{ value: attributes[`${currentSide}DescGoogleFont`], label: `${currentSide}DescGoogleFont` }}
+					fontFamily={{ value: attributes[`${currentSide}DescFontFamily`], label: `${currentSide}DescFontFamily` }}
+					fontWeight={{ value: attributes[`${currentSide}DescFontWeight`], label: `${currentSide}DescFontWeight` }}
+					fontSize={{ value: attributes[`${currentSide}DescFontSize`], label: `${currentSide}DescFontSize` }}
+					lineHeight={{ value: attributes[`${currentSide}DescLineHeight`], label: `${currentSide}DescLineHeight` }}
 				/>
 			</PanelBody>
 			<PanelColorSettings
-				title={ __( 'Color', 'cfb-blocks' ) }
-				initialOpen={ true }
-				colorSettings={ [
+				title={__('Color', 'cfb-blocks')}
+				initialOpen={true}
+				colorSettings={[
 					{
 						value: attributes.borderColor,
 						onChange: borderColor => setAttributes({ borderColor }),
-						label: __( 'Border', 'cfb-blocks' ),
+						label: __('Border', 'cfb-blocks'),
 						isShownByDefault: false
 					},
 					{
 						value: attributes.titleColor,
 						onChange: titleColor => setAttributes({ titleColor }),
-						label: __( 'Title', 'cfb-blocks' ),
+						label: __('Title', 'cfb-blocks'),
 						isShownByDefault: false
 					},
 					{
 						value: attributes.descriptionColor,
 						onChange: descriptionColor => setAttributes({ descriptionColor }),
-						label: __( 'Description', 'cfb-blocks' ),
+						label: __('Description', 'cfb-blocks'),
 						isShownByDefault: false
 					}
-				] }
+				]}
 			/>
 			<PanelBody
-				title={ __( 'Border', 'cfb-blocks' ) }
-				initialOpen={ false }
+				title={__('Border', 'cfb-blocks')}
+				initialOpen={false}
 			>
 				<BoxControl
-					label={ __( 'Width', 'cfb-blocks' ) }
+					label={__('Width', 'cfb-blocks')}
 					values={
 						mergeBoxDefaultValues(
-							numberToBox( attributes.borderWidth ),
-							stringToBox( '1px' )
+							numberToBox(attributes.borderWidth),
+							stringToBox('1px')
 						)
 					}
-					onChange={ value => {
+					onChange={value => {
 						setAttributes({
-							borderWidth: removeBoxDefaultValues( value, { left: '1px', right: '1px', bottom: '1px', top: '1px' })
+							borderWidth: removeBoxDefaultValues(value, { left: '1px', right: '1px', bottom: '1px', top: '1px' })
 						});
-					} }
+					}}
 					allowReset
 				/>
 				<BoxControl
 					id="cfb-border-raduis-box"
-					label={ __( 'Radius', 'cfb-blocks' ) }
+					label={__('Radius', 'cfb-blocks')}
 					values={
 						mergeBoxDefaultValues(
-							numberToBox( attributes.borderRadius ),
-							stringToBox( '10px' )
+							numberToBox(attributes.borderRadius),
+							stringToBox('10px')
 						)
 					}
-					onChange={ value => {
+					onChange={value => {
 						setAttributes({
-							borderRadius: removeBoxDefaultValues( value, { left: '10px', right: '10px', bottom: '10px', top: '10px' })
+							borderRadius: removeBoxDefaultValues(value, { left: '10px', right: '10px', bottom: '10px', top: '10px' })
 						});
-					} }
+					}}
 					allowReset
 				/>
 				<ToggleControl
-					label={ __( 'Shadow Properties', 'cfb-blocks' ) }
-					checked={ attributes.boxShadow }
-					onChange={ boxShadow => setAttributes({ boxShadow }) }
+					label={__('Shadow Properties', 'cfb-blocks')}
+					checked={attributes.boxShadow}
+					onChange={boxShadow => setAttributes({ boxShadow })}
 				/>
-				{ attributes.boxShadow && (
+				{attributes.boxShadow && (
 					<Fragment>
 						<ColorGradientControl
-							label={ __( 'Color', 'cfb-blocks' ) }
-							colorValue={ attributes.boxShadowColor }
-							onColorChange={ changeBoxShadowColor }
+							label={__('Color', 'cfb-blocks')}
+							colorValue={attributes.boxShadowColor}
+							onColorChange={changeBoxShadowColor}
 						/>
 						<ControlPanelControl
-							label={ __( 'Shadow Properties', 'cfb-blocks' ) }
+							label={__('Shadow Properties', 'cfb-blocks')}
 						>
 							<RangeControl
-								label={ __( 'Opacity', 'cfb-blocks' ) }
-								value={ attributes.boxShadowColorOpacity }
-								onChange={ changeBoxShadowColorOpacity }
-								min={ 0 }
-								max={ 100 }
+								label={__('Opacity', 'cfb-blocks')}
+								value={attributes.boxShadowColorOpacity}
+								onChange={changeBoxShadowColorOpacity}
+								min={0}
+								max={100}
 								allowReset
 							/>
 							<RangeControl
-								label={ __( 'Blur', 'cfb-blocks' ) }
-								value={ attributes.boxShadowBlur }
-								onChange={ boxShadowBlur => setAttributes({ boxShadowBlur }) }
-								min={ 0 }
-								max={ 100 }
+								label={__('Blur', 'cfb-blocks')}
+								value={attributes.boxShadowBlur}
+								onChange={boxShadowBlur => setAttributes({ boxShadowBlur })}
+								min={0}
+								max={100}
 								allowReset
 							/>
 							<RangeControl
-								label={ __( 'Horizontal', 'cfb-blocks' ) }
-								value={ attributes.boxShadowHorizontal }
-								onChange={ boxShadowHorizontal => setAttributes({ boxShadowHorizontal })}
-								min={ -100 }
-								max={ 100 }
+								label={__('Horizontal', 'cfb-blocks')}
+								value={attributes.boxShadowHorizontal}
+								onChange={boxShadowHorizontal => setAttributes({ boxShadowHorizontal })}
+								min={-100}
+								max={100}
 								allowReset
 							/>
 							<RangeControl
-								label={ __( 'Vertical', 'cfb-blocks' ) }
-								value={ attributes.boxShadowVertical }
-								onChange={ boxShadowVertical => setAttributes({ boxShadowVertical }) }
-								min={ -100 }
-								max={ 100 }
+								label={__('Vertical', 'cfb-blocks')}
+								value={attributes.boxShadowVertical}
+								onChange={boxShadowVertical => setAttributes({ boxShadowVertical })}
+								min={-100}
+								max={100}
 								allowReset
 							/>
 						</ControlPanelControl>
 					</Fragment>
-				) }
+				)}
 			</PanelBody>
 		</Fragment>
 	</CardBody>
@@ -606,7 +597,7 @@ const Inspector = ({
 			<TabPanel
 				className="cfb-block-settings"
 				activeClass="active-tab"
-				tabs={ [
+				tabs={[
 					{
 						name: 'timeline_setting',
 						title: 'Settings',
@@ -619,18 +610,18 @@ const Inspector = ({
 						className: 'cfb-block-tabs  cfb-block-style-tab',
 						content: coolFlipboxStyleSettings
 					},
-				] }
+				]}
 			>
-				{ ( tab ) => 
+				{(tab) =>
 					<Card>
 						{tab.content}
-					</Card> 
+					</Card>
 				}
 			</TabPanel>
-			<PanelBody title={__("View Cool Flipbox Demos","cfb-blocks")} initialOpen={false}>
+			<PanelBody title={__("View Cool Flipbox video", "cfb-blocks")} initialOpen={false}>
 				<CardBody className="cfb-block-demo-button">
-					<a target="_blank" className="button button-primary" href="https://demos.coolplugins.net/flipbox-block-demos/?utm_source=cfb_plugin&utm_medium=inside_block&utm_campaign=demo&utm_content=block">View Demos</a>
-					<a target="_blank" className="button button-primary" href="https://demos.coolplugins.net/flipbox-block-video-tutorial/?utm_source=cfb_plugin&utm_medium=inside_block&utm_campaign=demo&utm_content=block">Watch Videos</a>
+
+					<a target="_blank" className="button button-primary" href="https://www.youtube.com/watch?v=qjC_TXUJ3-w">Watch Video</a>
 				</CardBody>
 			</PanelBody>
 			{coolFlipboxReviewBox}

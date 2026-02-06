@@ -1,4 +1,8 @@
 <?php
+
+if ( ! defined( 'ABSPATH' ) ) {
+    exit; // Exit if accessed directly
+}
 /**
  * Class CFB_Shortcode
  */
@@ -33,7 +37,7 @@ if( !class_exists( 'CFB_Shortcode' ) ){
 
 			$id = absint($atts['id']); // Sanitize to positive integer
 			if ($id <= 0) {
-				return __('Invalid flipbox ID', 'c-flipboxes');
+				return __('Invalid flipbox ID', 'c-flipboxes'); // phpcs:ignore WordPress.WP.I18n.TextDomainMismatch
 			}
 
 			$prefix   = "_cfb_";
@@ -86,7 +90,7 @@ if( !class_exists( 'CFB_Shortcode' ) ){
 				$flipbox_html .= '</div>';
 				return $flipbox_html;	
 			} else {
-				return __('No flipbox content added','c-flipboxes');
+				return __('No flipbox content added','c-flipboxes');  // phpcs:ignore WordPress.WP.I18n.TextDomainMismatch
 			}
         }
 
@@ -95,21 +99,21 @@ if( !class_exists( 'CFB_Shortcode' ) ){
          */
         function cfb_register_frontend_assets() 
 		{
-			// Register custom js for flipboxes
-			wp_register_script( 'cfb-custom-js', CFB_URL . 'assets/js/flipboxes-custom.min.js',['jquery'], CFB_VERSION );
-			
-			// Register fontawesome css
-			wp_register_style( 'cfb-fontawesome',CFB_URL . 'assets/css/font-awesome.min.css', [], CFB_VERSION);
+		// Register custom js for flipboxes
+		wp_register_script( 'cfb-custom-js', CFB_URL . 'assets/js/flipboxes-custom.min.js',['jquery'], CFB_VERSION, true );
+		
+		// Register fontawesome css
+		wp_register_style( 'cfb-fontawesome',CFB_URL . 'assets/css/font-awesome.min.css', [], CFB_VERSION);
 
-			// Register jquery flip js
-			wp_register_script( 'cfb-jquery-flip', CFB_URL . 'assets/js/jquery.flip.min.js', ['jquery'], CFB_VERSION );
-			
-			// Register flexboxgrid style if enabled
-			wp_register_style( 'cfb-flexboxgrid-style',CFB_URL . 'assets/css/flipboxes-flexboxgrid.min.css', [], CFB_VERSION);
-			// Register default styles
-			wp_register_style( 'cfb-styles',CFB_URL . 'assets/css/flipboxes-styles.min.css', [], CFB_VERSION);
-			
-			wp_register_script( 'cfb-imagesloader', CFB_URL . 'assets/js/jquery-imagesloader.min.js', ['jquery'], CFB_VERSION );
+		// Register jquery flip js
+		wp_register_script( 'cfb-jquery-flip', CFB_URL . 'assets/js/jquery.flip.min.js', ['jquery'], CFB_VERSION, true );
+		
+		// Register flexboxgrid style if enabled
+		wp_register_style( 'cfb-flexboxgrid-style',CFB_URL . 'assets/css/flipboxes-flexboxgrid.min.css', [], CFB_VERSION);
+		// Register default styles
+		wp_register_style( 'cfb-styles',CFB_URL . 'assets/css/flipboxes-styles.min.css', [], CFB_VERSION);
+		
+		wp_register_script( 'cfb-imagesloader', CFB_URL . 'assets/js/jquery-imagesloader.min.js', ['jquery'], CFB_VERSION, true );
 			
 			wp_enqueue_script(
 				'cfb-remove-grid',

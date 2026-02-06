@@ -1,4 +1,9 @@
 <?php
+
+if ( ! defined( 'ABSPATH' ) ) {
+    exit; // Exit if accessed directly
+}
+
 /**
  * Handles hooking CMB2 objects/fields into the WordPres REST API
  * which can allow fields to be read and/or updated.
@@ -852,13 +857,13 @@ class CMB2_REST extends CMB2_Hookup_Base {
 	 */
 	public function __get( $field ) {
 		switch ( $field ) {
-			case 'read_fields':
-			case 'edit_fields':
-			case 'rest_read':
-			case 'rest_edit':
-				return $this->{$field};
-			default:
-				throw new Exception( 'Invalid ' . __CLASS__ . ' property: ' . $field );
+		case 'read_fields':
+		case 'edit_fields':
+		case 'rest_read':
+		case 'rest_edit':
+			return $this->{$field};
+		default:
+			throw new Exception( 'Invalid ' . __CLASS__ . ' property: ' . esc_html( $field ) );
 		}
 	}
 

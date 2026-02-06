@@ -3,6 +3,11 @@ namespace CoolPlugins\GutenbergBlocks;
 
 use CoolPlugins\GutenbergBlocks\Cfb_CSS_Base;
 
+
+if ( ! defined( 'ABSPATH' ) ) {
+    exit;
+}
+
 /**
  * Class CFB_Block_Frontend
  */
@@ -127,7 +132,7 @@ class CFB_Block_Frontend extends Cfb_CSS_Base {
 			),
 			'https://fonts.googleapis.com/css2'
 		);
-
+		// phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound
 		$fonts_url = apply_filters( 'cfb_blocks_google_fonts_url', $fonts_url );
 
 		$obj = array(
@@ -231,6 +236,7 @@ class CFB_Block_Frontend extends Cfb_CSS_Base {
 		}
 
 		$total_inline_limit = 20000;
+		// phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound
 		$total_inline_limit = apply_filters( 'styles_inline_size_limit', 20000 );
 
 		$wp_upload_dir = wp_upload_dir( null, false );

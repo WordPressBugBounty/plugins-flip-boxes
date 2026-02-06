@@ -2,9 +2,9 @@
 Contributors: narinder-singh,satindersingh,coolplugins
 Requires at least: 4.5
 Tags:flipbox,flipbox block,flip images,flipboxes,cool flipbox, content box
-Tested up to:6.8
+Tested up to:6.9
 Requires PHP: 5.6
-Stable tag:1.9.3
+Stable tag:1.9.8
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -110,6 +110,23 @@ You can report security bugs through the Patchstack Vulnerability Disclosure Pro
 --After upgrading your installed plugin with latest version(1.0.1),Please update your flipboxes effect.-- 
 
 == Changelog ==
+
+= Version 1.9.8 | 04 Feb 2026 =
+* **Fixed:**  Fixed issues reported by “Plugin Check” plugin.
+
+= Version 1.9.7 | 19 Dec 2025 =
+* **Improved:** Rating div styling.
+* **Fixed:**  Front-end design issue in Layout 6.
+
+
+= Version 1.9.6 | 21 Nov 2025 =
+* **Updated:** Assets updated.
+
+= Version 1.9.5 | 08 Oct 2025 =
+* **Fixed:** Nonce validation issue in the deactivation popup.
+
+= Version 1.9.4 | 07 Oct 2025 =
+* **Improvements:** Improved the deactivation popup.
 
 = Version 1.9.3 | 27 Aug 2025 =
 * **Update:** Plugin and readme links.

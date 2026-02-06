@@ -1,6 +1,10 @@
 <?php
 namespace CoolPlugins\GutenbergBlocks;
 
+if ( ! defined( 'ABSPATH' ) ) {
+    exit;
+}
+
 /**
  * Class Registration
  *
