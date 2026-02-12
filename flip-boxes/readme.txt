@@ -4,7 +4,7 @@ Requires at least: 4.5
 Tags:flipbox,flipbox block,flip images,flipboxes,cool flipbox, content box
 Tested up to:6.9
 Requires PHP: 5.6
-Stable tag:1.9.8
+Stable tag:1.9.9
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -44,6 +44,8 @@ https://www.youtube.com/watch?v=aSqsRIQO2-U
 * **[AutoPoly - AI Translation For Polylang](https://coolplugins.net/product/automatic-translations-for-polylang/?utm_source=cfb_plugin&utm_medium=readme&utm_campaign=get_pro&utm_content=atfp_check_out)**: This addon duplicates your page or post titles, content, images, galleries, or meta fields, and automatically translates them into the selected language. Whether you’re using Elementor or Gutenberg, this addon makes the translation process easier.
 
 * **[Timeline Widget For Elementor](https://cooltimeline.com/plugin/elementor-timeline-widget-pro/?utm_source=cfb_plugin&utm_medium=readme&utm_campaign=get_pro&utm_content=twae_check_out)**: Showcase your company history, product roadmap, and personal journey in vertical & horizontal layout directly inside Elementor.
+
+**Use of 3rd Party Services:** This plugin connects to the Cool Plugins feedback server only for optional usage data sharing and voluntary feedback submission (for example, during plugin deactivation). Data is transmitted solely after explicit user consent. No hidden tracking is performed, and no frontend visitor or site user data is collected.  For more details, please review our [Data Usage Policy](https://my.coolplugins.net/terms/usage-tracking/), [TOS](https://my.coolplugins.net/terms/), and [Privacy Policy](https://my.coolplugins.net/terms/privacy-policy/).
 
 == Installation ==
 ### There are 3 ways to install Flip Boxes inside your WordPress website.</h6>
@@ -110,6 +112,9 @@ You can report security bugs through the Patchstack Vulnerability Disclosure Pro
 --After upgrading your installed plugin with latest version(1.0.1),Please update your flipboxes effect.-- 
 
 == Changelog ==
+
+= Version 1.9.9 | 12 Feb 2026 =
+* **Improved:**  Textual Changes.
 
 = Version 1.9.8 | 04 Feb 2026 =
 * **Fixed:**  Fixed issues reported by “Plugin Check” plugin.
