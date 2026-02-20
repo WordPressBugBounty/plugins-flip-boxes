@@ -62,8 +62,8 @@ if ( ! class_exists( 'CFB_post_type' ) ) {
 				<div class="wrap" style="max-width: 100vw; padding: 20px; background-color: #fff; box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);">
 				
 				<h1 style="color: #333; font-size: 32px;"><?php 
-				// phpcs:ignore WordPress.WP.I18n.TextDomainMismatch
-				echo esc_html__('Cool Flipbox Settings', 'c-flipboxes'); ?></h1>
+				
+				echo esc_html__('Cool Flipbox Settings', 'flip-boxes'); ?></h1>
 					<style>
 						.cfb_setting_form {
 							margin-top: 20px;
@@ -132,34 +132,28 @@ if ( ! class_exists( 'CFB_post_type' ) ) {
 								$saved_flip_type = get_option( 'cfb_flip_type_option', 'post' );
 								?>
 								<h2><?php
-								// phpcs:ignore WordPress.WP.I18n.TextDomainMismatch
-								echo esc_html__('Flipbox Builder Type:', 'c-flipboxes'); ?></h2>
+								echo esc_html__('Flipbox Builder Type:', 'flip-boxes'); ?></h2>
 								<fieldset class="cfb_setting_fieldset">
 									<legend class="screen-reader-text">
 										<span><?php 
-										// phpcs:ignore WordPress.WP.I18n.TextDomainMismatch
-										echo esc_html__('Flipbox builder type', 'c-flipboxes'); ?></span>
+										echo esc_html__('Flipbox builder type', 'flip-boxes'); ?></span>
 									</legend>
 									<label for="post" class="cfb_setting_label">
 									<p><input type="radio" name="cfb_flip_type_option" id="post" value="post" <?php checked( 'post', $saved_flip_type ); ?> /><?php 
-									// phpcs:ignore WordPress.WP.I18n.TextDomainMismatch
-									echo esc_html__('Classic Post Type', 'c-flipboxes'); ?></p>
+									echo esc_html__('Classic Post Type', 'flip-boxes'); ?></p>
 										<img src="<?php echo esc_url(CFB_URL . '/assets/images/flipbox-shortcode.png'); ?>"  alt="" width="100">
 									</label>
 									<label for="block" class="cfb_setting_label">
 									<p><input type="radio" name="cfb_flip_type_option" id="block" value="block" <?php checked( 'block', $saved_flip_type ); ?> /><?php 
-									// phpcs:ignore WordPress.WP.I18n.TextDomainMismatch
-									echo esc_html__('Modern Block Based', 'c-flipboxes'); ?></p>
+									echo esc_html__('Modern Block Based', 'flip-boxes'); ?></p>
 										<img src="<?php echo esc_url(CFB_URL . '/assets/images/flipbox-block.png'); ?>"  alt="" width="100">
 									</label>
 								</fieldset>
 								<?php 
-								// phpcs:ignore WordPress.WP.I18n.TextDomainMismatch
-								submit_button( esc_html__('Save Changes', 'c-flipboxes'), 'primary', 'submit-btn' ); ?>
+								submit_button( esc_html__('Save Changes', 'flip-boxes'), 'primary', 'submit-btn' ); ?>
 							</form>
 							<h2 class="frame_heading"><?php 
-							// phpcs:ignore WordPress.WP.I18n.TextDomainMismatch
-							echo esc_html__('Classic Post Type', 'c-flipboxes'); ?></h2>
+							echo esc_html__('Classic Post Type', 'flip-boxes'); ?></h2>
 							<iframe class="cfb_setting_iframe" src="https://www.youtube.com/embed/qjC_TXUJ3-w" frameborder="0" allowfullscreen></iframe>
 				</div>
 				<?php
@@ -228,8 +222,7 @@ if ( ! class_exists( 'CFB_post_type' ) ) {
 			$cmb2 = new_cmb2_box(
 				array(
 					'id'           => 'cfb_live_preview',
-					// phpcs:ignore WordPress.WP.I18n.TextDomainMismatch
-					'title'        => __( 'Cool Flipbox Live Preview', 'c-flipboxes' ),
+					'title'        => __( 'Cool Flipbox Live Preview', 'flip-boxes' ),
 					'object_types' => array( 'flipboxes' ), // Post type
 					'context'      => 'normal',
 					'priority'     => 'high',
@@ -252,8 +245,7 @@ if ( ! class_exists( 'CFB_post_type' ) ) {
 			$flip = new_cmb2_box(
 				array(
 					'id'           => 'test_metabox',
-					// phpcs:ignore WordPress.WP.I18n.TextDomainMismatch
-					'title'        => __( 'Add Flipboxes', 'c-flipboxes' ),
+					'title'        => __( 'Add Flipboxes', 'flip-boxes' ),
 					'object_types' => array( 'flipboxes' ), // Post type
 					'context'      => 'normal',
 					'priority'     => 'high',
@@ -267,16 +259,12 @@ if ( ! class_exists( 'CFB_post_type' ) ) {
 					'type'        => 'group',
 					'description' => '',
 					'options'     => array(
-						// phpcs:ignore WordPress.WP.I18n.TextDomainMismatch
-						'group_title'    => __( 'Item {#}', 'c-flipboxes' ), 
-						// phpcs:ignore WordPress.WP.I18n.TextDomainMismatch
-						'add_button'     => __( 'Add Another Flipbox', 'c-flipboxes' ),
-						// phpcs:ignore WordPress.WP.I18n.TextDomainMismatch
-						'remove_button'  => __( 'Remove Flipbox', 'c-flipboxes' ),
+						'group_title'    => __( 'Item {#}', 'flip-boxes' ), 
+						'add_button'     => __( 'Add Another Flipbox', 'flip-boxes' ),
+						'remove_button'  => __( 'Remove Flipbox', 'flip-boxes' ),
 						'sortable'       => true, // beta
 						'closed'         => true, // true to have the groups closed by default
-						// phpcs:ignore WordPress.WP.I18n.TextDomainMismatch
-						'remove_confirm' => esc_html__( 'Are you sure you want to remove?', 'c-flipboxes' ), // Performs confirmation before removing group.
+						'remove_confirm' => esc_html__( 'Are you sure you want to remove?', 'flip-boxes' ), // Performs confirmation before removing group.
 					),
 				)
 			);
@@ -285,10 +273,8 @@ if ( ! class_exists( 'CFB_post_type' ) ) {
 			$flip->add_group_field(
 				$group_field_id,
 				array(
-					// phpcs:ignore WordPress.WP.I18n.TextDomainMismatch
-					'name'        => __( 'Title', 'c-flipbox' ),
-					// phpcs:ignore WordPress.WP.I18n.TextDomainMismatch
-					'description' => __( 'Enter a title for this Flipbox', 'c-flipbox' ),
+					'name'        => __( 'Title', 'flip-boxes' ),
+					'description' => __( 'Enter a title for this Flipbox', 'flip-boxes' ),
 					'id'          => 'flipbox_title',
 					'type'        => 'text',
 				)
@@ -297,11 +283,9 @@ if ( ! class_exists( 'CFB_post_type' ) ) {
 			$flip->add_group_field(
 				$group_field_id,
 				array(
-					// phpcs:ignore WordPress.WP.I18n.TextDomainMismatch
-					'name'        => __( 'Front Description', 'c-flipbox' ),
+					'name'        => __( 'Front Description', 'flip-boxes' ),
 					'id'          => 'flipbox_label',
-					// phpcs:ignore WordPress.WP.I18n.TextDomainMismatch
-					'description' => __( 'Add Front Description for this Flipbox', 'c-flipbox' ),
+					'description' => __( 'Add Front Description for this Flipbox', 'flip-boxes' ),
 					'type'        => 'textarea_small',
 				)
 			);
@@ -309,10 +293,8 @@ if ( ! class_exists( 'CFB_post_type' ) ) {
 			$flip->add_group_field(
 				$group_field_id,
 				array(
-					// phpcs:ignore WordPress.WP.I18n.TextDomainMismatch
-					'name'        => __( 'Back Description', 'c-flipbox' ),
-					// phpcs:ignore WordPress.WP.I18n.TextDomainMismatch
-					'description' => __( 'Add Back Description for this Flipbox', 'c-flipbox' ),
+					'name'        => __( 'Back Description', 'flip-boxes' ),
+					'description' => __( 'Add Back Description for this Flipbox', 'flip-boxes' ),
 					'id'          => 'flipbox_desc',
 					'type'        => 'textarea_small',
 				)
@@ -321,10 +303,8 @@ if ( ! class_exists( 'CFB_post_type' ) ) {
 			$flip->add_group_field(
 				$group_field_id,
 				array(
-					// phpcs:ignore WordPress.WP.I18n.TextDomainMismatch
-					'name'        => __( 'Description Length', 'c-flipbox' ),
-					// phpcs:ignore WordPress.WP.I18n.TextDomainMismatch
-					'description' => __( 'Enter number of characters', 'c-flipbox' ),
+					'name'        => __( 'Description Length', 'flip-boxes' ),
+					'description' => __( 'Enter number of characters', 'flip-boxes' ),
 					'id'          => 'flipbox_desc_length',
 					'type'        => 'text',
 					'default'     => '75',
@@ -334,10 +314,8 @@ if ( ! class_exists( 'CFB_post_type' ) ) {
 			$flip->add_group_field(
 				$group_field_id,
 				array(
-					// phpcs:ignore WordPress.WP.I18n.TextDomainMismatch
-					'name'        => __( 'Select Icon', 'c-flipbox' ),
-					// phpcs:ignore WordPress.WP.I18n.TextDomainMismatch
-					'description' => __( 'Choose an Icon for Flipbox Layout', 'c-flipbox' ),
+					'name'        => __( 'Select Icon', 'flip-boxes' ),
+					'description' => __( 'Choose an Icon for Flipbox Layout', 'flip-boxes' ),
 					'id'          => 'flipbox_icon',
 					'type'        => 'fontawesome_icon',
 				)
@@ -345,10 +323,8 @@ if ( ! class_exists( 'CFB_post_type' ) ) {
 			$flip->add_group_field(
 				$group_field_id,
 				array(
-					// phpcs:ignore WordPress.WP.I18n.TextDomainMismatch
-					'name'        => __( 'Color Scheme', 'c-flipbox' ),
-					// phpcs:ignore WordPress.WP.I18n.TextDomainMismatch
-					'description' => __( 'Choose Color Scheme', 'c-flipbox' ),
+					'name'        => __( 'Color Scheme', 'flip-boxes' ),
+					'description' => __( 'Choose Color Scheme', 'flip-boxes' ),
 					'id'          => 'color_scheme',
 					'type'        => 'colorpicker',
 				)
@@ -357,11 +333,9 @@ if ( ! class_exists( 'CFB_post_type' ) ) {
 			$flip->add_group_field(
 				$group_field_id,
 				array(
-					// phpcs:ignore WordPress.WP.I18n.TextDomainMismatch
-					'name'        => __( 'Image', 'c-flipbox' ),
+					'name'        => __( 'Image', 'flip-boxes' ),
 					'id'          => 'flipbox_image',
-					// phpcs:ignore WordPress.WP.I18n.TextDomainMismatch
-					'description' => __( 'Upload an Image', 'c-flipbox' ),
+					'description' => __( 'Upload an Image', 'flip-boxes' ),
 					'type'        => 'file',
 				)
 			);
@@ -369,11 +343,9 @@ if ( ! class_exists( 'CFB_post_type' ) ) {
 			$flip->add_group_field(
 				$group_field_id,
 				array(
-					// phpcs:ignore WordPress.WP.I18n.TextDomainMismatch
-					'name'        => __( 'URL', 'c-flipbox' ),
+					'name'        => __( 'URL', 'flip-boxes' ),
 					'id'          => 'flipbox_url',
-					// phpcs:ignore WordPress.WP.I18n.TextDomainMismatch
-					'description' => __( 'Enter URL for Button', 'c-flipbox' ),
+					'description' => __( 'Enter URL for Button', 'flip-boxes' ),
 					'type'        => 'text_url',
 					'protocols'   => array( 'http', 'https' ),
 				)
@@ -382,11 +354,9 @@ if ( ! class_exists( 'CFB_post_type' ) ) {
 			$flip->add_group_field(
 				$group_field_id,
 				array(
-					// phpcs:ignore WordPress.WP.I18n.TextDomainMismatch
-					'name'        => __( 'URL Text', 'c-flipbox' ),
+					'name'        => __( 'URL Text', 'flip-boxes' ),
 					'id'          => 'read_more_link',
-					// phpcs:ignore WordPress.WP.I18n.TextDomainMismatch
-					'description' => __( 'Enter Text For Button', 'c-flipbox' ),
+					'description' => __( 'Enter Text For Button', 'flip-boxes' ),
 					'type'        => 'text',
 				)
 			);
@@ -401,8 +371,7 @@ if ( ! class_exists( 'CFB_post_type' ) ) {
 			$flip = new_cmb2_box(
 				array(
 					'id'           => 'cfb-side-mt',
-					// phpcs:ignore WordPress.WP.I18n.TextDomainMismatch
-					'title'        => __( 'Flipbox General Settings', 'c-flipboxes' ),
+					'title'        => __( 'Flipbox General Settings', 'flip-boxes' ),
 					'object_types' => array( 'flipboxes' ), // Post type
 					'context'      => 'side',
 					'priority'     => 'low',
@@ -413,87 +382,63 @@ if ( ! class_exists( 'CFB_post_type' ) ) {
 			// Regular text field
 			$flip->add_field(
 				array(
-					// phpcs:ignore WordPress.WP.I18n.TextDomainMismatch
-					'name'             => __( 'layout', 'c-flipboxes' ),
-					// phpcs:ignore WordPress.WP.I18n.TextDomainMismatch
-					'desc'             => __( 'Select Flipbox Layout', 'c-flipboxes' ),
+					'name'             => __( 'layout', 'flip-boxes' ),
+					'desc'             => __( 'Select Flipbox Layout', 'flip-boxes' ),
 					'id'               => $prefix . 'flip_layout',
 					'type'             => 'select',
 					'show_option_none' => false,
 					'default'          => 'dashed-with-icon',
 					'options'          => array(
-						// phpcs:ignore WordPress.WP.I18n.TextDomainMismatch
-						'dashed-with-icon' => __( 'Layout 1 (Dashed With Icon)', 'c-flipboxes' ),
-						// phpcs:ignore WordPress.WP.I18n.TextDomainMismatch
-						'with-image'       => __( 'Layout 2 (With Image)', 'c-flipboxes' ),
-						// phpcs:ignore WordPress.WP.I18n.TextDomainMismatch
-						'solid-with-icon'  => __( 'Layout 3 (Solid With Icon)', 'c-flipboxes' ),
-						// phpcs:ignore WordPress.WP.I18n.TextDomainMismatch
-						'layout-4'         => __( 'Layout 4', 'c-flipboxes' ),
-						// phpcs:ignore WordPress.WP.I18n.TextDomainMismatch
-						'layout-5'         => __( 'Layout 5', 'c-flipboxes' ),
-						// phpcs:ignore WordPress.WP.I18n.TextDomainMismatch
-						'layout-6'         => __( 'Layout 6', 'c-flipboxes' ),
-						// phpcs:ignore WordPress.WP.I18n.TextDomainMismatch
-						'layout-7'         => __( 'Layout 7', 'c-flipboxes' ),
-						// phpcs:ignore WordPress.WP.I18n.TextDomainMismatch
-						'layout-8'         => __( 'Layout 8', 'c-flipboxes' ),
-						// phpcs:ignore WordPress.WP.I18n.TextDomainMismatch
-						'layout-9'         => __( 'Layout 9', 'c-flipboxes' ),
+						'dashed-with-icon' => __( 'Layout 1 (Dashed With Icon)', 'flip-boxes' ),
+						'with-image'       => __( 'Layout 2 (With Image)', 'flip-boxes' ),
+						'solid-with-icon'  => __( 'Layout 3 (Solid With Icon)', 'flip-boxes' ),
+						'layout-4'         => __( 'Layout 4', 'flip-boxes' ),
+						'layout-5'         => __( 'Layout 5', 'flip-boxes' ),
+						'layout-6'         => __( 'Layout 6', 'flip-boxes' ),
+						'layout-7'         => __( 'Layout 7', 'flip-boxes' ),
+						'layout-8'         => __( 'Layout 8', 'flip-boxes' ),
+						'layout-9'         => __( 'Layout 9', 'flip-boxes' ),
 					),
 				)
 			);
 
 			$flip->add_field(
 				array(
-					// phpcs:ignore WordPress.WP.I18n.TextDomainMismatch
-					'name'             => __( 'Effect', 'c-flipboxes' ),
-					// phpcs:ignore WordPress.WP.I18n.TextDomainMismatch
-					'desc'             => __( 'Select Flipbox Effect', 'c-flipboxes' ),
+					'name'             => __( 'Effect', 'flip-boxes' ),
+					'desc'             => __( 'Select Flipbox Effect', 'flip-boxes' ),
 					'id'               => $prefix . 'effect',
 					'type'             => 'select',
 					'show_option_none' => false,
 					'default'          => 'left-to-right',
 					'options'          => array(
-						// phpcs:ignore WordPress.WP.I18n.TextDomainMismatch
-						'x' => __( 'Bottom To Top', 'c-flipboxes' ),
-						// phpcs:ignore WordPress.WP.I18n.TextDomainMismatch
-						'y' => __( 'Left To Right', 'c-flipboxes' ),
+						'x' => __( 'Bottom To Top', 'flip-boxes' ),
+						'y' => __( 'Left To Right', 'flip-boxes' ),
 					),
 				)
 			);
 
 			$flip->add_field(
 				array(
-					// phpcs:ignore WordPress.WP.I18n.TextDomainMismatch
-					'name'             => __( 'Number of columns', 'c-flipboxes' ),
-					// phpcs:ignore WordPress.WP.I18n.TextDomainMismatch
-					'desc'             => __( 'Select Number of columns', 'c-flipboxes' ),
+					'name'             => __( 'Number of columns', 'flip-boxes' ),
+					'desc'             => __( 'Select Number of columns', 'flip-boxes' ),
 					'id'               => $prefix . 'column',
 					'type'             => 'select',
 					'show_option_none' => false,
 					'default'          => 'col-md-4',
 					'options'          => array(
-						// phpcs:ignore WordPress.WP.I18n.TextDomainMismatch
-						'col-md-12' => __( 'One', 'c-flipboxes' ),
-						// phpcs:ignore WordPress.WP.I18n.TextDomainMismatch
-						'col-md-6'  => __( 'Two', 'c-flipboxes' ),
-						// phpcs:ignore WordPress.WP.I18n.TextDomainMismatch
-						'col-md-4'  => __( 'Three', 'c-flipboxes' ),
-						// phpcs:ignore WordPress.WP.I18n.TextDomainMismatch
-						'col-md-3'  => __( 'Four', 'c-flipboxes' ),
-						// phpcs:ignore WordPress.WP.I18n.TextDomainMismatch
-						'col-md-2'  => __( 'Six', 'c-flipboxes' ),
+						'col-md-12' => __( 'One', 'flip-boxes' ),
+						'col-md-6'  => __( 'Two', 'flip-boxes' ),
+						'col-md-4'  => __( 'Three', 'flip-boxes' ),
+						'col-md-3'  => __( 'Four', 'flip-boxes' ),
+						'col-md-2'  => __( 'Six', 'flip-boxes' ),
 					),
 				)
 			);
 
 			$flip->add_field(
 				array(
-					// phpcs:ignore WordPress.WP.I18n.TextDomainMismatch
-					'name'        => __( 'Skin Color', 'c-flipboxes' ),
-					// phpcs:ignore WordPress.WP.I18n.TextDomainMismatch
-					'description' => __( 'Choose a skin color', 'c-flipboxes' ),
+					'name'        => __( 'Skin Color', 'flip-boxes' ),
+					'description' => __( 'Choose a skin color', 'flip-boxes' ),
 					'id'          => $prefix . 'skin_color',
 					'type'        => 'colorpicker',
 					'default'     => '#f4bf64',
@@ -502,19 +447,15 @@ if ( ! class_exists( 'CFB_post_type' ) ) {
 
 			$flip->add_field(
 				array(
-					// phpcs:ignore WordPress.WP.I18n.TextDomainMismatch
-					'name'             => __( 'Height', 'c-flipboxes' ),
-					// phpcs:ignore WordPress.WP.I18n.TextDomainMismatch
-					'desc'             => __( 'Select height for Flipbox', 'c-flipboxes' ),
+					'name'             => __( 'Height', 'flip-boxes' ),
+					'desc'             => __( 'Select height for Flipbox', 'flip-boxes' ),
 					'id'               => $prefix . 'height',
 					'type'             => 'select',
 					'show_option_none' => false,
 					'default'          => 'default',
 					'options'          => array(
-						// phpcs:ignore WordPress.WP.I18n.TextDomainMismatch
-						'default' => __( 'Default(according to content)', 'c-flipboxes' ),
-						// phpcs:ignore WordPress.WP.I18n.TextDomainMismatch
-						'equal'   => __( 'Equal height of each Flipbox', 'c-flipboxes' ),
+						'default' => __( 'Default(according to content)', 'flip-boxes' ),
+						'equal'   => __( 'Equal height of each Flipbox', 'flip-boxes' ),
 					),
 				)
 			);
@@ -529,8 +470,7 @@ if ( ! class_exists( 'CFB_post_type' ) ) {
 			$flip = new_cmb2_box(
 				array(
 					'id'           => 'cfb_advanced_settings',
-					// phpcs:ignore WordPress.WP.I18n.TextDomainMismatch
-					'title'        => __( 'Flipbox Advanced Settings', 'c-flipboxes' ),
+					'title'        => __( 'Flipbox Advanced Settings', 'flip-boxes' ),
 					'object_types' => array( 'flipboxes' ), // Post type
 					'context'      => 'side',
 					'priority'     => 'low',
@@ -540,10 +480,8 @@ if ( ! class_exists( 'CFB_post_type' ) ) {
 
 			$flip->add_field(
 				array(
-					// phpcs:ignore WordPress.WP.I18n.TextDomainMismatch
-					'name' => __( 'Number of Flipboxes', 'c-flipboxes' ),
-					// phpcs:ignore WordPress.WP.I18n.TextDomainMismatch
-					'desc' => __( 'Enter number of flipboxes to show', 'c-flipboxes' ),
+					'name' => __( 'Number of Flipboxes', 'flip-boxes' ),
+					'desc' => __( 'Enter number of flipboxes to show', 'flip-boxes' ),
 					'id'   => $prefix . 'no_of_items',
 					'type' => 'text',
 				)
@@ -551,10 +489,8 @@ if ( ! class_exists( 'CFB_post_type' ) ) {
 
 			$flip->add_field(
 				array(
-					// phpcs:ignore WordPress.WP.I18n.TextDomainMismatch
-					'name'    => __( 'Icon Size(in px)', 'c-flipboxes' ),
-					// phpcs:ignore WordPress.WP.I18n.TextDomainMismatch
-					'desc'    => __( 'Enter icon size', 'c-flipboxes' ),
+					'name'    => __( 'Icon Size(in px)', 'flip-boxes' ),
+					'desc'    => __( 'Enter icon size', 'flip-boxes' ),
 					'id'      => $prefix . 'icon_size',
 					'type'    => 'text',
 					'default' => '52px',
@@ -563,10 +499,8 @@ if ( ! class_exists( 'CFB_post_type' ) ) {
 
 			$flip->add_field(
 				array(
-					// phpcs:ignore WordPress.WP.I18n.TextDomainMismatch
-					'name' => __( 'Read More link in same tab', 'c-flipboxes' ),
-					// phpcs:ignore WordPress.WP.I18n.TextDomainMismatch
-					'desc' => __( 'Check if you want to open Read More link in same tab', 'c-flipboxes' ),
+					'name' => __( 'Read More link in same tab', 'flip-boxes' ),
+					'desc' => __( 'Check if you want to open Read More link in same tab', 'flip-boxes' ),
 					'id'   => $prefix . 'LinkTarget',
 					'type' => 'checkbox',
 				)
@@ -574,48 +508,39 @@ if ( ! class_exists( 'CFB_post_type' ) ) {
 
 			$flip->add_field(
 				array(
-					// phpcs:ignore WordPress.WP.I18n.TextDomainMismatch
-					'name'    => __( 'Bootstrap', 'c-flipboxes' ),
+					'name'    => __( 'Bootstrap', 'flip-boxes' ),
 					'id'      => $prefix . 'bootstrap',
 					'default' => 'enable',
 					'type'    => 'radio',
 					'options' => array(
-						// phpcs:ignore WordPress.WP.I18n.TextDomainMismatch
-						'enable'  => __( 'Enable Bootstrap', 'c-flipboxes' ),
-						// phpcs:ignore WordPress.WP.I18n.TextDomainMismatch
-						'disable' => __( 'Disable Bootstrap', 'c-flipboxes' ),
+						'enable'  => __( 'Enable Bootstrap', 'flip-boxes' ),
+						'disable' => __( 'Disable Bootstrap', 'flip-boxes' ),
 					),
 				)
 			);
 
 			$flip->add_field(
 				array(
-					// phpcs:ignore WordPress.WP.I18n.TextDomainMismatch
-					'name'    => __( 'Fontawesome', 'c-flipboxes' ),
+					'name'    => __( 'Fontawesome', 'flip-boxes' ),
 					'id'      => $prefix . 'font',
 					'default' => 'enable',
 					'type'    => 'radio',
 					'options' => array(
-						// phpcs:ignore WordPress.WP.I18n.TextDomainMismatch
-						'enable'  => __( 'Enable Fontawesome', 'c-flipboxes' ),
-						// phpcs:ignore WordPress.WP.I18n.TextDomainMismatch
-						'disable' => __( 'Disable Fontawesome', 'c-flipboxes' ),
+						'enable'  => __( 'Enable Fontawesome', 'flip-boxes' ),
+						'disable' => __( 'Disable Fontawesome', 'flip-boxes' ),
 					),
 				)
 			);
 
 			$flip->add_field(
 				array(
-					// phpcs:ignore WordPress.WP.I18n.TextDomainMismatch
-					'name'    => __( 'Flipbox Event', 'c-flipboxes' ),
+					'name'    => __( 'Flipbox Event', 'flip-boxes' ),
 					'id'      => $prefix . 'event',
 					'default' => 'hover',
 					'type'    => 'radio',
 					'options' => array(
-						// phpcs:ignore WordPress.WP.I18n.TextDomainMismatch
-						'hover' => __( 'Hover', 'c-flipboxes' ),
-						// phpcs:ignore WordPress.WP.I18n.TextDomainMismatch
-						'click'  => __( 'Click', 'c-flipboxes' ),
+						'hover' => __( 'Hover', 'flip-boxes' ),
+						'click'  => __( 'Click', 'flip-boxes' ),
 					),
 				)
 			);
@@ -628,8 +553,7 @@ if ( ! class_exists( 'CFB_post_type' ) ) {
 			$rating_metabox = new_cmb2_box(
 				array(
 					'id'           => 'cfb_rating_metabox',
-					// phpcs:ignore WordPress.WP.I18n.TextDomainMismatch
-					'title'        => __( 'Please Share Your Feedback', 'c-flipboxes' ),
+					'title'        => __( 'Please Share Your Feedback', 'flip-boxes' ),
 					'object_types' => array( 'flipboxes' ),
 					'context'      => 'side',
 					'priority'     => 'low',
@@ -671,31 +595,20 @@ if ( ! class_exists( 'CFB_post_type' ) ) {
 			$prefix = '_cfb_';
 			// global $layouts;
 			$layouts = array(
-				// phpcs:ignore WordPress.WP.I18n.TextDomainMismatch
-				'dashed-with-icon' => __( 'Dashed With Icons', 'c-flipboxes' ),
-				// phpcs:ignore WordPress.WP.I18n.TextDomainMismatch
-				'with-image'       => __( 'With Image', 'c-flipboxes' ),
-				// phpcs:ignore WordPress.WP.I18n.TextDomainMismatch
-				'solid-with-icon'  => __( 'Solid With Icon', 'c-flipboxes' ),
-				// phpcs:ignore WordPress.WP.I18n.TextDomainMismatch
-				'layout-4'         => __( 'Layout 4', 'c-flipboxes' ),
-				// phpcs:ignore WordPress.WP.I18n.TextDomainMismatch
-				'layout-5'         => __( 'Layout 5', 'c-flipboxes' ),
-				// phpcs:ignore WordPress.WP.I18n.TextDomainMismatch
-				'layout-6'         => __( 'Layout 6', 'c-flipboxes' ),
-				// phpcs:ignore WordPress.WP.I18n.TextDomainMismatch
-				'layout-7'         => __( 'Layout 7', 'c-flipboxes' ),
-				// phpcs:ignore WordPress.WP.I18n.TextDomainMismatch
-				'layout-8'         => __( 'Layout 8', 'c-flipboxes' ),
-				// phpcs:ignore WordPress.WP.I18n.TextDomainMismatch
-				'layout-9'         => __( 'Layout 9', 'c-flipboxes' ),
+				'dashed-with-icon' => __( 'Dashed With Icons', 'flip-boxes' ),
+				'with-image'       => __( 'With Image', 'flip-boxes' ),
+				'solid-with-icon'  => __( 'Solid With Icon', 'flip-boxes' ),
+				'layout-4'         => __( 'Layout 4', 'flip-boxes' ),
+				'layout-5'         => __( 'Layout 5', 'flip-boxes' ),
+				'layout-6'         => __( 'Layout 6', 'flip-boxes' ),
+				'layout-7'         => __( 'Layout 7', 'flip-boxes' ),
+				'layout-8'         => __( 'Layout 8', 'flip-boxes' ),
+				'layout-9'         => __( 'Layout 9', 'flip-boxes' ),
 			);
 			// global $effects;
 			$effects = array(
-				// phpcs:ignore WordPress.WP.I18n.TextDomainMismatch
-				'x' => __( 'Bottom To Top', 'c-flipboxes' ),
-				// phpcs:ignore WordPress.WP.I18n.TextDomainMismatch
-				'y' => __( 'Left To Right', 'c-flipboxes' ),
+				'x' => __( 'Bottom To Top', 'flip-boxes' ),
+				'y' => __( 'Left To Right', 'flip-boxes' ),
 			);
 
 		    switch ( $flip_cols ) {
@@ -718,8 +631,7 @@ if ( ! class_exists( 'CFB_post_type' ) ) {
 					echo "<input type='text' value='" . esc_attr($dynamic_attr) . "' readonly>";
 					break;
 				default:
-				// phpcs:ignore WordPress.WP.I18n.TextDomainMismatch
-					esc_html_e( 'Not Matched', 'cfb2' );
+					esc_html_e( 'Not Matched', 'flip-boxes' );
 					break;
 			}
 		}
@@ -731,8 +643,7 @@ if ( ! class_exists( 'CFB_post_type' ) ) {
 		function cfb_shortcode_text() {
 			$id           = get_the_ID();
 			$dynamic_attr = '';
-			// phpcs:ignore WordPress.WP.I18n.TextDomainMismatch
-			esc_html_e( 'Paste this shortcode anywhere (page/post).', 'c-flipbox' );
+			esc_html_e( 'Paste this shortcode anywhere (page/post).', 'flip-boxes' );
 			$dynamic_attr .= "[flipboxes id=\"{$id}\"";
 			$dynamic_attr .= ']';
 			$prefix        = '_cfb_';

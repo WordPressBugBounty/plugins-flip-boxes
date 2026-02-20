@@ -48,19 +48,19 @@ abstract class CMB2_Type_Counter_Base extends CMB2_Type_Base {
 			case 'words':
 				$label = $char_max
 
-					? $this->_text( 'words_left_text', esc_html__( 'Words left', 'cmb2' ) )// phpcs:ignore WordPress.WP.I18n.TextDomainMismatch
-					: $this->_text( 'words_text', esc_html__( 'Words', 'cmb2' ) );// phpcs:ignore WordPress.WP.I18n.TextDomainMismatch
+					? $this->_text( 'words_left_text', esc_html__( 'Words left', 'flip-boxes' ) )
+					: $this->_text( 'words_text', esc_html__( 'Words', 'flip-boxes' ) );
 				break;
 			default:
 				$type  = 'characters';
 				$label = $char_max
-					? $this->_text( 'characters_left_text', esc_html__( 'Characters left', 'cmb2' ) )// phpcs:ignore WordPress.WP.I18n.TextDomainMismatch
-					: $this->_text( 'characters_text', esc_html__( 'Characters', 'cmb2' ) );// phpcs:ignore WordPress.WP.I18n.TextDomainMismatch
+					? $this->_text( 'characters_left_text', esc_html__( 'Characters left', 'flip-boxes' ) )
+					: $this->_text( 'characters_text', esc_html__( 'Characters', 'flip-boxes' ) );
 				break;
 		}
 
-		// phpcs:ignore WordPress.WP.I18n.TextDomainMismatch
-		$msg = $char_max ? sprintf( '<span class="cmb2-char-max-msg">%s</span>', $this->_text( 'characters_truncated_text', esc_html__( 'Your text may be truncated.', 'cmb2' ) ) ): '';
+		
+		$msg = $char_max ? sprintf( '<span class="cmb2-char-max-msg">%s</span>', $this->_text( 'characters_truncated_text', esc_html__( 'Your text may be truncated.', 'flip-boxes' ) ) ): '';
 
 		$length = strlen( $val );
 		$width  = $length > 1 ? ( 8 * strlen( (string) $length ) ) + 15 : false;

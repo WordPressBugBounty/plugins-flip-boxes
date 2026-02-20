@@ -73,8 +73,8 @@ class CMB2_Type_File extends CMB2_Type_File_Base {
 
 		$output .= sprintf(
 			'<input class="cmb2-upload-button button-secondary" type="button" value="%1$s" />',
-			// phpcs:ignore WordPress.WP.I18n.TextDomainMismatch
-			esc_attr( $this->_text( 'add_upload_file_text', esc_html__( 'Add or Upload File', 'cmb2' ) ) )
+
+			esc_attr( $this->_text( 'add_upload_file_text', esc_html__( 'Add or Upload File', 'flip-boxes' ) ) )
 		);
 
 		$output .= $a['desc'];

@@ -8,6 +8,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  */
 if( !class_exists( 'CFB_Shortcode' ) ){
 
+	// phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedClassFound
     class CFB_Shortcode 
 	{
         /**
@@ -37,7 +38,7 @@ if( !class_exists( 'CFB_Shortcode' ) ){
 
 			$id = absint($atts['id']); // Sanitize to positive integer
 			if ($id <= 0) {
-				return __('Invalid flipbox ID', 'c-flipboxes'); // phpcs:ignore WordPress.WP.I18n.TextDomainMismatch
+				return __('Invalid flipbox ID', 'flip-boxes'); 
 			}
 
 			$prefix   = "_cfb_";
@@ -90,7 +91,7 @@ if( !class_exists( 'CFB_Shortcode' ) ){
 				$flipbox_html .= '</div>';
 				return $flipbox_html;	
 			} else {
-				return __('No flipbox content added','c-flipboxes');  // phpcs:ignore WordPress.WP.I18n.TextDomainMismatch
+				return __('No flipbox content added','flip-boxes'); 
 			}
         }
 

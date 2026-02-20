@@ -179,14 +179,10 @@ class CMB2_JS {
 		wp_register_script( 'iris', admin_url( 'js/iris.min.js' ), array( 'jquery-ui-draggable', 'jquery-ui-slider', 'jquery-touch-punch' ), CMB2_VERSION, true );
 		wp_register_script( 'wp-color-picker', admin_url( 'js/color-picker.min.js' ), array( 'iris' ), CMB2_VERSION, true );
 		wp_localize_script( 'wp-color-picker', 'wpColorPickerL10n', array(
-			// phpcs:ignore WordPress.WP.I18n.TextDomainMismatch
-			'clear'         => esc_html__( 'Clear', 'cmb2' ),
-			// phpcs:ignore WordPress.WP.I18n.TextDomainMismatch
-			'defaultString' => esc_html__( 'Default', 'cmb2' ),
-			// phpcs:ignore WordPress.WP.I18n.TextDomainMismatch
-			'pick'          => esc_html__( 'Select Color', 'cmb2' ),
-			// phpcs:ignore WordPress.WP.I18n.TextDomainMismatch
-			'current'       => esc_html__( 'Current Color', 'cmb2' ),
+			'clear'         => esc_html__( 'Clear', 'flip-boxes' ),
+			'defaultString' => esc_html__( 'Default', 'flip-boxes' ),
+			'pick'          => esc_html__( 'Select Color', 'flip-boxes' ),
+			'current'       => esc_html__( 'Current Color', 'flip-boxes' ),
 		) );
 	}
 
@@ -218,65 +214,39 @@ class CMB2_JS {
 				'date_picker'  => array(
 					'changeMonth'     => true,
 					'changeYear'      => true,
-					// phpcs:ignore WordPress.WP.I18n.TextDomainMismatch
-					'dateFormat'      => _x( 'mm/dd/yy', 'Valid formatDate string for jquery-ui datepicker', 'cmb2' ),
-					// phpcs:ignore WordPress.WP.I18n.TextDomainMismatch
-					'dayNames'        => explode( ',', esc_html__( 'Sunday, Monday, Tuesday, Wednesday, Thursday, Friday, Saturday', 'cmb2' ) ),
-					// phpcs:ignore WordPress.WP.I18n.TextDomainMismatch
-					'dayNamesMin'     => explode( ',', esc_html__( 'Su, Mo, Tu, We, Th, Fr, Sa', 'cmb2' ) ),
-					// phpcs:ignore WordPress.WP.I18n.TextDomainMismatch
-					'dayNamesShort'   => explode( ',', esc_html__( 'Sun, Mon, Tue, Wed, Thu, Fri, Sat', 'cmb2' ) ),
-					// phpcs:ignore WordPress.WP.I18n.TextDomainMismatch
-					'monthNames'      => explode( ',', esc_html__( 'January, February, March, April, May, June, July, August, September, October, November, December', 'cmb2' ) ),
-					// phpcs:ignore WordPress.WP.I18n.TextDomainMismatch
-					'monthNamesShort' => explode( ',', esc_html__( 'Jan, Feb, Mar, Apr, May, Jun, Jul, Aug, Sep, Oct, Nov, Dec', 'cmb2' ) ),
-					// phpcs:ignore WordPress.WP.I18n.TextDomainMismatch
-					'nextText'        => esc_html__( 'Next', 'cmb2' ),
-					// phpcs:ignore WordPress.WP.I18n.TextDomainMismatch
-					'prevText'        => esc_html__( 'Prev', 'cmb2' ),
-					// phpcs:ignore WordPress.WP.I18n.TextDomainMismatch
-					'currentText'     => esc_html__( 'Today', 'cmb2' ),
-					// phpcs:ignore WordPress.WP.I18n.TextDomainMismatch
-					'closeText'       => esc_html__( 'Done', 'cmb2' ),
-					// phpcs:ignore WordPress.WP.I18n.TextDomainMismatch
-					'clearText'       => esc_html__( 'Clear', 'cmb2' ),
+					'dateFormat'      => _x( 'mm/dd/yy', 'Valid formatDate string for jquery-ui datepicker', 'flip-boxes' ),
+					'dayNames'        => explode( ',', esc_html__( 'Sunday, Monday, Tuesday, Wednesday, Thursday, Friday, Saturday', 'flip-boxes' ) ),
+					'dayNamesMin'     => explode( ',', esc_html__( 'Su, Mo, Tu, We, Th, Fr, Sa', 'flip-boxes' ) ),
+					'dayNamesShort'   => explode( ',', esc_html__( 'Sun, Mon, Tue, Wed, Thu, Fri, Sat', 'flip-boxes' ) ),
+					'monthNames'      => explode( ',', esc_html__( 'January, February, March, April, May, June, July, August, September, October, November, December', 'flip-boxes' ) ),
+					'monthNamesShort' => explode( ',', esc_html__( 'Jan, Feb, Mar, Apr, May, Jun, Jul, Aug, Sep, Oct, Nov, Dec', 'flip-boxes' ) ),
+					'nextText'        => esc_html__( 'Next', 'flip-boxes' ),
+					'prevText'        => esc_html__( 'Prev', 'flip-boxes' ),
+					'currentText'     => esc_html__( 'Today', 'flip-boxes' ),
+					'closeText'       => esc_html__( 'Done', 'flip-boxes' ),
+					'clearText'       => esc_html__( 'Clear', 'flip-boxes' ),
 				),
 				'time_picker'  => array(
-					// phpcs:ignore WordPress.WP.I18n.TextDomainMismatch
-					'timeOnlyTitle' => esc_html__( 'Choose Time', 'cmb2' ),
-					// phpcs:ignore WordPress.WP.I18n.TextDomainMismatch
-					'timeText'      => esc_html__( 'Time', 'cmb2' ),
-					// phpcs:ignore WordPress.WP.I18n.TextDomainMismatch
-					'hourText'      => esc_html__( 'Hour', 'cmb2' ),
-					// phpcs:ignore WordPress.WP.I18n.TextDomainMismatch
-					'minuteText'    => esc_html__( 'Minute', 'cmb2' ),
-					// phpcs:ignore WordPress.WP.I18n.TextDomainMismatch
-					'secondText'    => esc_html__( 'Second', 'cmb2' ),
-					// phpcs:ignore WordPress.WP.I18n.TextDomainMismatch
-					'currentText'   => esc_html__( 'Now', 'cmb2' ),
-					// phpcs:ignore WordPress.WP.I18n.TextDomainMismatch
-					'closeText'     => esc_html__( 'Done', 'cmb2' ),
-					// phpcs:ignore WordPress.WP.I18n.TextDomainMismatch
-					'timeFormat'    => _x( 'hh:mm TT', 'Valid formatting string, as per http://trentrichardson.com/examples/timepicker/', 'cmb2' ),
+					'timeOnlyTitle' => esc_html__( 'Choose Time', 'flip-boxes' ),
+					'timeText'      => esc_html__( 'Time', 'flip-boxes' ),
+					'hourText'      => esc_html__( 'Hour', 'flip-boxes' ),
+					'minuteText'    => esc_html__( 'Minute', 'flip-boxes' ),
+					'secondText'    => esc_html__( 'Second', 'flip-boxes' ),
+					'currentText'   => esc_html__( 'Now', 'flip-boxes' ),
+					'closeText'     => esc_html__( 'Done', 'flip-boxes' ),
+					'timeFormat'    => _x( 'hh:mm TT', 'Valid formatting string, as per http://trentrichardson.com/examples/timepicker/', 'flip-boxes' ),
 					'controlType'   => 'select',
 					'stepMinute'    => 5,
 				),
 			),
 			'strings' => array(
-				// phpcs:ignore WordPress.WP.I18n.TextDomainMismatch
-				'upload_file'  => esc_html__( 'Use this file', 'cmb2' ),
-				// phpcs:ignore WordPress.WP.I18n.TextDomainMismatch
-				'upload_files' => esc_html__( 'Use these files', 'cmb2' ),
-				// phpcs:ignore WordPress.WP.I18n.TextDomainMismatch
-				'remove_image' => esc_html__( 'Remove Image', 'cmb2' ),
-				// phpcs:ignore WordPress.WP.I18n.TextDomainMismatch
-				'remove_file'  => esc_html__( 'Remove', 'cmb2' ),
-				// phpcs:ignore WordPress.WP.I18n.TextDomainMismatch
-				'file'         => esc_html__( 'File:', 'cmb2' ),
-				// phpcs:ignore WordPress.WP.I18n.TextDomainMismatch
-				'download'     => esc_html__( 'Download', 'cmb2' ),
-				// phpcs:ignore WordPress.WP.I18n.TextDomainMismatch
-				'check_toggle' => esc_html__( 'Select / Deselect All', 'cmb2' ),
+				'upload_file'  => esc_html__( 'Use this file', 'flip-boxes' ),
+				'upload_files' => esc_html__( 'Use these files', 'flip-boxes' ),
+				'remove_image' => esc_html__( 'Remove Image', 'flip-boxes' ),
+				'remove_file'  => esc_html__( 'Remove', 'flip-boxes' ),
+				'file'         => esc_html__( 'File:', 'flip-boxes' ),
+				'download'     => esc_html__( 'Download', 'flip-boxes' ),
+				'check_toggle' => esc_html__( 'Select / Deselect All', 'flip-boxes' ),
 			),
 		);
 

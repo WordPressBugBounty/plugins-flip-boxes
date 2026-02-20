@@ -48,7 +48,7 @@ abstract class CMB2_Hookup_Base {
 	public static function maybe_init_and_hookup( CMB2 $cmb ) {
 		
 		/* translators: %1$s: function name */
-		throw new Exception( sprintf( esc_html__( '%1$s should be implemented by the extended class.', 'cmb2' ), __FUNCTION__ ) );// phpcs:ignore WordPress.WP.I18n.TextDomainMismatch 
+		throw new Exception( sprintf( esc_html__( '%1$s should be implemented by the extended class.', 'flip-boxes' ), __FUNCTION__ ) );
 	}
 
 	/**
@@ -108,7 +108,7 @@ abstract class CMB2_Hookup_Base {
 			default:
 				
 				/* translators: %1$s: class name, %2$s: property name */
-				throw new Exception( sprintf( esc_html__( 'Invalid %1$s property: %2$s', 'cmb2' ), __CLASS__, esc_html( $field ) ) ); // phpcs:ignore WordPress.WP.I18n.TextDomainMismatch
+				throw new Exception( sprintf( esc_html__( 'Invalid %1$s property: %2$s', 'flip-boxes' ), __CLASS__, esc_html( $field ) ) ); 
 		}
 	}
 }

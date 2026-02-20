@@ -1,10 +1,10 @@
 ﻿=== Cool Flipbox - Shortcode & Gutenberg Block ===
 Contributors: narinder-singh,satindersingh,coolplugins
 Requires at least: 4.5
-Tags:flipbox,flipbox block,flip images,flipboxes,cool flipbox, content box
+Tags: flipbox,flipbox block,flip images,cool flipbox, 
 Tested up to:6.9
 Requires PHP: 5.6
-Stable tag:1.9.9
+Stable tag:2.0.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -109,9 +109,13 @@ You can report security bugs through the Patchstack Vulnerability Disclosure Pro
 4. Flipbox Shortcode Generator.
 
 == Upgrade Notice ==
---After upgrading your installed plugin with latest version(1.0.1),Please update your flipboxes effect.-- 
+--After upgrading your installed plugin with latest version(2.0.0),Please update your flipboxes effect.-- 
 
 == Changelog ==
+
+= Version 2.0.0 | 20 Feb 2026 =
+* **Improved:**  Standardized text domain across plugin.
+* **Fixed:**  Fixed issues reported by “Plugin Check” plugin.
 
 = Version 1.9.9 | 12 Feb 2026 =
 * **Improved:**  Textual Changes.

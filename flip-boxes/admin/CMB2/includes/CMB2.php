@@ -200,8 +200,8 @@ class CMB2 extends CMB2_Base {
 	public function __construct( $config, $object_id = 0 ) {
 
 		if ( empty( $config['id'] ) ) {
-			// phpcs:ignore WordPress.WP.I18n.TextDomainMismatch
-			wp_die( esc_html__( 'Metabox configuration is required to have an ID parameter.', 'cmb2' ) );
+
+			wp_die( esc_html__( 'Metabox configuration is required to have an ID parameter.', 'flip-boxes' ) );
 		}
 
 		$this->cmb_id = $config['id'];
@@ -619,8 +619,8 @@ class CMB2 extends CMB2_Base {
 		if ( $field_group->args( 'repeatable' ) ) {
 			echo '<button type="button" data-selector="', esc_attr( $field_group->id() ), '_repeat" data-confirm="', esc_attr( $confirm_deletion ), '" class="dashicons-before dashicons-no-alt cmb-remove-group-row" title="', esc_attr( $field_group->options( 'remove_button' ) ), '"></button>';
 		}
-			// phpcs:ignore WordPress.WP.I18n.TextDomainMismatch
-			echo '<div class="cmbhandle" title="' , esc_attr__( 'Click to toggle', 'cmb2' ), '"><br></div>
+
+			echo '<div class="cmbhandle" title="' , esc_attr__( 'Click to toggle', 'flip-boxes' ), '"><br></div>
 			<h3 class="cmb-group-title cmbhandle-title"><span>', esc_html( $field_group->replace_hash( $field_group->options( 'group_title' ) ) ), '</span></h3>
 
 			<div class="inside cmb-td cmb-nested cmb-field-list">';

@@ -190,13 +190,11 @@ class CMB2_Hookup extends CMB2_Hookup_Base {
 
 	public function term_hooks() {
 		if ( ! function_exists( 'get_term_meta' ) ) {
-			// phpcs:ignore WordPress.WP.I18n.TextDomainMismatch
-			wp_die( esc_html__( 'Term Metadata is a WordPress 4.4+ feature. Please upgrade your WordPress install.', 'cmb2' ) );
+			wp_die( esc_html__( 'Term Metadata is a WordPress 4.4+ feature. Please upgrade your WordPress install.', 'flip-boxes' ) );
 		}
 
 		if ( ! $this->cmb->prop( 'taxonomies' ) ) {
-			// phpcs:ignore WordPress.WP.I18n.TextDomainMismatch
-			wp_die( esc_html__( 'Term metaboxes configuration requires a "taxonomies" parameter.', 'cmb2' ) );
+			wp_die( esc_html__( 'Term metaboxes configuration requires a "taxonomies" parameter.', 'flip-boxes' ) );
 		}
 
 		$this->taxonomies = (array) $this->cmb->prop( 'taxonomies' );
@@ -587,7 +585,7 @@ class CMB2_Hookup extends CMB2_Hookup_Base {
 	$toggle_button = sprintf(
 		'<button type="button" class="handlediv button-link" aria-expanded="true"><span class="screen-reader-text">%s</span><span class="toggle-indicator" aria-hidden="true"></span></button>',
 		/* translators: %s: name of CMB2 box (panel) */ 
-		sprintf( __( 'Toggle panel: %s', 'cmb2' ), $title )); // phpcs:ignore WordPress.WP.I18n.TextDomainMismatch
+		sprintf( __( 'Toggle panel: %s', 'flip-boxes' ), $title )); 
 	$title_tag = '<h2 class="hndle"><span>' . esc_attr( $title ) . '</span></h2>' . "\n";
 
 	echo '<div id="' . esc_attr( $cmb_id ) . '" class="' . esc_attr( postbox_classes( $cmb_id, $page ) . $hidden_class ) . '">' . "\n";

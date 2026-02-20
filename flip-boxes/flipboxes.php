@@ -3,16 +3,15 @@
  Plugin Name:Cool Flipbox
  Plugin URI:https://coolplugins.net/
  Description:Use animated Flip Boxes WordPress plugin to highlight your content inside your page in a great way. Use shortcode to add anywhere.
- Version:1.9.9
- License:GPL2
+ Version:2.0.0
  Author:Cool Plugins
  Author URI:https://coolplugins.net/?utm_source=cfb_plugin&utm_medium=inside&utm_campaign=author_page&utm_content=plugins_list
+ License:GPL2
  License URI:https://www.gnu.org/licenses/gpl-2.0.html
- Domain Path: /languages
- Text Domain:c-flipboxes
+ Text Domain: flip-boxes
 */
 defined( 'ABSPATH' ) or die( 'No script kiddies please!' );
-define('CFB_VERSION', '1.9.9');
+define('CFB_VERSION', '2.0.0');
 define('CFB_DIR_PATH', plugin_dir_path(__FILE__));
 define('CFB_URL', plugin_dir_url(__FILE__));
 
@@ -41,7 +40,6 @@ if ( ! class_exists( 'CflipBoxes' ) ) {
 		}
 
 		function text_domain_path_set(){
-			load_plugin_textdomain( 'c-flipboxes', false, dirname( plugin_basename( __FILE__ ) ) . '/languages' );
 
 			if (!get_option( 'cfb-initial-save-version' ) ) {
                 add_option( 'cfb-initial-save-version', CFB_VERSION );

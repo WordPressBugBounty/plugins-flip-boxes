@@ -54,8 +54,7 @@ class CFB_Style_Handler extends Cfb_CSS_Base {
 						'id' => array(
 							'type'              => 'integer',
 							'required'          => true,
-							// phpcs:ignore WordPress.WP.I18n.TextDomainMismatch
-							'description'       => __( 'ID of the Post.', 'cfb-blocks' ),
+							'description'       => __( 'ID of the Post.', 'flip-boxes' ),
 							'validate_callback' => function ( $param, $request, $key ) {
 								return is_numeric( $param );
 							},
@@ -89,8 +88,7 @@ class CFB_Style_Handler extends Cfb_CSS_Base {
 		$post_id = $request->get_param( 'id' );
 
 		self::generate_css_file( $post_id );
-	// phpcs:ignore WordPress.WP.I18n.TextDomainMismatch
-		return rest_ensure_response( array( 'message' => __( 'CSS updated.', 'cfb-blocks' ) ) );
+		return rest_ensure_response( array( 'message' => __( 'CSS updated.', 'flip-boxes' ) ) );
 	}
 
 	/**

@@ -77,33 +77,24 @@ class cp_feedback{
 		}
 		$deactivate_reasons = [
 			'didnt_work_as_expected' => [
-                // phpcs:ignore WordPress.WP.I18n.TextDomainMismatch
-				'title' => esc_html__( 'The plugin didn\'t work as expected', 'cool-plugins' ),
-                // phpcs:ignore WordPress.WP.I18n.TextDomainMismatch
-				'input_placeholder' => esc_html__('What did you expect?', 'cool-plugins'),
+				'title' => esc_html__( 'The plugin didn\'t work as expected', 'flip-boxes' ),
+				'input_placeholder' => esc_html__('What did you expect?', 'flip-boxes'),
 			],
 			'found_a_better_plugin' => [
-                // phpcs:ignore WordPress.WP.I18n.TextDomainMismatch
-				'title' => esc_html__( 'I found a better plugin', 'cool-plugins' ),
-                // phpcs:ignore WordPress.WP.I18n.TextDomainMismatch
-				'input_placeholder' => esc_html__( 'Please share which plugin', 'cool-plugins' ),
+				'title' => esc_html__( 'I found a better plugin', 'flip-boxes' ),
+				'input_placeholder' => esc_html__( 'Please share which plugin', 'flip-boxes' ),
 			],
 			'couldnt_get_the_plugin_to_work' => [
-                // phpcs:ignore WordPress.WP.I18n.TextDomainMismatch
-				'title' => esc_html__( 'The plugin is not working', 'cool-plugins' ),
-                // phpcs:ignore WordPress.WP.I18n.TextDomainMismatch
-				'input_placeholder' => esc_html__('Please share your issue. So we can fix that for other users.', 'cool-plugins'),
+				'title' => esc_html__( 'The plugin is not working', 'flip-boxes' ),
+				'input_placeholder' => esc_html__('Please share your issue. So we can fix that for other users.', 'flip-boxes'),
 			],
 			'temporary_deactivation' => [
-                // phpcs:ignore WordPress.WP.I18n.TextDomainMismatch
-				'title' => esc_html__( 'It\'s a temporary deactivation', 'cool-plugins' ),
+				'title' => esc_html__( 'It\'s a temporary deactivation', 'flip-boxes' ),
 				'input_placeholder' => '',
 			],
 			'other' => [
-                // phpcs:ignore WordPress.WP.I18n.TextDomainMismatch
-				'title' => esc_html__( 'Other', 'cool-plugins' ),
-                // phpcs:ignore WordPress.WP.I18n.TextDomainMismatch
-				'input_placeholder' => esc_html__( 'Please share the reason', 'cool-plugins' ),
+				'title' => esc_html__( 'Other', 'flip-boxes' ),
+				'input_placeholder' => esc_html__( 'Please share the reason', 'flip-boxes' ),
 			],
 		];
 
@@ -114,8 +105,7 @@ class cp_feedback{
             <div id="cool-plugins-deactivate-feedback-dialog-header">
                 
 				<span id="cool-plugins-feedback-form-title"><?php 
-                // phpcs:ignore WordPress.WP.I18n.TextDomainMismatch
-                echo esc_html__( 'Quick Feedback', 'cool-plugins' ); ?></span>
+                echo esc_html__( 'Quick Feedback', 'flip-boxes' ); ?></span>
             </div>
             <div id="cool-plugins-loader-wrapper">
 				<div class="cool-plugins-loader-container">
@@ -129,8 +119,7 @@ class cp_feedback{
 				?>
 				<input type="hidden" name="action" value="cool-plugins_deactivate_feedback" />
                 <div id="cool-plugins-deactivate-feedback-dialog-form-caption"><?php 
-                // phpcs:ignore WordPress.WP.I18n.TextDomainMismatch
-                echo esc_html__( 'If you have a moment, please share why you are deactivating this plugin.', 'cool-plugins' ); ?></div>
+                echo esc_html__( 'If you have a moment, please share why you are deactivating this plugin.', 'flip-boxes' ); ?></div>
 				<div id="cool-plugins-deactivate-feedback-dialog-form-body">
 					<?php foreach ( $deactivate_reasons as $reason_key => $reason ) : ?>
 						<div class="cool-plugins-deactivate-feedback-dialog-input-wrapper">
@@ -145,8 +134,7 @@ class cp_feedback{
 						</div>
                     <?php endforeach; ?>
                     <input class="cool-plugins-GDPR-data-notice" id="cool-plugins-GDPR-data-notice" type="checkbox"><label for="cool-plugins-GDPR-data-notice"><?php 
-                    // phpcs:ignore WordPress.WP.I18n.TextDomainMismatch
-                    echo esc_html__('I consent to having Cool Plugins store my all submitted information via this form, they can also respond to my inquiry.','cool-plugins');?></label>
+                    echo esc_html__('I consent to having Cool Plugins store my all submitted information via this form, they can also respond to my inquiry.','flip-boxes');?></label>
                 </div>
                 <div class="cool-plugin-popup-button-wrapper">
                     <a class="cool-plugins-button button-deactivate" id="cool-plugin-submitNdeactivate">Submit and Deactivate</a>
@@ -167,33 +155,24 @@ class cp_feedback{
             $reason = isset( $_POST['reason'] ) ? sanitize_text_field( wp_unslash( $_POST['reason'] ) ) : '';
             $deactivate_reasons = [
                 'didnt_work_as_expected' => [
-                    // phpcs:ignore WordPress.WP.I18n.TextDomainMismatch
-                    'title' => esc_html__('The plugin didn\'t work as expected', 'cool-plugins'),
-                    // phpcs:ignore WordPress.WP.I18n.TextDomainMismatch
-                    'input_placeholder' => esc_html__('What did you expect?', 'cool-plugins'),
+                    'title' => esc_html__('The plugin didn\'t work as expected', 'flip-boxes'),
+                    'input_placeholder' => esc_html__('What did you expect?', 'flip-boxes'),
                 ],
                 'found_a_better_plugin' => [
-                    // phpcs:ignore WordPress.WP.I18n.TextDomainMismatch
-                    'title' => esc_html__('I found a better plugin', 'cool-plugins'),
-                    // phpcs:ignore WordPress.WP.I18n.TextDomainMismatch
-                    'input_placeholder' => esc_html__('Please share which plugin', 'cool-plugins'),
+                    'title' => esc_html__('I found a better plugin', 'flip-boxes'),
+                    'input_placeholder' => esc_html__('Please share which plugin', 'flip-boxes'),
                 ],
                 'couldnt_get_the_plugin_to_work' => [
-                    // phpcs:ignore WordPress.WP.I18n.TextDomainMismatch
-                    'title' => esc_html__('The plugin is not working', 'cool-plugins'),
-                    // phpcs:ignore WordPress.WP.I18n.TextDomainMismatch
-                    'input_placeholder' => esc_html__('Please share your issue. So we can fix that for other users.', 'cool-plugins'),
+                    'title' => esc_html__('The plugin is not working', 'flip-boxes'),
+                    'input_placeholder' => esc_html__('Please share your issue. So we can fix that for other users.', 'flip-boxes'),
                 ],
                 'temporary_deactivation' => [
-                    // phpcs:ignore WordPress.WP.I18n.TextDomainMismatch
-                    'title' => esc_html__('It\'s a temporary deactivation', 'cool-plugins'),
+                    'title' => esc_html__('It\'s a temporary deactivation', 'flip-boxes'),
                     'input_placeholder' => '',
                 ],
                 'other' => [
-                    // phpcs:ignore WordPress.WP.I18n.TextDomainMismatch
-                    'title' => esc_html__('Other', 'cool-plugins'),
-                    // phpcs:ignore WordPress.WP.I18n.TextDomainMismatch
-                    'input_placeholder' => esc_html__('Please share the reason', 'cool-plugins'),
+                    'title' => esc_html__('Other', 'flip-boxes'),
+                    'input_placeholder' => esc_html__('Please share the reason', 'flip-boxes'),
                 ],
             ];
     
@@ -258,33 +237,24 @@ class cp_feedback{
     private function get_deactivate_reasons() {
         return [
             'didnt_work_as_expected' => [
-                // phpcs:ignore WordPress.WP.I18n.TextDomainMismatch
-                'title' => __('The plugin didn\'t work as expected', 'cool-plugins'),
-                // phpcs:ignore WordPress.WP.I18n.TextDomainMismatch
-                'input_placeholder' => __('What did you expect?', 'cool-plugins'),
+                'title' => __('The plugin didn\'t work as expected', 'flip-boxes'),
+                'input_placeholder' => __('What did you expect?', 'flip-boxes'),
             ],
             'found_a_better_plugin' => [
-                // phpcs:ignore WordPress.WP.I18n.TextDomainMismatch
-            'title' => esc_html__('I found a better plugin', 'cool-plugins'),
-            // phpcs:ignore WordPress.WP.I18n.TextDomainMismatch
-            'input_placeholder' => esc_html__('Please share which plugin', 'cool-plugins'),
+            'title' => esc_html__('I found a better plugin', 'flip-boxes'),
+            'input_placeholder' => esc_html__('Please share which plugin', 'flip-boxes'),
             ],
             'couldnt_get_the_plugin_to_work' => [
-                // phpcs:ignore WordPress.WP.I18n.TextDomainMismatch
-                'title' => esc_html__('The plugin is not working', 'cool-plugins'),
-                // phpcs:ignore WordPress.WP.I18n.TextDomainMismatch
-                'input_placeholder' => esc_html__('Please share your issue. So we can fix that for other users.', 'cool-plugins'),
+                'title' => esc_html__('The plugin is not working', 'flip-boxes'),
+                'input_placeholder' => esc_html__('Please share your issue. So we can fix that for other users.', 'flip-boxes'),
             ],
             'temporary_deactivation' => [
-                // phpcs:ignore WordPress.WP.I18n.TextDomainMismatch
-                'title' => esc_html__('It\'s a temporary deactivation', 'cool-plugins'),
+                'title' => esc_html__('It\'s a temporary deactivation', 'flip-boxes'),
                 'input_placeholder' => '',
             ],
             'other' => [
-                // phpcs:ignore WordPress.WP.I18n.TextDomainMismatch
-                'title' => esc_html__('Other', 'cool-plugins'),
-                // phpcs:ignore WordPress.WP.I18n.TextDomainMismatch
-                'input_placeholder' => esc_html__('Please share the reason', 'cool-plugins'),
+                'title' => esc_html__('Other', 'flip-boxes'),
+                'input_placeholder' => esc_html__('Please share the reason', 'flip-boxes'),
             ],
             
         ];

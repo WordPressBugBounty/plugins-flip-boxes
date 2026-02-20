@@ -250,7 +250,7 @@ class CMB2_Option {
 				return $this->{$field};
 			default:
 				/* translators: %1$s: class name, %2$s: property name */
-				throw new Exception( sprintf( esc_html__( 'Invalid %1$s property: %2$s', 'cmb2' ), __CLASS__, esc_html( $field ) ) ); // phpcs:ignore WordPress.WP.I18n.TextDomainMismatch
+				throw new Exception( sprintf( esc_html__( 'Invalid %1$s property: %2$s', 'flip-boxes' ), __CLASS__, esc_html( $field ) ) ); 
 		}
 	}
 }
