@@ -1,19 +1,25 @@
 <?php
 /*
- Plugin Name:Cool Flipbox
+ Plugin Name: Cool Flipbox
  Plugin URI:https://coolplugins.net/
  Description:Use animated Flip Boxes WordPress plugin to highlight your content inside your page in a great way. Use shortcode to add anywhere.
- Version:2.0.0
+ Version:2.0.1
  Author:Cool Plugins
  Author URI:https://coolplugins.net/?utm_source=cfb_plugin&utm_medium=inside&utm_campaign=author_page&utm_content=plugins_list
  License:GPL2
  License URI:https://www.gnu.org/licenses/gpl-2.0.html
  Text Domain: flip-boxes
 */
-defined( 'ABSPATH' ) or die( 'No script kiddies please!' );
-define('CFB_VERSION', '2.0.0');
-define('CFB_DIR_PATH', plugin_dir_path(__FILE__));
-define('CFB_URL', plugin_dir_url(__FILE__));
+if ( ! defined( 'ABSPATH' ) ) { exit; }
+if ( ! defined( 'CFB_VERSION' ) ) {
+	define( 'CFB_VERSION', '2.0.1' );
+}
+if ( ! defined( 'CFB_DIR_PATH' ) ) {
+	define( 'CFB_DIR_PATH', plugin_dir_path( __FILE__ ) );
+}
+if ( ! defined( 'CFB_URL' ) ) {
+	define( 'CFB_URL', plugin_dir_url( __FILE__ ) );
+}
 
 if ( ! class_exists( 'CflipBoxes' ) ) {
 
@@ -36,7 +42,6 @@ if ( ! class_exists( 'CflipBoxes' ) ) {
 			add_action( 'admin_enqueue_scripts', array( 'CFB_Functions', 'cfb_admin_assets' ) );  // Add action for admin assets
 			add_action( 'activated_plugin', array( $this, 'cfb_activation_redirect' ) );
 			add_filter( 'plugin_action_links_' . plugin_basename( __FILE__ ), array( $this, 'cfb_plugin_action_links' ) );
-			add_filter( 'plugin_action_links_' . plugin_basename( __FILE__ ), array( $this, 'cfb_plugin_action_links' ) );
 		}
 
 		function text_domain_path_set(){
@@ -57,7 +62,7 @@ if ( ! class_exists( 'CflipBoxes' ) ) {
         // redirect to the setting sub menu page when plugin is activated
 		function cfb_activation_redirect( $plugin ) {
 
-            if ( $plugin == plugin_basename( __FILE__ ) ) {
+            if ( $plugin === plugin_basename( __FILE__ ) ) {
         
                 // Add nonce verification
                 $nonce = wp_create_nonce( 'cfb_activation_redirect' );
@@ -84,14 +89,6 @@ if ( ! class_exists( 'CflipBoxes' ) ) {
 				Cfb_Block::instance();
 			}
 
-            $flip_type = get_option('cfb_flip_type_option', 'post');
-            if ($flip_type === 'post') {
-                require_once CFB_DIR_PATH . '/includes/cfb-shortcode.php';
-                new CFB_Shortcode();
-            } else {
-                require_once CFB_DIR_PATH . '/includes/cfb-block/inc/class-cfb-block.php';
-                Cfb_Block::instance();
-            }
 
             if (is_admin()) {
                 $this->load_admin_files();

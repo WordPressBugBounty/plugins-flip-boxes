@@ -117,7 +117,7 @@ class cp_feedback{
 				<?php
 				wp_nonce_field( '_cool-plugins_deactivate_feedback_nonce' );
 				?>
-				<input type="hidden" name="action" value="cool-plugins_deactivate_feedback" />
+				<input type="hidden" name="action" value="cfb_cfb_submit_deactivation_response" />
                 <div id="cool-plugins-deactivate-feedback-dialog-form-caption"><?php 
                 echo esc_html__( 'If you have a moment, please share why you are deactivating this plugin.', 'flip-boxes' ); ?></div>
 				<div id="cool-plugins-deactivate-feedback-dialog-form-body">
@@ -152,7 +152,8 @@ class cp_feedback{
         if ( ! isset( $_POST['_wpnonce'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['_wpnonce'] ) ), '_cool-plugins_deactivate_feedback_nonce' ) ) {
             wp_send_json_error('Invalid nonce. Security check failed.');
         } else {
-            $reason = isset( $_POST['reason'] ) ? sanitize_text_field( wp_unslash( $_POST['reason'] ) ) : '';
+            if ( ! current_user_can( 'activate_plugins' ) ) { wp_send_json_error( 'Forbidden', 403 ); }
+            $reason = sanitize_text_field( wp_unslash( $_POST['reason'] ?? $_POST['reason_key'] ?? '' ) );
             $deactivate_reasons = [
                 'didnt_work_as_expected' => [
                     'title' => esc_html__('The plugin didn\'t work as expected', 'flip-boxes'),
@@ -185,11 +186,12 @@ class cp_feedback{
             $admin_email = sanitize_email(get_option('admin_email'));
             $site_url = esc_url_raw(site_url());
             $site_id            = $site_url . '-' . $install_date . '-' . $unique_key;
+            $info = \CflipBoxes::cfb_get_user_info();
 			$response = wp_remote_post($this->feedback_url, [
                 'timeout' => 30,
                 'body' => [
-                    'server_info' => serialize(\CflipBoxes::cfb_get_user_info()['server_info']),
-                    'extra_details' => serialize(\CflipBoxes::cfb_get_user_info()['extra_details']),
+                    'server_info' => wp_json_encode( $info['server_info'] ),
+                    'extra_details' => wp_json_encode( $info['extra_details'] ),
                     'plugin_version' => $this->plugin_version,
                     'plugin_name' => $this->plugin_name,
 					'reason' => $deactivation_reason,
@@ -201,37 +203,14 @@ class cp_feedback{
                 ],
 			]);
             
-            if (is_wp_error($response)) {
-                wp_send_json_error('Failed to submit feedback: ' . $response->get_error_message());
+            if ( is_wp_error( $response ) ) {
+                wp_send_json_error( __( 'Failed to submit feedback.', 'flip-boxes' ) ); 
             }
 			
-            wp_send_json(['response' => $response]);
+            wp_send_json_success( array( 'status' => 'ok' ) );
         }
                
-        $reason = isset( $_POST['reason'] ) ? sanitize_text_field( wp_unslash( $_POST['reason'] ) ) : '';
-        $deactivate_reasons = $this->get_deactivate_reasons();
-
-        $deactivation_reason = array_key_exists($reason, $deactivate_reasons) ? $reason : 'other';
-        $sanitized_message = !empty($_POST['message']) ? sanitize_text_field( wp_unslash( $_POST['message'] ) ) : 'N/A';
-        
-        
-        
-        $response = wp_remote_post($this->feedback_url, [
-            'timeout' => 30,
-            'body' => [
-                
-                'plugin_version' => $this->plugin_version,
-                'plugin_name' => $this->plugin_name,
-                'reason' => $deactivation_reason,
-                'review' => $sanitized_message,
-                'email' => get_option('admin_email'),
-                'domain' => site_url(),
-                
-
-            ],
-        ]);
-
-        wp_send_json(['response' => $response]);
+       
     }
 
     private function get_deactivate_reasons() {

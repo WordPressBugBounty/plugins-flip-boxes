@@ -50,7 +50,7 @@ class Registration {
 			return false;
 		}
 
-		$metadata = json_decode( file_get_contents( $metadata_file ), true );
+		$metadata = wp_json_file_decode( $metadata_file, array( 'associative' => true ) );
 
 		if ( ! is_array( $metadata ) || empty( $metadata['name'] ) ) {
 			return false;
@@ -86,7 +86,7 @@ class Registration {
 			'cfb-blocks',
 			'cfbBlockGutenbergObject',
 			array(
-				'isBlockEditor' => 'post' === $current_screen->base,
+			'isBlockEditor' => in_array( $current_screen->base, array( 'post', 'site-editor' ), true ),
 				'cfbBlockIcon'  => CFB_URL . 'assets/images/flip-icon-90x90.png',
 				'cfbBlockUrl'   => CFB_URL,
 			)
@@ -113,13 +113,28 @@ class Registration {
 			return;
 		}
 
-		/**
-		 * Enqueue block styles if the current context is singular.
-		 */
+		$style_post_ids = array();
+
 		if ( is_singular() ) {
-			$this->enqueue_block_styles();
+			$style_post_ids[] = get_queried_object_id();
 		}
 
+		if ( class_exists( 'CFB_Block_Frontend' ) ) {
+			$template_id = \CFB_Block_Frontend::get_active_block_template_post_id();
+			if ( $template_id ) {
+				$style_post_ids[] = $template_id;
+			}
+		}
+
+		$style_post_ids = array_unique( array_filter( $style_post_ids ) );
+
+		if ( empty( $style_post_ids ) && ( is_home() || is_front_page() || is_archive() ) ) {
+			$this->enqueue_block_styles();
+		} else {
+			foreach ( $style_post_ids as $post_id ) {
+				$this->enqueue_block_styles( $post_id );
+			}
+		}
 	}
 
 	/**
@@ -151,7 +166,8 @@ class Registration {
 						array(),
 						$asset_file['version']
 					);
-					wp_style_add_data( $metadata['style'], 'path', $style_path );
+					wp_style_add_data( $metadata['style'], 'path', $style_file );
+					wp_enqueue_style( $metadata['style'] );
 				}
 			}
 		}

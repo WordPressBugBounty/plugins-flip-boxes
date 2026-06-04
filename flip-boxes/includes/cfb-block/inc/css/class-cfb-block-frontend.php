@@ -144,18 +144,72 @@ class CFB_Block_Frontend extends Cfb_CSS_Base {
 	}
 
 	/**
+	 * Database post ID of the block template used on this request (FSE / block themes).
+	 *
+	 * @return int Template wp_template post ID, or 0.
+	 */
+	public static function get_active_block_template_post_id() {
+		if ( ! function_exists( 'wp_is_block_theme' ) || ! wp_is_block_theme() ) {
+			return 0;
+		}
+
+		global $_wp_current_template_id;
+		if ( ! empty( $_wp_current_template_id ) ) {
+			return (int) $_wp_current_template_id;
+		}
+
+		$slug = 'index';
+
+		if ( is_404() ) {
+			$slug = '404';
+		} elseif ( is_search() ) {
+			$slug = 'search';
+		} elseif ( is_front_page() && is_home() ) {
+			$slug = 'home';
+		} elseif ( is_front_page() ) {
+			$slug = 'front-page';
+		} elseif ( is_home() ) {
+			$slug = 'home';
+		} elseif ( is_archive() ) {
+			$slug = 'archive';
+		} elseif ( is_singular() ) {
+			$post_type = get_post_type();
+			$slug      = ( $post_type && 'page' !== $post_type ) ? 'single-' . $post_type : 'single';
+		}
+
+		$theme    = get_stylesheet();
+		$template = get_block_template( $theme . '//' . $slug, 'wp_template' );
+
+		if ( ( ! $template || empty( $template->wp_id ) ) && 'index' !== $slug ) {
+			$template = get_block_template( $theme . '//index', 'wp_template' );
+		}
+
+		return ( ! empty( $template->wp_id ) ) ? (int) $template->wp_id : 0;
+	}
+
+	/**
 	 * Render server-side CSS
 	 *
 	 * @since   1.3.0
 	 * @access  public
 	 */
 	public function render_post_css() {
-		$id = 0;
+		$id       = 0;
+		$enqueued = array();
 
 		if ( is_singular() ) {
-			// Enqueue main post attached style.
 			$id = get_the_ID();
-			$this->enqueue_styles();
+			$this->enqueue_styles( $id );
+			$enqueued[] = $id;
+		}
+
+		$template_id = self::get_active_block_template_post_id();
+		if ( $template_id && ! in_array( $template_id, $enqueued, true ) ) {
+			if ( ! $id ) {
+				$id = $template_id;
+			}
+			$this->enqueue_styles( $template_id );
+			$enqueued[] = $template_id;
 		}
 
 		// Enqueue styles for other posts that display the_content, if any.
@@ -164,7 +218,7 @@ class CFB_Block_Frontend extends Cfb_CSS_Base {
 			function ( $content ) use ( $id ) {
 				$post_id = get_the_ID();
 
-				if ( $this->has_excerpt || $id === $post_id ) {
+				if ( $this->has_excerpt || ( $id && $id === $post_id ) ) {
 					return $content;
 				}
 
@@ -315,10 +369,9 @@ class CFB_Block_Frontend extends Cfb_CSS_Base {
 			}
 
 			$style  = "\n" . '<style type="text/css" media="all">' . "\n";
-			$style .= $css;
+			echo '<style type="text/css">' . wp_strip_all_tags( $css ) . '</style>'; // phpcs:ignore
 			$style .= "\n" . '</style>' . "\n";
 
-			echo $style; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 		}
 	}
 
@@ -335,7 +388,7 @@ class CFB_Block_Frontend extends Cfb_CSS_Base {
 	public function get_page_css_meta( $post_id ) {
 		$style = '';
 		if ( function_exists( 'has_blocks' ) && has_blocks( $post_id ) ) {
-			$style .= get_post_meta( $post_id, '_coolPlugins_gutenberg_block_styles', true );
+		    $style .= get_post_meta( $post_id, '_coolPlugins_gutenberg_block_styles', true );
 
 			$content = get_post_field( 'post_content', $post_id );
 
@@ -424,7 +477,7 @@ class CFB_Block_Frontend extends Cfb_CSS_Base {
 		$style .= $css;
 		$style .= "\n" . '</style>' . "\n";
 
-		echo $style; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+		echo '<style type="text/css">' . wp_strip_all_tags( $css ) . '</style>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 	}
 
 	/**

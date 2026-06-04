@@ -17,6 +17,27 @@ let isSavingCSS = false;
 
 const { createNotice } = dispatch( 'core/notices' );
 
+const FLIPBOX_BLOCK = 'cp/cool-flipbox-block';//for template compatible
+
+/**
+ * Flipbox block dhundo — root level + group/columns ke andar (templates).
+ */
+function editorHasFlipboxBlock() {
+	const blockEditor = select( 'core/block-editor' );
+	if ( ! blockEditor ) {
+		return false;
+	}
+	if ( typeof blockEditor.getGlobalBlockCount === 'function' ) {
+		return blockEditor.getGlobalBlockCount( FLIPBOX_BLOCK ) > 0;
+	}
+	const walk = ( blocks ) =>
+		blocks?.some(
+			( block ) =>
+				block.name === FLIPBOX_BLOCK || walk( block.innerBlocks )
+		) ?? false;
+	return walk( blockEditor.getBlocks() );
+}
+
 const savePostMeta = debounce( async() => {
 	const { getCurrentPostId } = select( 'core/editor' );
 	const postId = getCurrentPostId();
@@ -53,22 +74,19 @@ subscribe( () => {
 			isPublishingPost,
 			isAutosavingPost,
 		} = select( 'core/editor' );
-
+        
 		const isAutoSaving = isAutosavingPost();
 		const isPublishing = isPublishingPost();
 		const isSaving = isSavingPost();
 		const postPublished = isCurrentPostPublished();
 
 		if ( ( isPublishing || ( postPublished && isSaving ) ) && ! isAutoSaving && ! isSavingCSS ) {
-			isSavingCSS = true;
-			const blocks=wp.data.select('core/block-editor').getBlocks();
-			const blockNames=Object.values(blocks).map((block)=>{
-				return block.name;
-			});
-
-			if(blockNames.includes('cp/cool-flipbox-block')){
+			if ( editorHasFlipboxBlock() ) {
+				isSavingCSS = true;
 				savePostMeta();
 			}
 		}
 	}
 });
+
+

@@ -68,10 +68,9 @@ if (!class_exists('CFB_Functions')) {
         if ($typenow) return $typenow;
         if ($current_screen && $current_screen->post_type) return $current_screen->post_type;
         // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Reading URL parameter in admin context to determine current post type
-        if (isset($_REQUEST['post_type'])) return sanitize_key($_REQUEST['post_type']);
+        if (isset($_REQUEST['post_type'])) return sanitize_key( wp_unslash($_REQUEST['post_type']));
         // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Reading URL parameter in admin context to determine current post type
-        if (isset($_REQUEST['post'])) return get_post_type(sanitize_key($_REQUEST['post']));
-            
+        if (isset($_REQUEST['post'])) return get_post_type(absint($_REQUEST['post']));  
             return null;
         }
     }

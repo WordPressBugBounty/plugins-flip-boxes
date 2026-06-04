@@ -38,12 +38,16 @@ if ( ! class_exists( 'CFB_CoolPlugins_Review_Notice' ) ) {
         }
         // ajax callback for review notice
         public function fcb_dismiss_review_notice(){
+            
             if(!isset($_POST['private']) || !wp_verify_nonce(sanitize_text_field(wp_unslash($_POST['private'])),'fcb_review_notice_private')){
                 wp_send_json_error(array('message'=>'nonce verification failed'));
                 exit;
             }
+
+            if ( ! current_user_can( 'manage_options' ) ) { wp_send_json_error( array( 'message' => 'forbidden' ), 403 ); }
+            
             update_option( 'Flip-Boxes-ratingDiv','yes' );
-            echo  json_encode( array("success"=>"true") );
+            wp_send_json_success( array("dismissed"=>"true") );
             exit;
         }
         // admin notice  
@@ -100,9 +104,9 @@ if ( ! class_exists( 'CFB_CoolPlugins_Review_Notice' ) ) {
         
             $message="Thanks for using <b>$p_name</b> - WordPress plugin. We hope you liked it ! <br/>Please give us a quick rating, it works as a boost for us to keep working on more <a href='https://coolplugins.net' target='_blank'><strong>Cool Plugins</strong></a>!<br/>";
         
-            $html='<div data-nonce="%11$s" data-ajax-url="%8$s"  data-ajax-callback="%9$s" class="cool-feedback-notice-wrapper %1$s">
+          $html='<div data-nonce="%11$s" data-ajax-url="%8$s"  data-ajax-callback="%9$s" class="cool-feedback-notice-wrapper %1$s">
             
-            <div class="message_container">%4$s
+          <div class="message_container">%4$s
             <div class="callto_action">
             <ul>
                 <li class="love_it"><a href="%5$s" class="like_it_btn button button-primary" target="_new" title="%6$s">%6$s</a></li>
@@ -115,17 +119,17 @@ if ( ! class_exists( 'CFB_CoolPlugins_Review_Notice' ) ) {
             </div>';
 
             return sprintf($html,
-                    $wrap_cls,
-                    $img_path,
-                    $p_name,
-                    $message,
-                    $p_link,
-                    $like_it_text,
-                    $already_rated_text,
-                    $ajax_url,// 8
-                    $ajax_callback,//9        
-                    $not_interested,//10
-                    $nonce
+            esc_attr( $wrap_cls ),
+            '', // unused img path.
+            esc_html( $p_name ),
+            wp_kses_post( $message ),
+            esc_url( $p_link ),
+            esc_attr( $like_it_text ),
+            esc_attr( $already_rated_text ),
+            esc_url( $ajax_url ),
+            esc_attr( $ajax_callback ),
+            esc_attr( $not_interested ),
+            esc_attr( $nonce )
                     );
             
         }

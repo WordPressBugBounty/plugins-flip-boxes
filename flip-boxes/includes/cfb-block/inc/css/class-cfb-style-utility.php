@@ -55,6 +55,27 @@ class CFB_Style_Utility {
 	}
 
 	/**
+	 * Sanitize a CSS property name without lowercasing custom properties.
+	 *
+	 * @param string $property_name Raw property name from block style config.
+	 * @return string Sanitized property name, or empty string when invalid.
+	 */
+	private static function sanitize_css_property_name( $property_name ) {
+		$property_name = sanitize_text_field( $property_name );
+
+		if ( '' === $property_name ) {
+			return '';
+		}
+
+		// Custom properties (--name) or standard/vendor properties (e.g. border-radius, -webkit-transform).
+		if ( preg_match( '/^(?:--[a-zA-Z][a-zA-Z0-9_-]*|-?[a-zA-Z][a-zA-Z0-9-]*)$/', $property_name ) ) {
+			return $property_name;
+		}
+
+		return '';
+	}
+
+	/**
 	 * Add a style to the CSS array.
 	 *
 	 * @access public
@@ -139,7 +160,11 @@ class CFB_Style_Utility {
 
 						$value = $value . $property['unit'];
 						if ( ! empty( $value ) ) {
-							$item_style .= $property['property'] . ': ' . $value . ';';
+							$value          = sanitize_text_field( $value );
+							$property_name  = self::sanitize_css_property_name( $property['property'] );
+							if ( '' !== $property_name ) {
+								$item_style .= $property_name . ': ' . $value . ';';
+							}
 						}
 					}
 
@@ -166,7 +191,10 @@ class CFB_Style_Utility {
 							}
 						}
 
-						$item_style .= $property['property'] . ': ' . $pattern . ';';
+						$property_name = self::sanitize_css_property_name( $property['property'] );
+						if ( '' !== $property_name ) {
+							$item_style .= $property_name . ': ' . sanitize_text_field( $pattern ) . ';';
+						}
 					}
 				}
 

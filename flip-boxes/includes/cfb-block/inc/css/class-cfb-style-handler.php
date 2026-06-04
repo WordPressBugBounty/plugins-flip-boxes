@@ -60,8 +60,13 @@ class CFB_Style_Handler extends Cfb_CSS_Base {
 							},
 						),
 					),
-					'permission_callback' => function () {
-						return current_user_can( 'publish_posts' );
+					'permission_callback' => function ( $request ) {
+						$post_id = absint( $request['id'] );
+						$post    = get_post( $post_id );
+						if ( $post && in_array( $post->post_type, array( 'wp_template', 'wp_template_part' ), true ) ) {
+							return current_user_can( 'edit_theme_options' );
+						}
+						return current_user_can( 'edit_post', $post_id );
 					},
 				),
 			)
@@ -80,13 +85,17 @@ class CFB_Style_Handler extends Cfb_CSS_Base {
 	 * @access  public
 	 */
 	public function save_post_meta( \WP_REST_Request $request ) {
+		$post_id = absint( $request->get_param( 'id' ) );
+		$post    = get_post( $post_id );
 
-		if ( ! current_user_can( 'edit_posts' ) ) {
-			return false;
+		if ( $post && in_array( $post->post_type, array( 'wp_template', 'wp_template_part' ), true ) ) {
+			if ( ! current_user_can( 'edit_theme_options' ) ) {
+				return new WP_Error( 'rest_forbidden', __( 'Forbidden', 'flip-boxes' ), array( 'status' => 403 ) );
+			}
+		} elseif ( ! current_user_can( 'edit_post', $post_id ) ) {
+			return new WP_Error( 'rest_forbidden', __( 'Forbidden', 'flip-boxes' ), array( 'status' => 403 ) );
 		}
-
-		$post_id = $request->get_param( 'id' );
-
+      
 		self::generate_css_file( $post_id );
 		return rest_ensure_response( array( 'message' => __( 'CSS updated.', 'flip-boxes' ) ) );
 	}
@@ -131,7 +140,7 @@ class CFB_Style_Handler extends Cfb_CSS_Base {
 
 		return $baseurl . $file_name . '.css';
 	}
-
+     
 	/**
 	 * Check if a CSS file exists for the specified post or widget.
 	 *
@@ -320,7 +329,7 @@ class CFB_Style_Handler extends Cfb_CSS_Base {
 	 */
 	public static function compress( $css ) {
 		// Remove comments.
-		$buffer = preg_replace( '!/\*[^*]*\*+([^/][^*]*\*+)*/!', '', $buffer );
+		$buffer = preg_replace( '!/\*[^*]*\*+([^/][^*]*\*+)*/!', '', $css );
 		// Remove space after colons.
 		$buffer = str_replace( ': ', ':', $buffer );
 		// Remove whitespace.

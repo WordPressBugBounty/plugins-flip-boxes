@@ -68,7 +68,7 @@ class Blocks_CSS {
 
 				foreach ( $template_blocks as $template_block ) {
 					if ( 'core/template-part' === $template_block['blockName'] ) {
-						$slugs[] = $template_block['attrs']['slug'];
+						$slugs[] = $template_block['attrs']['slug']; 
 					}
 				}
 
@@ -101,7 +101,7 @@ class Blocks_CSS {
 			$style .= $css;
 			$style .= "\n" . '</style>' . "\n";
 
-			echo $style; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+			echo '<style type="text/css">' . $css . '</style>'; // $css already kses-filtered // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 		}
 	}
 
@@ -123,7 +123,8 @@ class Blocks_CSS {
 
 			if ( $render_css && isset( $block['attrs'] ) ) {
 				if ( isset( $block['attrs']['hasCustomCSS'] ) && isset( $block['attrs']['customCSS'] ) ) {
-					$style .= $block['attrs']['customCSS'];
+					$css = wp_strip_all_tags( $block['attrs']['customCSS'] ); 
+					 $style .= wp_filter_nohtml_kses( $css );
 				}
 			}
 		}

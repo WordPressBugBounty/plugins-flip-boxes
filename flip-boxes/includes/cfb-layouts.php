@@ -36,12 +36,13 @@ if ( ! class_exists( 'CFB_Layouts' ) ) {
 			$flip_layout = sanitize_text_field(get_post_meta( $id, $prefix . 'flip_layout', true ));
 			$effect      = sanitize_text_field(get_post_meta( $id, $prefix . 'effect', true ));
 			$height      = sanitize_text_field(get_post_meta( $id, $prefix . 'height', true )) ?: 'default';
-			$icon_size   = sanitize_text_field(get_post_meta( $id, $prefix . 'icon_size', true )) ?: '52px';
+			$icon_size = absint( get_post_meta( $id, $prefix . 'icon_size', true ) ) ?: 52;
+			$icon_size = $icon_size . 'px';
 			$skincolor   = sanitize_hex_color(get_post_meta( $id, $prefix . 'skin_color', true )) ?: '#f4bf64';
 			$cols        = sanitize_text_field(get_post_meta( $id, $prefix . 'column', true ));
 			$entries     = sanitize_text_field(get_post_meta( $id, $prefix . 'flip_repeat_group', true ));
 			$link_target = sanitize_text_field(get_post_meta( $id, $prefix . 'LinkTarget', true )) ?: false;
-			$flip_event  = sanitize_text_field(get_post_meta( $id, $prefix . 'event', 'hover' )) ?: 'hover';
+			$flip_event = sanitize_text_field( get_post_meta( $id, $prefix . 'event', true ) ) ?: 'hover';
 			$flip_event='cfb-'.$flip_event;
 
 			$dynamic_target = $link_target ? '_self' : '_blank';
@@ -53,7 +54,7 @@ if ( ! class_exists( 'CFB_Layouts' ) ) {
 				absint( $entry['flipbox_desc_length'] ?? 75 ),
 				'...'
 			);
-			$single_f_c           = sanitize_text_field($entry['color_scheme'] ?? '');
+			$single_f_c = sanitize_hex_color( $entry['color_scheme'] ?? '' );
 			$flipbox_icon         = sanitize_text_field($entry['flipbox_icon'] ?? '');
 			$flipbox_image        = sanitize_text_field($entry['flipbox_image'] ?? '');
 			$flipbox_url          = sanitize_text_field($entry['flipbox_url'] ?? '');
@@ -313,7 +314,8 @@ if ( ! class_exists( 'CFB_Layouts' ) ) {
 					break;
 				default:
 					// run for the default case
-					return $layout_html;
+					$layout_html = '';
+	                return $layout_html;
 					break;
 			}
 					// returning the $layout_html value

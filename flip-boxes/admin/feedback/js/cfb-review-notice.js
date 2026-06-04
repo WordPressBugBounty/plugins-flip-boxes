@@ -7,7 +7,7 @@ jQuery(document).ready(function ($) {
         var private = wrapper.data('nonce');
 
         $.post(ajaxURL, { 'action': ajaxCallback, 'private': private }, function (data) {
-            if ('true' === data.success) {
+            if ('true' === data.data.dismissed) {
                 wrapper.slideUp('fast');
             }
         }, "json");

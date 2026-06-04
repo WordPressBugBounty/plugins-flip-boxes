@@ -7,6 +7,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 if ( ! class_exists( 'CFB_post_type' ) ) {
 	class CFB_post_type {
 		private $prefix = '_cfb_';
+		private static bool $hooks_registered = false;
 
 		public function __construct() {
             add_action( 'admin_menu', array( $this, 'cfb_menu_page' ) );
@@ -18,6 +19,11 @@ if ( ! class_exists( 'CFB_post_type' ) ) {
         }
 
 		private function init_post_type_hooks() {
+			if ( self::$hooks_registered ) {
+				return;
+			}
+			self::$hooks_registered = true;
+
             add_action( 'init', array( $this, 'cfb_register_post_type' ) );
             add_action( 'cmb2_admin_init', array( $this, 'cfb_metaboxes' ) );
             add_action( 'cmb2_admin_init', array( $this, 'cfb_general_settings' ) );
@@ -624,12 +630,17 @@ if ( ! class_exists( 'CFB_post_type' ) ) {
 						echo esc_html($effects[ $eff ]);
 					}
 					break;
-				case 'code':
-					global $dynamic_attr;
-					global $id;
-					$dynamic_attr = "[flipboxes id=\"{$id}\"]";
-					echo "<input type='text' value='" . esc_attr($dynamic_attr) . "' readonly>";
-					break;
+					case 'code':
+						$post_id = $post instanceof WP_Post ? absint( $post->ID ) : absint( $post );
+					
+						if ( ! $post_id ) {
+							break;
+						}
+					
+						$dynamic_attr = '[flipboxes id="' . $post_id . '"]';
+					
+						echo '<input type="text" value="' . esc_attr( $dynamic_attr ) . '" readonly>';
+						break;
 				default:
 					esc_html_e( 'Not Matched', 'flip-boxes' );
 					break;
